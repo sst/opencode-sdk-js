@@ -1,10 +1,10 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import { APIPromise } from 'opencode/core/api-promise';
+import { APIPromise } from '@opencode-ai/sdk/core/api-promise';
 
 import util from 'node:util';
-import Opencode from 'opencode';
-import { APIUserAbortError } from 'opencode';
+import Opencode from '@opencode-ai/sdk';
+import { APIUserAbortError } from '@opencode-ai/sdk';
 const defaultFetch = fetch;
 
 describe('instantiate client', () => {
@@ -306,13 +306,13 @@ describe('instantiate client', () => {
     test('empty env variable', () => {
       process.env['OPENCODE_BASE_URL'] = ''; // empty
       const client = new Opencode({ apiKey: 'My API Key' });
-      expect(client.baseURL).toEqual('https://api.example.com');
+      expect(client.baseURL).toEqual('http://localhost:54321');
     });
 
     test('blank env variable', () => {
       process.env['OPENCODE_BASE_URL'] = '  '; // blank
       const client = new Opencode({ apiKey: 'My API Key' });
-      expect(client.baseURL).toEqual('https://api.example.com');
+      expect(client.baseURL).toEqual('http://localhost:54321');
     });
 
     test('in request options', () => {

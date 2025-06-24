@@ -42,25 +42,25 @@ If you’d like to use the repository from source, you can either install from g
 To install via git:
 
 ```sh
-$ npm install git+ssh://git@github.com:stainless-sdks/opencode-typescript.git
+$ npm install git+ssh://git@github.com:sst/opencode-sdk-js.git
 ```
 
 Alternatively, to link a local copy of the repo:
 
 ```sh
 # Clone
-$ git clone https://www.github.com/stainless-sdks/opencode-typescript
-$ cd opencode-typescript
+$ git clone https://www.github.com/sst/opencode-sdk-js
+$ cd opencode-sdk-js
 
 # With yarn
 $ yarn link
 $ cd ../my-package
-$ yarn link opencode
+$ yarn link @opencode-ai/sdk
 
 # With pnpm
 $ pnpm link --global
 $ cd ../my-package
-$ pnpm link -—global opencode
+$ pnpm link -—global @opencode-ai/sdk
 ```
 
 ## Running tests

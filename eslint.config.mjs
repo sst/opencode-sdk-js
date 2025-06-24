@@ -25,7 +25,7 @@ export default tseslint.config(
         {
           patterns: [
             {
-              regex: '^opencode(/.*)?',
+              regex: '^@opencode-ai/sdk(/.*)?',
               message: 'Use a relative import, not a package import.',
             },
           ],
