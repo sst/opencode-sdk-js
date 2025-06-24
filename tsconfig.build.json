@@ -5,8 +5,8 @@
   "compilerOptions": {
     "rootDir": "./dist/src",
     "paths": {
-      "opencode/*": ["dist/src/*"],
-      "opencode": ["dist/src/index.ts"]
+      "@opencode-ai/sdk/*": ["dist/src/*"],
+      "@opencode-ai/sdk": ["dist/src/index.ts"]
     },
     "noEmit": false,
     "declaration": true,

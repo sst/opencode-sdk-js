@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import { Opencode } from 'opencode';
+import { Opencode } from '@opencode-ai/sdk';
 
 const { stringifyQuery } = Opencode.prototype as any;
 
