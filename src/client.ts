@@ -67,11 +67,6 @@ import { isEmptyObj } from './internal/utils/values';
 
 export interface ClientOptions {
   /**
-   * Defaults to process.env['OPENCODE_API_KEY'].
-   */
-  apiKey?: string | null | undefined;
-
-  /**
    * Override the default base URL for the API, e.g., "https://api.example.com/v2/"
    *
    * Defaults to process.env['OPENCODE_BASE_URL'].
@@ -142,8 +137,6 @@ export interface ClientOptions {
  * API Client for interfacing with the Opencode API.
  */
 export class Opencode {
-  apiKey: string | null;
-
   baseURL: string;
   maxRetries: number;
   timeout: number;
@@ -159,7 +152,6 @@ export class Opencode {
   /**
    * API Client for interfacing with the Opencode API.
    *
-   * @param {string | null | undefined} [opts.apiKey=process.env['OPENCODE_API_KEY'] ?? null]
    * @param {string} [opts.baseURL=process.env['OPENCODE_BASE_URL'] ?? http://localhost:54321] - Override the default base URL for the API.
    * @param {number} [opts.timeout=1 minute] - The maximum amount of time (in milliseconds) the client will wait for a response before timing out.
    * @param {MergedRequestInit} [opts.fetchOptions] - Additional `RequestInit` options to be passed to `fetch` calls.
@@ -168,13 +160,8 @@ export class Opencode {
    * @param {HeadersLike} opts.defaultHeaders - Default headers to include with every request to the API.
    * @param {Record<string, string | undefined>} opts.defaultQuery - Default query parameters to include with every request to the API.
    */
-  constructor({
-    baseURL = readEnv('OPENCODE_BASE_URL'),
-    apiKey = readEnv('OPENCODE_API_KEY') ?? null,
-    ...opts
-  }: ClientOptions = {}) {
+  constructor({ baseURL = readEnv('OPENCODE_BASE_URL'), ...opts }: ClientOptions = {}) {
     const options: ClientOptions = {
-      apiKey,
       ...opts,
       baseURL: baseURL || `http://localhost:54321`,
     };
@@ -195,8 +182,6 @@ export class Opencode {
     this.#encoder = Opts.FallbackEncoder;
 
     this._options = options;
-
-    this.apiKey = apiKey;
   }
 
   /**
@@ -212,7 +197,6 @@ export class Opencode {
       logLevel: this.logLevel,
       fetch: this.fetch,
       fetchOptions: this.fetchOptions,
-      apiKey: this.apiKey,
       ...options,
     });
   }
@@ -229,23 +213,7 @@ export class Opencode {
   }
 
   protected validateHeaders({ values, nulls }: NullableHeaders) {
-    if (this.apiKey && values.get('authorization')) {
-      return;
-    }
-    if (nulls.has('authorization')) {
-      return;
-    }
-
-    throw new Error(
-      'Could not resolve authentication method. Expected the apiKey to be set. Or for the "Authorization" headers to be explicitly omitted',
-    );
-  }
-
-  protected authHeaders(opts: FinalRequestOptions): NullableHeaders | undefined {
-    if (this.apiKey == null) {
-      return undefined;
-    }
-    return buildHeaders([{ Authorization: `Bearer ${this.apiKey}` }]);
+    return;
   }
 
   /**
@@ -683,7 +651,6 @@ export class Opencode {
         ...(options.timeout ? { 'X-Stainless-Timeout': String(Math.trunc(options.timeout / 1000)) } : {}),
         ...getPlatformHeaders(),
       },
-      this.authHeaders(options),
       this._options.defaultHeaders,
       bodyHeaders,
       options.headers,
