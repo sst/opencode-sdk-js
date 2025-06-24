@@ -2,10 +2,6 @@
 
 errors=()
 
-if [ -z "${STAINLESS_API_KEY}" ]; then
-  errors+=("The STAINLESS_API_KEY secret has not been set. Please contact Stainless for an API key & set it in your organization secrets on GitHub.")
-fi
-
 lenErrors=${#errors[@]}
 
 if [[ lenErrors -gt 0 ]]; then
