@@ -22,9 +22,7 @@ The full API of this library can be found in [api.md](api.md).
 ```js
 import Opencode from '@opencode-ai/sdk';
 
-const client = new Opencode({
-  apiKey: process.env['OPENCODE_API_KEY'], // This is the default and can be omitted
-});
+const client = new Opencode();
 
 const events = await client.event.list();
 ```
@@ -37,9 +35,7 @@ This library includes TypeScript definitions for all request params and response
 ```ts
 import Opencode from '@opencode-ai/sdk';
 
-const client = new Opencode({
-  apiKey: process.env['OPENCODE_API_KEY'], // This is the default and can be omitted
-});
+const client = new Opencode();
 
 const events: Opencode.EventListResponse = await client.event.list();
 ```
