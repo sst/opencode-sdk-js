@@ -2,6 +2,7 @@
 
 import { APIResource } from '../core/resource';
 import * as SessionAPI from './session';
+import * as Shared from './shared';
 import { APIPromise } from '../core/api-promise';
 import { RequestOptions } from '../internal/request-options';
 
@@ -152,36 +153,10 @@ export namespace EventListResponse {
 
   export namespace EventSessionError {
     export interface Properties {
-      error?: Properties.ProviderAuthError | Properties.UnknownError | Properties.MessageOutputLengthError;
+      error?: Shared.ProviderAuthError | Shared.UnknownError | Properties.MessageOutputLengthError;
     }
 
     export namespace Properties {
-      export interface ProviderAuthError {
-        data: ProviderAuthError.Data;
-
-        name: 'ProviderAuthError';
-      }
-
-      export namespace ProviderAuthError {
-        export interface Data {
-          message: string;
-
-          providerID: string;
-        }
-      }
-
-      export interface UnknownError {
-        data: UnknownError.Data;
-
-        name: 'UnknownError';
-      }
-
-      export namespace UnknownError {
-        export interface Data {
-          message: string;
-        }
-      }
-
       export interface MessageOutputLengthError {
         data: unknown;
 
