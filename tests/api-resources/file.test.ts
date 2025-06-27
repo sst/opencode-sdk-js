@@ -4,10 +4,10 @@ import Opencode from '@opencode-ai/sdk';
 
 const client = new Opencode({ baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010' });
 
-describe('resource sessionAbort', () => {
+describe('resource file', () => {
   // skipped: tests are disabled for the time being
-  test.skip('abort: only required params', async () => {
-    const responsePromise = client.sessionAbort.abort({ sessionID: 'sessionID' });
+  test.skip('search: only required params', async () => {
+    const responsePromise = client.file.search({ query: 'query' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -18,7 +18,7 @@ describe('resource sessionAbort', () => {
   });
 
   // skipped: tests are disabled for the time being
-  test.skip('abort: required and optional params', async () => {
-    const response = await client.sessionAbort.abort({ sessionID: 'sessionID' });
+  test.skip('search: required and optional params', async () => {
+    const response = await client.file.search({ query: 'query' });
   });
 });

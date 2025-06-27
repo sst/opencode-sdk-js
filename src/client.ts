@@ -16,42 +16,43 @@ import * as Errors from './core/error';
 import * as Uploads from './core/uploads';
 import * as API from './resources/index';
 import { APIPromise } from './core/api-promise';
-import { AppInfo, AppInfoCreateResponse } from './resources/app-info';
-import { AppInitialize, AppInitializeInitializeResponse } from './resources/app-initialize';
-import { ConfigGet, ConfigGetRetrieveResponse } from './resources/config-get';
+import { App, AppInitResponse, AppResource } from './resources/app';
+import {
+  Config,
+  ConfigProvidersResponse,
+  ConfigResource,
+  Keybinds,
+  McpLocal,
+  McpRemote,
+  Model,
+  Provider,
+} from './resources/config';
 import { Event, EventListResponse } from './resources/event';
-import { FileSearch, FileSearchSearchParams, FileSearchSearchResponse } from './resources/file-search';
-import { InstallationInfo, InstallationInfoCreateResponse } from './resources/installation-info';
-import { PathGet, PathGetCreateResponse } from './resources/path-get';
-import { ProviderList, ProviderListCreateResponse } from './resources/provider-list';
-import { SessionAbort, SessionAbortAbortParams, SessionAbortAbortResponse } from './resources/session-abort';
+import { File, FileSearchParams, FileSearchResponse } from './resources/file';
 import {
-  MessageInfo,
+  FilePart,
+  Message,
   MessagePart,
-  ProviderAuthError,
-  SessionChat,
-  SessionChatCreateParams,
-  UnknownError,
-} from './resources/session-chat';
-import { SessionCreate, SessionInfo } from './resources/session-create';
-import {
-  SessionInitialize,
-  SessionInitializeCreateParams,
-  SessionInitializeCreateResponse,
-} from './resources/session-initialize';
-import { SessionList, SessionListCreateResponse } from './resources/session-list';
-import {
-  SessionMessageCreateParams,
-  SessionMessageCreateResponse,
-  SessionMessages,
-} from './resources/session-messages';
-import { SessionShare, SessionShareCreateParams } from './resources/session-share';
-import {
-  SessionSummarize,
-  SessionSummarizeSummarizeParams,
-  SessionSummarizeSummarizeResponse,
-} from './resources/session-summarize';
-import { SessionUnshare, SessionUnshareUnshareParams } from './resources/session-unshare';
+  ReasoningPart,
+  Session,
+  SessionAbortResponse,
+  SessionChatParams,
+  SessionDeleteResponse,
+  SessionInitParams,
+  SessionInitResponse,
+  SessionListResponse,
+  SessionMessagesResponse,
+  SessionResource,
+  SessionSummarizeParams,
+  SessionSummarizeResponse,
+  SourceURLPart,
+  StepStartPart,
+  TextPart,
+  ToolCall,
+  ToolInvocationPart,
+  ToolPartialCall,
+  ToolResult,
+} from './resources/session';
 import { type Fetch } from './internal/builtin-types';
 import { HeadersLike, NullableHeaders, buildHeaders } from './internal/headers';
 import { FinalRequestOptions, RequestOptions } from './internal/request-options';
@@ -718,110 +719,62 @@ export class Opencode {
   static toFile = Uploads.toFile;
 
   event: API.Event = new API.Event(this);
-  appInfo: API.AppInfo = new API.AppInfo(this);
-  configGet: API.ConfigGet = new API.ConfigGet(this);
-  appInitialize: API.AppInitialize = new API.AppInitialize(this);
-  sessionInitialize: API.SessionInitialize = new API.SessionInitialize(this);
-  pathGet: API.PathGet = new API.PathGet(this);
-  sessionCreate: API.SessionCreate = new API.SessionCreate(this);
-  sessionShare: API.SessionShare = new API.SessionShare(this);
-  sessionUnshare: API.SessionUnshare = new API.SessionUnshare(this);
-  sessionMessages: API.SessionMessages = new API.SessionMessages(this);
-  sessionList: API.SessionList = new API.SessionList(this);
-  sessionAbort: API.SessionAbort = new API.SessionAbort(this);
-  sessionSummarize: API.SessionSummarize = new API.SessionSummarize(this);
-  sessionChat: API.SessionChat = new API.SessionChat(this);
-  providerList: API.ProviderList = new API.ProviderList(this);
-  fileSearch: API.FileSearch = new API.FileSearch(this);
-  installationInfo: API.InstallationInfo = new API.InstallationInfo(this);
+  app: API.AppResource = new API.AppResource(this);
+  file: API.File = new API.File(this);
+  config: API.ConfigResource = new API.ConfigResource(this);
+  session: API.SessionResource = new API.SessionResource(this);
 }
 Opencode.Event = Event;
-Opencode.AppInfo = AppInfo;
-Opencode.ConfigGet = ConfigGet;
-Opencode.AppInitialize = AppInitialize;
-Opencode.SessionInitialize = SessionInitialize;
-Opencode.PathGet = PathGet;
-Opencode.SessionCreate = SessionCreate;
-Opencode.SessionShare = SessionShare;
-Opencode.SessionUnshare = SessionUnshare;
-Opencode.SessionMessages = SessionMessages;
-Opencode.SessionList = SessionList;
-Opencode.SessionAbort = SessionAbort;
-Opencode.SessionSummarize = SessionSummarize;
-Opencode.SessionChat = SessionChat;
-Opencode.ProviderList = ProviderList;
-Opencode.FileSearch = FileSearch;
-Opencode.InstallationInfo = InstallationInfo;
+Opencode.AppResource = AppResource;
+Opencode.File = File;
+Opencode.ConfigResource = ConfigResource;
+Opencode.SessionResource = SessionResource;
 export declare namespace Opencode {
   export type RequestOptions = Opts.RequestOptions;
 
   export { Event as Event, type EventListResponse as EventListResponse };
 
-  export { AppInfo as AppInfo, type AppInfoCreateResponse as AppInfoCreateResponse };
-
-  export { ConfigGet as ConfigGet, type ConfigGetRetrieveResponse as ConfigGetRetrieveResponse };
+  export { AppResource as AppResource, type App as App, type AppInitResponse as AppInitResponse };
 
   export {
-    AppInitialize as AppInitialize,
-    type AppInitializeInitializeResponse as AppInitializeInitializeResponse,
+    File as File,
+    type FileSearchResponse as FileSearchResponse,
+    type FileSearchParams as FileSearchParams,
   };
 
   export {
-    SessionInitialize as SessionInitialize,
-    type SessionInitializeCreateResponse as SessionInitializeCreateResponse,
-    type SessionInitializeCreateParams as SessionInitializeCreateParams,
-  };
-
-  export { PathGet as PathGet, type PathGetCreateResponse as PathGetCreateResponse };
-
-  export { SessionCreate as SessionCreate, type SessionInfo as SessionInfo };
-
-  export { SessionShare as SessionShare, type SessionShareCreateParams as SessionShareCreateParams };
-
-  export {
-    SessionUnshare as SessionUnshare,
-    type SessionUnshareUnshareParams as SessionUnshareUnshareParams,
+    ConfigResource as ConfigResource,
+    type Config as Config,
+    type Keybinds as Keybinds,
+    type McpLocal as McpLocal,
+    type McpRemote as McpRemote,
+    type Model as Model,
+    type Provider as Provider,
+    type ConfigProvidersResponse as ConfigProvidersResponse,
   };
 
   export {
-    SessionMessages as SessionMessages,
-    type SessionMessageCreateResponse as SessionMessageCreateResponse,
-    type SessionMessageCreateParams as SessionMessageCreateParams,
-  };
-
-  export { SessionList as SessionList, type SessionListCreateResponse as SessionListCreateResponse };
-
-  export {
-    SessionAbort as SessionAbort,
-    type SessionAbortAbortResponse as SessionAbortAbortResponse,
-    type SessionAbortAbortParams as SessionAbortAbortParams,
-  };
-
-  export {
-    SessionSummarize as SessionSummarize,
-    type SessionSummarizeSummarizeResponse as SessionSummarizeSummarizeResponse,
-    type SessionSummarizeSummarizeParams as SessionSummarizeSummarizeParams,
-  };
-
-  export {
-    SessionChat as SessionChat,
-    type MessageInfo as MessageInfo,
+    SessionResource as SessionResource,
+    type FilePart as FilePart,
+    type Message as Message,
     type MessagePart as MessagePart,
-    type ProviderAuthError as ProviderAuthError,
-    type UnknownError as UnknownError,
-    type SessionChatCreateParams as SessionChatCreateParams,
-  };
-
-  export { ProviderList as ProviderList, type ProviderListCreateResponse as ProviderListCreateResponse };
-
-  export {
-    FileSearch as FileSearch,
-    type FileSearchSearchResponse as FileSearchSearchResponse,
-    type FileSearchSearchParams as FileSearchSearchParams,
-  };
-
-  export {
-    InstallationInfo as InstallationInfo,
-    type InstallationInfoCreateResponse as InstallationInfoCreateResponse,
+    type ReasoningPart as ReasoningPart,
+    type Session as Session,
+    type SourceURLPart as SourceURLPart,
+    type StepStartPart as StepStartPart,
+    type TextPart as TextPart,
+    type ToolCall as ToolCall,
+    type ToolInvocationPart as ToolInvocationPart,
+    type ToolPartialCall as ToolPartialCall,
+    type ToolResult as ToolResult,
+    type SessionListResponse as SessionListResponse,
+    type SessionDeleteResponse as SessionDeleteResponse,
+    type SessionAbortResponse as SessionAbortResponse,
+    type SessionInitResponse as SessionInitResponse,
+    type SessionMessagesResponse as SessionMessagesResponse,
+    type SessionSummarizeResponse as SessionSummarizeResponse,
+    type SessionChatParams as SessionChatParams,
+    type SessionInitParams as SessionInitParams,
+    type SessionSummarizeParams as SessionSummarizeParams,
   };
 }
