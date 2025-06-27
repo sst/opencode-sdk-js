@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.1.0-alpha.3 (2025-06-27)
+
+Full Changelog: [v0.1.0-alpha.2...v0.1.0-alpha.3](https://github.com/sst/opencode-sdk-js/compare/v0.1.0-alpha.2...v0.1.0-alpha.3)
+
+### Bug Fixes
+
+* **ci:** release-doctor — report correct token name ([128884f](https://github.com/sst/opencode-sdk-js/commit/128884f4bc64e618177a0b090cd6d52b122a059a))
+
 ## 0.1.0-alpha.2 (2025-06-24)
 
 Full Changelog: [v0.1.0-alpha.1...v0.1.0-alpha.2](https://github.com/sst/opencode-sdk-js/compare/v0.1.0-alpha.1...v0.1.0-alpha.2)
