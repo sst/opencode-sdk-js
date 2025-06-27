@@ -777,4 +777,7 @@ export declare namespace Opencode {
     type SessionInitParams as SessionInitParams,
     type SessionSummarizeParams as SessionSummarizeParams,
   };
+
+  export type ProviderAuthError = API.ProviderAuthError;
+  export type UnknownError = API.UnknownError;
 }

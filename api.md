@@ -1,3 +1,10 @@
+# Shared
+
+Types:
+
+- <code><a href="./src/resources/shared.ts">ProviderAuthError</a></code>
+- <code><a href="./src/resources/shared.ts">UnknownError</a></code>
+
 # Event
 
 Types:
