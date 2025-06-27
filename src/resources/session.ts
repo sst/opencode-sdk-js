@@ -315,6 +315,9 @@ export interface SessionChatParams {
 
   providerID: string;
 
+  /**
+   * Session ID
+   */
   sessionID: string;
 }
 
