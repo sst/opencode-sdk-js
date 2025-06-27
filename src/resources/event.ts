@@ -1,8 +1,7 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../core/resource';
-import * as SessionChatAPI from './session-chat';
-import * as SessionCreateAPI from './session-create';
+import * as SessionAPI from './session';
 import { APIPromise } from '../core/api-promise';
 import { RequestOptions } from '../internal/request-options';
 
@@ -23,6 +22,7 @@ export type EventListResponse =
   | EventListResponse.EventMessageUpdated
   | EventListResponse.EventMessagePartUpdated
   | EventListResponse.EventSessionUpdated
+  | EventListResponse.EventSessionDeleted
   | EventListResponse.EventSessionError;
 
 export namespace EventListResponse {
@@ -100,7 +100,7 @@ export namespace EventListResponse {
 
   export namespace EventMessageUpdated {
     export interface Properties {
-      info: SessionChatAPI.MessageInfo;
+      info: SessionAPI.Message;
     }
   }
 
@@ -114,7 +114,7 @@ export namespace EventListResponse {
     export interface Properties {
       messageID: string;
 
-      part: SessionChatAPI.MessagePart;
+      part: SessionAPI.MessagePart;
 
       sessionID: string;
     }
@@ -128,7 +128,19 @@ export namespace EventListResponse {
 
   export namespace EventSessionUpdated {
     export interface Properties {
-      info: SessionCreateAPI.SessionInfo;
+      info: SessionAPI.Session;
+    }
+  }
+
+  export interface EventSessionDeleted {
+    properties: EventSessionDeleted.Properties;
+
+    type: 'session.deleted';
+  }
+
+  export namespace EventSessionDeleted {
+    export interface Properties {
+      info: SessionAPI.Session;
     }
   }
 
@@ -140,7 +152,41 @@ export namespace EventListResponse {
 
   export namespace EventSessionError {
     export interface Properties {
-      error?: SessionChatAPI.ProviderAuthError | SessionChatAPI.UnknownError;
+      error?: Properties.ProviderAuthError | Properties.UnknownError | Properties.MessageOutputLengthError;
+    }
+
+    export namespace Properties {
+      export interface ProviderAuthError {
+        data: ProviderAuthError.Data;
+
+        name: 'ProviderAuthError';
+      }
+
+      export namespace ProviderAuthError {
+        export interface Data {
+          message: string;
+
+          providerID: string;
+        }
+      }
+
+      export interface UnknownError {
+        data: UnknownError.Data;
+
+        name: 'UnknownError';
+      }
+
+      export namespace UnknownError {
+        export interface Data {
+          message: string;
+        }
+      }
+
+      export interface MessageOutputLengthError {
+        data: unknown;
+
+        name: 'MessageOutputLengthError';
+      }
     }
   }
 }

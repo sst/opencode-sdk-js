@@ -4,14 +4,10 @@ import Opencode from '@opencode-ai/sdk';
 
 const client = new Opencode({ baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010' });
 
-describe('resource sessionInitialize', () => {
+describe('resource app', () => {
   // skipped: tests are disabled for the time being
-  test.skip('create: only required params', async () => {
-    const responsePromise = client.sessionInitialize.create({
-      modelID: 'modelID',
-      providerID: 'providerID',
-      sessionID: 'sessionID',
-    });
+  test.skip('get', async () => {
+    const responsePromise = client.app.get();
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -22,11 +18,14 @@ describe('resource sessionInitialize', () => {
   });
 
   // skipped: tests are disabled for the time being
-  test.skip('create: required and optional params', async () => {
-    const response = await client.sessionInitialize.create({
-      modelID: 'modelID',
-      providerID: 'providerID',
-      sessionID: 'sessionID',
-    });
+  test.skip('init', async () => {
+    const responsePromise = client.app.init();
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
   });
 });
