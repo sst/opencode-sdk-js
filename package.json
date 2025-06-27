@@ -1,6 +1,6 @@
 {
   "name": "@opencode-ai/sdk",
-  "version": "0.1.0-alpha.8",
+  "version": "0.1.0-alpha.9",
   "description": "The official TypeScript library for the Opencode API",
   "author": "Opencode <support@sst.dev>",
   "types": "dist/index.d.ts",
