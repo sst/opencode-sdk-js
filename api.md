@@ -8,157 +8,77 @@ Methods:
 
 - <code title="get /event">client.event.<a href="./src/resources/event.ts">list</a>() -> EventListResponse</code>
 
-# AppInfo
+# App
 
 Types:
 
-- <code><a href="./src/resources/app-info.ts">AppInfoCreateResponse</a></code>
+- <code><a href="./src/resources/app.ts">App</a></code>
+- <code><a href="./src/resources/app.ts">AppInitResponse</a></code>
 
 Methods:
 
-- <code title="post /app_info">client.appInfo.<a href="./src/resources/app-info.ts">create</a>() -> AppInfoCreateResponse</code>
+- <code title="get /app">client.app.<a href="./src/resources/app.ts">get</a>() -> App</code>
+- <code title="post /app/init">client.app.<a href="./src/resources/app.ts">init</a>() -> AppInitResponse</code>
 
-# ConfigGet
+# File
 
 Types:
 
-- <code><a href="./src/resources/config-get.ts">ConfigGetRetrieveResponse</a></code>
+- <code><a href="./src/resources/file.ts">FileSearchResponse</a></code>
 
 Methods:
 
-- <code title="post /config_get">client.configGet.<a href="./src/resources/config-get.ts">retrieve</a>() -> ConfigGetRetrieveResponse</code>
+- <code title="get /file">client.file.<a href="./src/resources/file.ts">search</a>({ ...params }) -> FileSearchResponse</code>
 
-# AppInitialize
+# Config
 
 Types:
 
-- <code><a href="./src/resources/app-initialize.ts">AppInitializeInitializeResponse</a></code>
+- <code><a href="./src/resources/config.ts">Config</a></code>
+- <code><a href="./src/resources/config.ts">Keybinds</a></code>
+- <code><a href="./src/resources/config.ts">McpLocal</a></code>
+- <code><a href="./src/resources/config.ts">McpRemote</a></code>
+- <code><a href="./src/resources/config.ts">Model</a></code>
+- <code><a href="./src/resources/config.ts">Provider</a></code>
+- <code><a href="./src/resources/config.ts">ConfigProvidersResponse</a></code>
 
 Methods:
 
-- <code title="post /app_initialize">client.appInitialize.<a href="./src/resources/app-initialize.ts">initialize</a>() -> AppInitializeInitializeResponse</code>
+- <code title="get /config">client.config.<a href="./src/resources/config.ts">get</a>() -> Config</code>
+- <code title="get /config/providers">client.config.<a href="./src/resources/config.ts">providers</a>() -> ConfigProvidersResponse</code>
 
-# SessionInitialize
+# Session
 
 Types:
 
-- <code><a href="./src/resources/session-initialize.ts">SessionInitializeCreateResponse</a></code>
+- <code><a href="./src/resources/session.ts">FilePart</a></code>
+- <code><a href="./src/resources/session.ts">Message</a></code>
+- <code><a href="./src/resources/session.ts">MessagePart</a></code>
+- <code><a href="./src/resources/session.ts">ReasoningPart</a></code>
+- <code><a href="./src/resources/session.ts">Session</a></code>
+- <code><a href="./src/resources/session.ts">SourceURLPart</a></code>
+- <code><a href="./src/resources/session.ts">StepStartPart</a></code>
+- <code><a href="./src/resources/session.ts">TextPart</a></code>
+- <code><a href="./src/resources/session.ts">ToolCall</a></code>
+- <code><a href="./src/resources/session.ts">ToolInvocationPart</a></code>
+- <code><a href="./src/resources/session.ts">ToolPartialCall</a></code>
+- <code><a href="./src/resources/session.ts">ToolResult</a></code>
+- <code><a href="./src/resources/session.ts">SessionListResponse</a></code>
+- <code><a href="./src/resources/session.ts">SessionDeleteResponse</a></code>
+- <code><a href="./src/resources/session.ts">SessionAbortResponse</a></code>
+- <code><a href="./src/resources/session.ts">SessionInitResponse</a></code>
+- <code><a href="./src/resources/session.ts">SessionMessagesResponse</a></code>
+- <code><a href="./src/resources/session.ts">SessionSummarizeResponse</a></code>
 
 Methods:
 
-- <code title="post /session_initialize">client.sessionInitialize.<a href="./src/resources/session-initialize.ts">create</a>({ ...params }) -> SessionInitializeCreateResponse</code>
-
-# PathGet
-
-Types:
-
-- <code><a href="./src/resources/path-get.ts">PathGetCreateResponse</a></code>
-
-Methods:
-
-- <code title="post /path_get">client.pathGet.<a href="./src/resources/path-get.ts">create</a>() -> PathGetCreateResponse</code>
-
-# SessionCreate
-
-Types:
-
-- <code><a href="./src/resources/session-create.ts">SessionInfo</a></code>
-
-Methods:
-
-- <code title="post /session_create">client.sessionCreate.<a href="./src/resources/session-create.ts">create</a>() -> SessionInfo</code>
-
-# SessionShare
-
-Methods:
-
-- <code title="post /session_share">client.sessionShare.<a href="./src/resources/session-share.ts">create</a>({ ...params }) -> SessionInfo</code>
-
-# SessionUnshare
-
-Methods:
-
-- <code title="post /session_unshare">client.sessionUnshare.<a href="./src/resources/session-unshare.ts">unshare</a>({ ...params }) -> SessionInfo</code>
-
-# SessionMessages
-
-Types:
-
-- <code><a href="./src/resources/session-messages.ts">SessionMessageCreateResponse</a></code>
-
-Methods:
-
-- <code title="post /session_messages">client.sessionMessages.<a href="./src/resources/session-messages.ts">create</a>({ ...params }) -> SessionMessageCreateResponse</code>
-
-# SessionList
-
-Types:
-
-- <code><a href="./src/resources/session-list.ts">SessionListCreateResponse</a></code>
-
-Methods:
-
-- <code title="post /session_list">client.sessionList.<a href="./src/resources/session-list.ts">create</a>() -> SessionListCreateResponse</code>
-
-# SessionAbort
-
-Types:
-
-- <code><a href="./src/resources/session-abort.ts">SessionAbortAbortResponse</a></code>
-
-Methods:
-
-- <code title="post /session_abort">client.sessionAbort.<a href="./src/resources/session-abort.ts">abort</a>({ ...params }) -> SessionAbortAbortResponse</code>
-
-# SessionSummarize
-
-Types:
-
-- <code><a href="./src/resources/session-summarize.ts">SessionSummarizeSummarizeResponse</a></code>
-
-Methods:
-
-- <code title="post /session_summarize">client.sessionSummarize.<a href="./src/resources/session-summarize.ts">summarize</a>({ ...params }) -> SessionSummarizeSummarizeResponse</code>
-
-# SessionChat
-
-Types:
-
-- <code><a href="./src/resources/session-chat.ts">MessageInfo</a></code>
-- <code><a href="./src/resources/session-chat.ts">MessagePart</a></code>
-- <code><a href="./src/resources/session-chat.ts">ProviderAuthError</a></code>
-- <code><a href="./src/resources/session-chat.ts">UnknownError</a></code>
-
-Methods:
-
-- <code title="post /session_chat">client.sessionChat.<a href="./src/resources/session-chat.ts">create</a>({ ...params }) -> MessageInfo</code>
-
-# ProviderList
-
-Types:
-
-- <code><a href="./src/resources/provider-list.ts">ProviderListCreateResponse</a></code>
-
-Methods:
-
-- <code title="post /provider_list">client.providerList.<a href="./src/resources/provider-list.ts">create</a>() -> ProviderListCreateResponse</code>
-
-# FileSearch
-
-Types:
-
-- <code><a href="./src/resources/file-search.ts">FileSearchSearchResponse</a></code>
-
-Methods:
-
-- <code title="post /file_search">client.fileSearch.<a href="./src/resources/file-search.ts">search</a>({ ...params }) -> FileSearchSearchResponse</code>
-
-# InstallationInfo
-
-Types:
-
-- <code><a href="./src/resources/installation-info.ts">InstallationInfoCreateResponse</a></code>
-
-Methods:
-
-- <code title="post /installation_info">client.installationInfo.<a href="./src/resources/installation-info.ts">create</a>() -> InstallationInfoCreateResponse</code>
+- <code title="post /session">client.session.<a href="./src/resources/session.ts">create</a>() -> Session</code>
+- <code title="get /session">client.session.<a href="./src/resources/session.ts">list</a>() -> SessionListResponse</code>
+- <code title="delete /session/{id}">client.session.<a href="./src/resources/session.ts">delete</a>(id) -> SessionDeleteResponse</code>
+- <code title="post /session/{id}/abort">client.session.<a href="./src/resources/session.ts">abort</a>(id) -> SessionAbortResponse</code>
+- <code title="post /session/{id}/message">client.session.<a href="./src/resources/session.ts">chat</a>(id, { ...params }) -> Message</code>
+- <code title="post /session/{id}/init">client.session.<a href="./src/resources/session.ts">init</a>(id, { ...params }) -> SessionInitResponse</code>
+- <code title="get /session/{id}/message">client.session.<a href="./src/resources/session.ts">messages</a>(id) -> SessionMessagesResponse</code>
+- <code title="post /session/{id}/share">client.session.<a href="./src/resources/session.ts">share</a>(id) -> Session</code>
+- <code title="post /session/{id}/summarize">client.session.<a href="./src/resources/session.ts">summarize</a>(id, { ...params }) -> SessionSummarizeResponse</code>
+- <code title="delete /session/{id}/share">client.session.<a href="./src/resources/session.ts">unshare</a>(id) -> Session</code>
