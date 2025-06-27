@@ -59,7 +59,6 @@ describe('resource session', () => {
       modelID: 'modelID',
       parts: [{ text: 'text', type: 'text' }],
       providerID: 'providerID',
-      sessionID: 'sessionID',
     });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -76,7 +75,6 @@ describe('resource session', () => {
       modelID: 'modelID',
       parts: [{ text: 'text', type: 'text' }],
       providerID: 'providerID',
-      sessionID: 'sessionID',
     });
   });
 
