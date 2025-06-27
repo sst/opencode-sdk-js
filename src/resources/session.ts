@@ -314,11 +314,6 @@ export interface SessionChatParams {
   parts: Array<MessagePart>;
 
   providerID: string;
-
-  /**
-   * Session ID
-   */
-  sessionID: string;
 }
 
 export interface SessionInitParams {
