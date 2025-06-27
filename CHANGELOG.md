@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.1.0-alpha.7 (2025-06-27)
+
+Full Changelog: [v0.1.0-alpha.6...v0.1.0-alpha.7](https://github.com/sst/opencode-sdk-js/compare/v0.1.0-alpha.6...v0.1.0-alpha.7)
+
+### Features
+
+* **api:** update via SDK Studio ([14d2d04](https://github.com/sst/opencode-sdk-js/commit/14d2d04d80c1d5880940c9c70a5c1ea200df2ebc))
+
 ## 0.1.0-alpha.6 (2025-06-27)
 
 Full Changelog: [v0.1.0-alpha.5...v0.1.0-alpha.6](https://github.com/sst/opencode-sdk-js/compare/v0.1.0-alpha.5...v0.1.0-alpha.6)
