@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.1.0-alpha.10 (2025-06-28)
+
+Full Changelog: [v0.1.0-alpha.9...v0.1.0-alpha.10](https://github.com/sst/opencode-sdk-js/compare/v0.1.0-alpha.9...v0.1.0-alpha.10)
+
+### Chores
+
+* **ci:** only run for pushes and fork pull requests ([0e850e5](https://github.com/sst/opencode-sdk-js/commit/0e850e51daac413dcf2d5e30c0ea7a1cd5346c4b))
+
 ## 0.1.0-alpha.9 (2025-06-27)
 
 Full Changelog: [v0.1.0-alpha.8...v0.1.0-alpha.9](https://github.com/sst/opencode-sdk-js/compare/v0.1.0-alpha.8...v0.1.0-alpha.9)
