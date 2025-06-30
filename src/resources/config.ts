@@ -128,6 +128,8 @@ export namespace Config {
 
       reasoning?: boolean;
 
+      release_date?: string;
+
       temperature?: boolean;
 
       tool_call?: boolean;
@@ -302,6 +304,11 @@ export interface McpLocal {
   type: 'local';
 
   /**
+   * Enable or disable the MCP server on startup
+   */
+  enabled?: boolean;
+
+  /**
    * Environment variables to set when running the MCP server
    */
   environment?: { [key: string]: string };
@@ -317,6 +324,11 @@ export interface McpRemote {
    * URL of the remote MCP server
    */
   url: string;
+
+  /**
+   * Enable or disable the MCP server on startup
+   */
+  enabled?: boolean;
 }
 
 export interface Model {
@@ -333,6 +345,8 @@ export interface Model {
   options: { [key: string]: unknown };
 
   reasoning: boolean;
+
+  release_date: string;
 
   temperature: boolean;
 

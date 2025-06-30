@@ -17,43 +17,19 @@ export class Event extends APIResource {
 }
 
 export type EventListResponse =
-  | EventListResponse.EventStorageWrite
-  | EventListResponse.EventInstallationUpdated
   | EventListResponse.EventLspClientDiagnostics
   | EventListResponse.EventPermissionUpdated
+  | EventListResponse.EventFileEdited
+  | EventListResponse.EventStorageWrite
+  | EventListResponse.EventInstallationUpdated
   | EventListResponse.EventMessageUpdated
   | EventListResponse.EventMessagePartUpdated
   | EventListResponse.EventSessionUpdated
   | EventListResponse.EventSessionDeleted
+  | EventListResponse.EventSessionIdle
   | EventListResponse.EventSessionError;
 
 export namespace EventListResponse {
-  export interface EventStorageWrite {
-    properties: EventStorageWrite.Properties;
-
-    type: 'storage.write';
-  }
-
-  export namespace EventStorageWrite {
-    export interface Properties {
-      key: string;
-
-      content?: unknown;
-    }
-  }
-
-  export interface EventInstallationUpdated {
-    properties: EventInstallationUpdated.Properties;
-
-    type: 'installation.updated';
-  }
-
-  export namespace EventInstallationUpdated {
-    export interface Properties {
-      version: string;
-    }
-  }
-
   export interface EventLspClientDiagnostics {
     properties: EventLspClientDiagnostics.Properties;
 
@@ -91,6 +67,44 @@ export namespace EventListResponse {
       export interface Time {
         created: number;
       }
+    }
+  }
+
+  export interface EventFileEdited {
+    properties: EventFileEdited.Properties;
+
+    type: 'file.edited';
+  }
+
+  export namespace EventFileEdited {
+    export interface Properties {
+      file: string;
+    }
+  }
+
+  export interface EventStorageWrite {
+    properties: EventStorageWrite.Properties;
+
+    type: 'storage.write';
+  }
+
+  export namespace EventStorageWrite {
+    export interface Properties {
+      key: string;
+
+      content?: unknown;
+    }
+  }
+
+  export interface EventInstallationUpdated {
+    properties: EventInstallationUpdated.Properties;
+
+    type: 'installation.updated';
+  }
+
+  export namespace EventInstallationUpdated {
+    export interface Properties {
+      version: string;
     }
   }
 
@@ -143,6 +157,18 @@ export namespace EventListResponse {
   export namespace EventSessionDeleted {
     export interface Properties {
       info: SessionAPI.Session;
+    }
+  }
+
+  export interface EventSessionIdle {
+    properties: EventSessionIdle.Properties;
+
+    type: 'session.idle';
+  }
+
+  export namespace EventSessionIdle {
+    export interface Properties {
+      sessionID: string;
     }
   }
 

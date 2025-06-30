@@ -27,8 +27,6 @@ export interface App {
 
   path: App.Path;
 
-  project: string;
-
   time: App.Time;
 
   user: string;
