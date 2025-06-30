@@ -4,14 +4,15 @@ import { APIResource } from '../core/resource';
 import * as SessionAPI from './session';
 import * as Shared from './shared';
 import { APIPromise } from '../core/api-promise';
+import { Stream } from '../core/streaming';
 import { RequestOptions } from '../internal/request-options';
 
 export class Event extends APIResource {
   /**
    * Get events
    */
-  list(options?: RequestOptions): APIPromise<EventListResponse> {
-    return this._client.get('/event', options);
+  list(options?: RequestOptions): APIPromise<Stream<EventListResponse>> {
+    return this._client.get('/event', { ...options, stream: true }) as APIPromise<Stream<EventListResponse>>;
   }
 }
 
