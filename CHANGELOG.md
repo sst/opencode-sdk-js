@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.1.0-alpha.10 (2025-06-30)
+
+Full Changelog: [v0.1.0-alpha.9...v0.1.0-alpha.10](https://github.com/sst/opencode-sdk-js/compare/v0.1.0-alpha.9...v0.1.0-alpha.10)
+
+### Features
+
+* **api:** update via SDK Studio ([fa7c91c](https://github.com/sst/opencode-sdk-js/commit/fa7c91cc2fe52d42be7365ca2c4ce3e48c2e76ac))
+
+
+### Chores
+
+* **ci:** only run for pushes and fork pull requests ([0e850e5](https://github.com/sst/opencode-sdk-js/commit/0e850e51daac413dcf2d5e30c0ea7a1cd5346c4b))
+* **client:** improve path param validation ([bc3ff0e](https://github.com/sst/opencode-sdk-js/commit/bc3ff0ee2de9af8be42deae87d12f003fb5f7aa5))
+
 ## 0.1.0-alpha.9 (2025-06-27)
 
 Full Changelog: [v0.1.0-alpha.8...v0.1.0-alpha.9](https://github.com/sst/opencode-sdk-js/compare/v0.1.0-alpha.8...v0.1.0-alpha.9)
