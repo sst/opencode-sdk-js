@@ -28,7 +28,16 @@ import {
   Provider,
 } from './resources/config';
 import { Event, EventListResponse } from './resources/event';
-import { File, FileSearchParams, FileSearchResponse } from './resources/file';
+import { File, FileReadParams, FileReadResponse, FileStatusResponse } from './resources/file';
+import {
+  Find,
+  FindFilesParams,
+  FindFilesResponse,
+  FindSymbolsParams,
+  FindSymbolsResponse,
+  FindTextParams,
+  FindTextResponse,
+} from './resources/find';
 import {
   FilePart,
   Message,
@@ -720,12 +729,14 @@ export class Opencode {
 
   event: API.Event = new API.Event(this);
   app: API.AppResource = new API.AppResource(this);
+  find: API.Find = new API.Find(this);
   file: API.File = new API.File(this);
   config: API.ConfigResource = new API.ConfigResource(this);
   session: API.SessionResource = new API.SessionResource(this);
 }
 Opencode.Event = Event;
 Opencode.AppResource = AppResource;
+Opencode.Find = Find;
 Opencode.File = File;
 Opencode.ConfigResource = ConfigResource;
 Opencode.SessionResource = SessionResource;
@@ -737,9 +748,20 @@ export declare namespace Opencode {
   export { AppResource as AppResource, type App as App, type AppInitResponse as AppInitResponse };
 
   export {
+    Find as Find,
+    type FindFilesResponse as FindFilesResponse,
+    type FindSymbolsResponse as FindSymbolsResponse,
+    type FindTextResponse as FindTextResponse,
+    type FindFilesParams as FindFilesParams,
+    type FindSymbolsParams as FindSymbolsParams,
+    type FindTextParams as FindTextParams,
+  };
+
+  export {
     File as File,
-    type FileSearchResponse as FileSearchResponse,
-    type FileSearchParams as FileSearchParams,
+    type FileReadResponse as FileReadResponse,
+    type FileStatusResponse as FileStatusResponse,
+    type FileReadParams as FileReadParams,
   };
 
   export {

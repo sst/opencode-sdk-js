@@ -6,19 +6,48 @@ import { RequestOptions } from '../internal/request-options';
 
 export class File extends APIResource {
   /**
-   * Search for files
+   * Read a file
    */
-  search(query: FileSearchParams, options?: RequestOptions): APIPromise<FileSearchResponse> {
+  read(query: FileReadParams, options?: RequestOptions): APIPromise<FileReadResponse> {
     return this._client.get('/file', { query, ...options });
+  }
+
+  /**
+   * Get file status
+   */
+  status(options?: RequestOptions): APIPromise<FileStatusResponse> {
+    return this._client.get('/file/status', options);
   }
 }
 
-export type FileSearchResponse = Array<string>;
+export interface FileReadResponse {
+  content: string;
 
-export interface FileSearchParams {
-  query: string;
+  type: 'raw' | 'patch';
+}
+
+export type FileStatusResponse = Array<FileStatusResponse.FileStatusResponseItem>;
+
+export namespace FileStatusResponse {
+  export interface FileStatusResponseItem {
+    added: number;
+
+    file: string;
+
+    removed: number;
+
+    status: 'added' | 'deleted' | 'modified';
+  }
+}
+
+export interface FileReadParams {
+  path: string;
 }
 
 export declare namespace File {
-  export { type FileSearchResponse as FileSearchResponse, type FileSearchParams as FileSearchParams };
+  export {
+    type FileReadResponse as FileReadResponse,
+    type FileStatusResponse as FileStatusResponse,
+    type FileReadParams as FileReadParams,
+  };
 }
