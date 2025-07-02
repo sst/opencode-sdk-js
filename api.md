@@ -27,15 +27,31 @@ Methods:
 - <code title="get /app">client.app.<a href="./src/resources/app.ts">get</a>() -> App</code>
 - <code title="post /app/init">client.app.<a href="./src/resources/app.ts">init</a>() -> AppInitResponse</code>
 
+# Find
+
+Types:
+
+- <code><a href="./src/resources/find.ts">FindFilesResponse</a></code>
+- <code><a href="./src/resources/find.ts">FindSymbolsResponse</a></code>
+- <code><a href="./src/resources/find.ts">FindTextResponse</a></code>
+
+Methods:
+
+- <code title="get /find/file">client.find.<a href="./src/resources/find.ts">files</a>({ ...params }) -> FindFilesResponse</code>
+- <code title="get /find/symbol">client.find.<a href="./src/resources/find.ts">symbols</a>({ ...params }) -> FindSymbolsResponse</code>
+- <code title="get /find">client.find.<a href="./src/resources/find.ts">text</a>({ ...params }) -> FindTextResponse</code>
+
 # File
 
 Types:
 
-- <code><a href="./src/resources/file.ts">FileSearchResponse</a></code>
+- <code><a href="./src/resources/file.ts">FileReadResponse</a></code>
+- <code><a href="./src/resources/file.ts">FileStatusResponse</a></code>
 
 Methods:
 
-- <code title="get /file">client.file.<a href="./src/resources/file.ts">search</a>({ ...params }) -> FileSearchResponse</code>
+- <code title="get /file">client.file.<a href="./src/resources/file.ts">read</a>({ ...params }) -> FileReadResponse</code>
+- <code title="get /file/status">client.file.<a href="./src/resources/file.ts">status</a>() -> FileStatusResponse</code>
 
 # Config
 

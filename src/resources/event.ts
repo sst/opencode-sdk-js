@@ -27,7 +27,8 @@ export type EventListResponse =
   | EventListResponse.EventSessionUpdated
   | EventListResponse.EventSessionDeleted
   | EventListResponse.EventSessionIdle
-  | EventListResponse.EventSessionError;
+  | EventListResponse.EventSessionError
+  | EventListResponse.EventFileWatcherUpdated;
 
 export namespace EventListResponse {
   export interface EventLspClientDiagnostics {
@@ -189,6 +190,20 @@ export namespace EventListResponse {
 
         name: 'MessageOutputLengthError';
       }
+    }
+  }
+
+  export interface EventFileWatcherUpdated {
+    properties: EventFileWatcherUpdated.Properties;
+
+    type: 'file.watcher.updated';
+  }
+
+  export namespace EventFileWatcherUpdated {
+    export interface Properties {
+      event: 'rename' | 'change';
+
+      file: string;
     }
   }
 }

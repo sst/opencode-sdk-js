@@ -113,6 +113,8 @@ export namespace Message {
     assistant?: Metadata.Assistant;
 
     error?: Shared.ProviderAuthError | Shared.UnknownError | Metadata.MessageOutputLengthError;
+
+    user?: Metadata.User;
   }
 
   export namespace Metadata {
@@ -184,6 +186,10 @@ export namespace Message {
       data: unknown;
 
       name: 'MessageOutputLengthError';
+    }
+
+    export interface User {
+      snapshot?: string;
     }
   }
 }

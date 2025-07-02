@@ -13,7 +13,16 @@ export {
   type ConfigProvidersResponse,
 } from './config';
 export { Event, type EventListResponse } from './event';
-export { File, type FileSearchResponse, type FileSearchParams } from './file';
+export { File, type FileReadResponse, type FileStatusResponse, type FileReadParams } from './file';
+export {
+  Find,
+  type FindFilesResponse,
+  type FindSymbolsResponse,
+  type FindTextResponse,
+  type FindFilesParams,
+  type FindSymbolsParams,
+  type FindTextParams,
+} from './find';
 export {
   SessionResource,
   type FilePart,
