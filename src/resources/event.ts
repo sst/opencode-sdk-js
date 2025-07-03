@@ -23,6 +23,7 @@ export type EventListResponse =
   | EventListResponse.EventStorageWrite
   | EventListResponse.EventInstallationUpdated
   | EventListResponse.EventMessageUpdated
+  | EventListResponse.EventMessageRemoved
   | EventListResponse.EventMessagePartUpdated
   | EventListResponse.EventSessionUpdated
   | EventListResponse.EventSessionDeleted
@@ -118,6 +119,20 @@ export namespace EventListResponse {
   export namespace EventMessageUpdated {
     export interface Properties {
       info: SessionAPI.Message;
+    }
+  }
+
+  export interface EventMessageRemoved {
+    properties: EventMessageRemoved.Properties;
+
+    type: 'message.removed';
+  }
+
+  export namespace EventMessageRemoved {
+    export interface Properties {
+      messageID: string;
+
+      sessionID: string;
     }
   }
 

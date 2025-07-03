@@ -44,6 +44,11 @@ export interface Config {
   experimental?: Config.Experimental;
 
   /**
+   * Additional instruction files or patterns to include
+   */
+  instructions?: Array<string>;
+
+  /**
    * Custom keybind configurations
    */
   keybinds?: Keybinds;
