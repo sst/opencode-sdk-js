@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.1.0-alpha.13 (2025-07-03)
+
+Full Changelog: [v0.1.0-alpha.12...v0.1.0-alpha.13](https://github.com/sst/opencode-sdk-js/compare/v0.1.0-alpha.12...v0.1.0-alpha.13)
+
+### Bug Fixes
+
+* avoid console usage ([f96ac97](https://github.com/sst/opencode-sdk-js/commit/f96ac97fbaf7417efda306d8727654d1a4138386))
+
+
+### Chores
+
+* add docs to RequestOptions type ([1ca6677](https://github.com/sst/opencode-sdk-js/commit/1ca667765c22b706732c61ea3d9d2823aeda0a8e))
+
 ## 0.1.0-alpha.12 (2025-07-02)
 
 Full Changelog: [v0.1.0-alpha.11...v0.1.0-alpha.12](https://github.com/sst/opencode-sdk-js/compare/v0.1.0-alpha.11...v0.1.0-alpha.12)
