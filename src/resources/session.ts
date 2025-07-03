@@ -114,7 +114,7 @@ export namespace Message {
 
     error?: Shared.ProviderAuthError | Shared.UnknownError | Metadata.MessageOutputLengthError;
 
-    user?: Metadata.User;
+    snapshot?: string;
   }
 
   export namespace Metadata {
@@ -128,6 +128,8 @@ export namespace Message {
       time: Tool.Time;
 
       title: string;
+
+      snapshot?: string;
 
       [k: string]: unknown;
     }
@@ -187,10 +189,6 @@ export namespace Message {
 
       name: 'MessageOutputLengthError';
     }
-
-    export interface User {
-      snapshot?: string;
-    }
   }
 }
 
@@ -221,6 +219,8 @@ export interface Session {
 
   parentID?: string;
 
+  revert?: Session.Revert;
+
   share?: Session.Share;
 }
 
@@ -229,6 +229,14 @@ export namespace Session {
     created: number;
 
     updated: number;
+  }
+
+  export interface Revert {
+    messageID: string;
+
+    part: number;
+
+    snapshot?: string;
   }
 
   export interface Share {
