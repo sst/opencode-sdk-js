@@ -5,6 +5,8 @@ import { findDoubleNewlineIndex, LineDecoder } from '../internal/decoders/line';
 import { ReadableStreamToAsyncIterable } from '../internal/shims';
 import { isAbortError } from '../internal/errors';
 import { encodeUTF8 } from '../internal/utils/bytes';
+import { loggerFor } from '../internal/utils/log';
+import type { Opencode } from '../client';
 
 type Bytes = string | ArrayBuffer | Uint8Array | null | undefined;
 
@@ -16,16 +18,24 @@ export type ServerSentEvent = {
 
 export class Stream<Item> implements AsyncIterable<Item> {
   controller: AbortController;
+  #client: Opencode | undefined;
 
   constructor(
     private iterator: () => AsyncIterator<Item>,
     controller: AbortController,
+    client?: Opencode,
   ) {
     this.controller = controller;
+    this.#client = client;
   }
 
-  static fromSSEResponse<Item>(response: Response, controller: AbortController): Stream<Item> {
+  static fromSSEResponse<Item>(
+    response: Response,
+    controller: AbortController,
+    client?: Opencode,
+  ): Stream<Item> {
     let consumed = false;
+    const logger = client ? loggerFor(client) : console;
 
     async function* iterator(): AsyncIterator<Item, any, undefined> {
       if (consumed) {
@@ -38,8 +48,8 @@ export class Stream<Item> implements AsyncIterable<Item> {
           try {
             yield JSON.parse(sse.data);
           } catch (e) {
-            console.error(`Could not parse message into JSON:`, sse.data);
-            console.error(`From chunk:`, sse.raw);
+            logger.error(`Could not parse message into JSON:`, sse.data);
+            logger.error(`From chunk:`, sse.raw);
             throw e;
           }
         }
@@ -54,14 +64,18 @@ export class Stream<Item> implements AsyncIterable<Item> {
       }
     }
 
-    return new Stream(iterator, controller);
+    return new Stream(iterator, controller, client);
   }
 
   /**
    * Generates a Stream from a newline-separated ReadableStream
    * where each item is a JSON value.
    */
-  static fromReadableStream<Item>(readableStream: ReadableStream, controller: AbortController): Stream<Item> {
+  static fromReadableStream<Item>(
+    readableStream: ReadableStream,
+    controller: AbortController,
+    client?: Opencode,
+  ): Stream<Item> {
     let consumed = false;
 
     async function* iterLines(): AsyncGenerator<string, void, unknown> {
@@ -101,7 +115,7 @@ export class Stream<Item> implements AsyncIterable<Item> {
       }
     }
 
-    return new Stream(iterator, controller);
+    return new Stream(iterator, controller, client);
   }
 
   [Symbol.asyncIterator](): AsyncIterator<Item> {
@@ -131,8 +145,8 @@ export class Stream<Item> implements AsyncIterable<Item> {
     };
 
     return [
-      new Stream(() => teeIterator(left), this.controller),
-      new Stream(() => teeIterator(right), this.controller),
+      new Stream(() => teeIterator(left), this.controller, this.#client),
+      new Stream(() => teeIterator(right), this.controller, this.#client),
     ];
   }
 
