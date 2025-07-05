@@ -20,8 +20,8 @@ export type EventListResponse =
   | EventListResponse.EventLspClientDiagnostics
   | EventListResponse.EventPermissionUpdated
   | EventListResponse.EventFileEdited
-  | EventListResponse.EventStorageWrite
   | EventListResponse.EventInstallationUpdated
+  | EventListResponse.EventStorageWrite
   | EventListResponse.EventMessageUpdated
   | EventListResponse.EventMessageRemoved
   | EventListResponse.EventMessagePartUpdated
@@ -84,6 +84,18 @@ export namespace EventListResponse {
     }
   }
 
+  export interface EventInstallationUpdated {
+    properties: EventInstallationUpdated.Properties;
+
+    type: 'installation.updated';
+  }
+
+  export namespace EventInstallationUpdated {
+    export interface Properties {
+      version: string;
+    }
+  }
+
   export interface EventStorageWrite {
     properties: EventStorageWrite.Properties;
 
@@ -95,18 +107,6 @@ export namespace EventListResponse {
       key: string;
 
       content?: unknown;
-    }
-  }
-
-  export interface EventInstallationUpdated {
-    properties: EventInstallationUpdated.Properties;
-
-    type: 'installation.updated';
-  }
-
-  export namespace EventInstallationUpdated {
-    export interface Properties {
-      version: string;
     }
   }
 
@@ -146,7 +146,7 @@ export namespace EventListResponse {
     export interface Properties {
       messageID: string;
 
-      part: SessionAPI.MessagePart;
+      part: SessionAPI.AssistantMessagePart;
 
       sessionID: string;
     }
