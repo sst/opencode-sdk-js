@@ -1,6 +1,7 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../core/resource';
+import * as SessionAPI from './session';
 import * as Shared from './shared';
 import { APIPromise } from '../core/api-promise';
 import { RequestOptions } from '../internal/request-options';
@@ -38,7 +39,7 @@ export class SessionResource extends APIResource {
   /**
    * Create and send a new message to a session
    */
-  chat(id: string, body: SessionChatParams, options?: RequestOptions): APIPromise<Message> {
+  chat(id: string, body: SessionChatParams, options?: RequestOptions): APIPromise<AssistantMessage> {
     return this._client.post(path`/session/${id}/message`, { body, ...options });
   }
 
@@ -82,8 +83,76 @@ export class SessionResource extends APIResource {
   }
 }
 
+export interface AssistantMessage {
+  id: string;
+
+  cost: number;
+
+  modelID: string;
+
+  parts: Array<AssistantMessagePart>;
+
+  path: AssistantMessage.Path;
+
+  providerID: string;
+
+  role: 'assistant';
+
+  sessionID: string;
+
+  system: Array<string>;
+
+  time: AssistantMessage.Time;
+
+  tokens: AssistantMessage.Tokens;
+
+  error?: Shared.ProviderAuthError | Shared.UnknownError | AssistantMessage.MessageOutputLengthError;
+
+  summary?: boolean;
+}
+
+export namespace AssistantMessage {
+  export interface Path {
+    cwd: string;
+
+    root: string;
+  }
+
+  export interface Time {
+    created: number;
+
+    completed?: number;
+  }
+
+  export interface Tokens {
+    cache: Tokens.Cache;
+
+    input: number;
+
+    output: number;
+
+    reasoning: number;
+  }
+
+  export namespace Tokens {
+    export interface Cache {
+      read: number;
+
+      write: number;
+    }
+  }
+
+  export interface MessageOutputLengthError {
+    data: unknown;
+
+    name: 'MessageOutputLengthError';
+  }
+}
+
+export type AssistantMessagePart = TextPart | ToolPart | StepStartPart;
+
 export interface FilePart {
-  mediaType: string;
+  mime: string;
 
   type: 'file';
 
@@ -92,120 +161,26 @@ export interface FilePart {
   filename?: string;
 }
 
-export interface Message {
-  id: string;
-
-  metadata: Message.Metadata;
-
-  parts: Array<MessagePart>;
-
-  role: 'user' | 'assistant';
-}
+export type Message = Message.UserMessage | AssistantMessage;
 
 export namespace Message {
-  export interface Metadata {
+  export interface UserMessage {
+    id: string;
+
+    parts: Array<SessionAPI.UserMessagePart>;
+
+    role: 'user';
+
     sessionID: string;
 
-    time: Metadata.Time;
-
-    tool: { [key: string]: Metadata.Tool };
-
-    assistant?: Metadata.Assistant;
-
-    error?: Shared.ProviderAuthError | Shared.UnknownError | Metadata.MessageOutputLengthError;
-
-    snapshot?: string;
+    time: UserMessage.Time;
   }
 
-  export namespace Metadata {
+  export namespace UserMessage {
     export interface Time {
       created: number;
-
-      completed?: number;
-    }
-
-    export interface Tool {
-      time: Tool.Time;
-
-      title: string;
-
-      snapshot?: string;
-
-      [k: string]: unknown;
-    }
-
-    export namespace Tool {
-      export interface Time {
-        end: number;
-
-        start: number;
-      }
-    }
-
-    export interface Assistant {
-      cost: number;
-
-      modelID: string;
-
-      path: Assistant.Path;
-
-      providerID: string;
-
-      system: Array<string>;
-
-      tokens: Assistant.Tokens;
-
-      summary?: boolean;
-    }
-
-    export namespace Assistant {
-      export interface Path {
-        cwd: string;
-
-        root: string;
-      }
-
-      export interface Tokens {
-        cache: Tokens.Cache;
-
-        input: number;
-
-        output: number;
-
-        reasoning: number;
-      }
-
-      export namespace Tokens {
-        export interface Cache {
-          read: number;
-
-          write: number;
-        }
-      }
-    }
-
-    export interface MessageOutputLengthError {
-      data: unknown;
-
-      name: 'MessageOutputLengthError';
     }
   }
-}
-
-export type MessagePart =
-  | TextPart
-  | ReasoningPart
-  | ToolInvocationPart
-  | SourceURLPart
-  | FilePart
-  | StepStartPart;
-
-export interface ReasoningPart {
-  text: string;
-
-  type: 'reasoning';
-
-  providerMetadata?: { [key: string]: unknown };
 }
 
 export interface Session {
@@ -244,18 +219,6 @@ export namespace Session {
   }
 }
 
-export interface SourceURLPart {
-  sourceId: string;
-
-  type: 'source-url';
-
-  url: string;
-
-  providerMetadata?: { [key: string]: unknown };
-
-  title?: string;
-}
-
 export interface StepStartPart {
   type: 'step-start';
 }
@@ -266,49 +229,79 @@ export interface TextPart {
   type: 'text';
 }
 
-export interface ToolCall {
-  state: 'call';
+export interface ToolPart {
+  id: string;
 
-  toolCallId: string;
+  state: ToolStatePending | ToolStateRunning | ToolStateCompleted | ToolStateError;
 
-  toolName: string;
+  tool: string;
 
-  args?: unknown;
-
-  step?: number;
+  type: 'tool';
 }
 
-export interface ToolInvocationPart {
-  toolInvocation: ToolCall | ToolPartialCall | ToolResult;
+export interface ToolStateCompleted {
+  metadata: { [key: string]: unknown };
 
-  type: 'tool-invocation';
+  output: string;
+
+  status: 'completed';
+
+  time: ToolStateCompleted.Time;
+
+  title: string;
+
+  input?: unknown;
 }
 
-export interface ToolPartialCall {
-  state: 'partial-call';
+export namespace ToolStateCompleted {
+  export interface Time {
+    end: number;
 
-  toolCallId: string;
-
-  toolName: string;
-
-  args?: unknown;
-
-  step?: number;
+    start: number;
+  }
 }
 
-export interface ToolResult {
-  result: string;
+export interface ToolStateError {
+  error: string;
 
-  state: 'result';
+  status: 'error';
 
-  toolCallId: string;
+  time: ToolStateError.Time;
 
-  toolName: string;
-
-  args?: unknown;
-
-  step?: number;
+  input?: unknown;
 }
+
+export namespace ToolStateError {
+  export interface Time {
+    end: number;
+
+    start: number;
+  }
+}
+
+export interface ToolStatePending {
+  status: 'pending';
+}
+
+export interface ToolStateRunning {
+  status: 'running';
+
+  time: ToolStateRunning.Time;
+
+  input?: unknown;
+
+  metadata?: { [key: string]: unknown };
+
+  title?: string;
+}
+
+export namespace ToolStateRunning {
+  export interface Time {
+    start: number;
+  }
+}
+
+export type UserMessagePart = TextPart | FilePart;
 
 export type SessionListResponse = Array<Session>;
 
@@ -325,7 +318,7 @@ export type SessionSummarizeResponse = boolean;
 export interface SessionChatParams {
   modelID: string;
 
-  parts: Array<MessagePart>;
+  parts: Array<UserMessagePart>;
 
   providerID: string;
 }
@@ -344,18 +337,19 @@ export interface SessionSummarizeParams {
 
 export declare namespace SessionResource {
   export {
+    type AssistantMessage as AssistantMessage,
+    type AssistantMessagePart as AssistantMessagePart,
     type FilePart as FilePart,
     type Message as Message,
-    type MessagePart as MessagePart,
-    type ReasoningPart as ReasoningPart,
     type Session as Session,
-    type SourceURLPart as SourceURLPart,
     type StepStartPart as StepStartPart,
     type TextPart as TextPart,
-    type ToolCall as ToolCall,
-    type ToolInvocationPart as ToolInvocationPart,
-    type ToolPartialCall as ToolPartialCall,
-    type ToolResult as ToolResult,
+    type ToolPart as ToolPart,
+    type ToolStateCompleted as ToolStateCompleted,
+    type ToolStateError as ToolStateError,
+    type ToolStatePending as ToolStatePending,
+    type ToolStateRunning as ToolStateRunning,
+    type UserMessagePart as UserMessagePart,
     type SessionListResponse as SessionListResponse,
     type SessionDeleteResponse as SessionDeleteResponse,
     type SessionAbortResponse as SessionAbortResponse,

@@ -74,18 +74,19 @@ Methods:
 
 Types:
 
+- <code><a href="./src/resources/session.ts">AssistantMessage</a></code>
+- <code><a href="./src/resources/session.ts">AssistantMessagePart</a></code>
 - <code><a href="./src/resources/session.ts">FilePart</a></code>
 - <code><a href="./src/resources/session.ts">Message</a></code>
-- <code><a href="./src/resources/session.ts">MessagePart</a></code>
-- <code><a href="./src/resources/session.ts">ReasoningPart</a></code>
 - <code><a href="./src/resources/session.ts">Session</a></code>
-- <code><a href="./src/resources/session.ts">SourceURLPart</a></code>
 - <code><a href="./src/resources/session.ts">StepStartPart</a></code>
 - <code><a href="./src/resources/session.ts">TextPart</a></code>
-- <code><a href="./src/resources/session.ts">ToolCall</a></code>
-- <code><a href="./src/resources/session.ts">ToolInvocationPart</a></code>
-- <code><a href="./src/resources/session.ts">ToolPartialCall</a></code>
-- <code><a href="./src/resources/session.ts">ToolResult</a></code>
+- <code><a href="./src/resources/session.ts">ToolPart</a></code>
+- <code><a href="./src/resources/session.ts">ToolStateCompleted</a></code>
+- <code><a href="./src/resources/session.ts">ToolStateError</a></code>
+- <code><a href="./src/resources/session.ts">ToolStatePending</a></code>
+- <code><a href="./src/resources/session.ts">ToolStateRunning</a></code>
+- <code><a href="./src/resources/session.ts">UserMessagePart</a></code>
 - <code><a href="./src/resources/session.ts">SessionListResponse</a></code>
 - <code><a href="./src/resources/session.ts">SessionDeleteResponse</a></code>
 - <code><a href="./src/resources/session.ts">SessionAbortResponse</a></code>
@@ -99,7 +100,7 @@ Methods:
 - <code title="get /session">client.session.<a href="./src/resources/session.ts">list</a>() -> SessionListResponse</code>
 - <code title="delete /session/{id}">client.session.<a href="./src/resources/session.ts">delete</a>(id) -> SessionDeleteResponse</code>
 - <code title="post /session/{id}/abort">client.session.<a href="./src/resources/session.ts">abort</a>(id) -> SessionAbortResponse</code>
-- <code title="post /session/{id}/message">client.session.<a href="./src/resources/session.ts">chat</a>(id, { ...params }) -> Message</code>
+- <code title="post /session/{id}/message">client.session.<a href="./src/resources/session.ts">chat</a>(id, { ...params }) -> AssistantMessage</code>
 - <code title="post /session/{id}/init">client.session.<a href="./src/resources/session.ts">init</a>(id, { ...params }) -> SessionInitResponse</code>
 - <code title="get /session/{id}/message">client.session.<a href="./src/resources/session.ts">messages</a>(id) -> SessionMessagesResponse</code>
 - <code title="post /session/{id}/share">client.session.<a href="./src/resources/session.ts">share</a>(id) -> Session</code>
