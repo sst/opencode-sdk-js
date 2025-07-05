@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.1.0-alpha.15 (2025-07-05)
+
+Full Changelog: [v0.1.0-alpha.14...v0.1.0-alpha.15](https://github.com/sst/opencode-sdk-js/compare/v0.1.0-alpha.14...v0.1.0-alpha.15)
+
+### Features
+
+* **api:** manual updates ([f6ee467](https://github.com/sst/opencode-sdk-js/commit/f6ee46752d0c174c8b934894cf2b140864864208))
+
+
+### Chores
+
+* **internal:** codegen related update ([47a1a97](https://github.com/sst/opencode-sdk-js/commit/47a1a972e755735d6b5472c61f726ab2face9e62))
+
 ## 0.1.0-alpha.14 (2025-07-03)
 
 Full Changelog: [v0.1.0-alpha.13...v0.1.0-alpha.14](https://github.com/sst/opencode-sdk-js/compare/v0.1.0-alpha.13...v0.1.0-alpha.14)
