@@ -16,7 +16,16 @@ import * as Errors from './core/error';
 import * as Uploads from './core/uploads';
 import * as API from './resources/index';
 import { APIPromise } from './core/api-promise';
-import { App, AppInitResponse, AppResource } from './resources/app';
+import {
+  App,
+  AppInitResponse,
+  AppLogParams,
+  AppLogResponse,
+  AppModesResponse,
+  AppResource,
+  LogLevel,
+  Mode,
+} from './resources/app';
 import {
   Config,
   ConfigProvidersResponse,
@@ -28,7 +37,7 @@ import {
   Provider,
 } from './resources/config';
 import { Event, EventListResponse } from './resources/event';
-import { File, FileReadParams, FileReadResponse, FileStatusResponse } from './resources/file';
+import { File, FileReadParams, FileReadResponse, FileResource, FileStatusResponse } from './resources/file';
 import {
   Find,
   FindFilesParams,
@@ -37,12 +46,14 @@ import {
   FindSymbolsResponse,
   FindTextParams,
   FindTextResponse,
+  Match,
+  Symbol,
 } from './resources/find';
 import {
   AssistantMessage,
-  AssistantMessagePart,
   FilePart,
   Message,
+  Part,
   Session,
   SessionAbortResponse,
   SessionChatParams,
@@ -54,6 +65,7 @@ import {
   SessionResource,
   SessionSummarizeParams,
   SessionSummarizeResponse,
+  StepFinishPart,
   StepStartPart,
   TextPart,
   ToolPart,
@@ -61,14 +73,14 @@ import {
   ToolStateError,
   ToolStatePending,
   ToolStateRunning,
-  UserMessagePart,
+  UserMessage,
 } from './resources/session';
 import { type Fetch } from './internal/builtin-types';
 import { HeadersLike, NullableHeaders, buildHeaders } from './internal/headers';
 import { FinalRequestOptions, RequestOptions } from './internal/request-options';
 import { readEnv } from './internal/utils/env';
 import {
-  type LogLevel,
+  type LogLevel as ClientLogLevel,
   type Logger,
   formatRequestDetails,
   loggerFor,
@@ -136,7 +148,7 @@ export interface ClientOptions {
    *
    * Defaults to process.env['OPENCODE_LOG'] or 'warn' if it isn't set.
    */
-  logLevel?: LogLevel | undefined;
+  logLevel?: ClientLogLevel | undefined;
 
   /**
    * Set the logger.
@@ -154,7 +166,7 @@ export class Opencode {
   maxRetries: number;
   timeout: number;
   logger: Logger | undefined;
-  logLevel: LogLevel | undefined;
+  logLevel: ClientLogLevel | undefined;
   fetchOptions: MergedRequestInit | undefined;
 
   private fetch: Fetch;
@@ -736,14 +748,14 @@ export class Opencode {
   event: API.Event = new API.Event(this);
   app: API.AppResource = new API.AppResource(this);
   find: API.Find = new API.Find(this);
-  file: API.File = new API.File(this);
+  file: API.FileResource = new API.FileResource(this);
   config: API.ConfigResource = new API.ConfigResource(this);
   session: API.SessionResource = new API.SessionResource(this);
 }
 Opencode.Event = Event;
 Opencode.AppResource = AppResource;
 Opencode.Find = Find;
-Opencode.File = File;
+Opencode.FileResource = FileResource;
 Opencode.ConfigResource = ConfigResource;
 Opencode.SessionResource = SessionResource;
 export declare namespace Opencode {
@@ -751,10 +763,21 @@ export declare namespace Opencode {
 
   export { Event as Event, type EventListResponse as EventListResponse };
 
-  export { AppResource as AppResource, type App as App, type AppInitResponse as AppInitResponse };
+  export {
+    AppResource as AppResource,
+    type App as App,
+    type LogLevel as LogLevel,
+    type Mode as Mode,
+    type AppInitResponse as AppInitResponse,
+    type AppLogResponse as AppLogResponse,
+    type AppModesResponse as AppModesResponse,
+    type AppLogParams as AppLogParams,
+  };
 
   export {
     Find as Find,
+    type Match as Match,
+    type Symbol as Symbol,
     type FindFilesResponse as FindFilesResponse,
     type FindSymbolsResponse as FindSymbolsResponse,
     type FindTextResponse as FindTextResponse,
@@ -764,7 +787,8 @@ export declare namespace Opencode {
   };
 
   export {
-    File as File,
+    FileResource as FileResource,
+    type File as File,
     type FileReadResponse as FileReadResponse,
     type FileStatusResponse as FileStatusResponse,
     type FileReadParams as FileReadParams,
@@ -784,10 +808,11 @@ export declare namespace Opencode {
   export {
     SessionResource as SessionResource,
     type AssistantMessage as AssistantMessage,
-    type AssistantMessagePart as AssistantMessagePart,
     type FilePart as FilePart,
     type Message as Message,
+    type Part as Part,
     type Session as Session,
+    type StepFinishPart as StepFinishPart,
     type StepStartPart as StepStartPart,
     type TextPart as TextPart,
     type ToolPart as ToolPart,
@@ -795,7 +820,7 @@ export declare namespace Opencode {
     type ToolStateError as ToolStateError,
     type ToolStatePending as ToolStatePending,
     type ToolStateRunning as ToolStateRunning,
-    type UserMessagePart as UserMessagePart,
+    type UserMessage as UserMessage,
     type SessionListResponse as SessionListResponse,
     type SessionDeleteResponse as SessionDeleteResponse,
     type SessionAbortResponse as SessionAbortResponse,
@@ -807,6 +832,7 @@ export declare namespace Opencode {
     type SessionSummarizeParams as SessionSummarizeParams,
   };
 
+  export type MessageAbortedError = API.MessageAbortedError;
   export type ProviderAuthError = API.ProviderAuthError;
   export type UnknownError = API.UnknownError;
 }

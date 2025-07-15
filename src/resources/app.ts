@@ -18,6 +18,20 @@ export class AppResource extends APIResource {
   init(options?: RequestOptions): APIPromise<AppInitResponse> {
     return this._client.post('/app/init', options);
   }
+
+  /**
+   * Write a log entry to the server logs
+   */
+  log(body: AppLogParams, options?: RequestOptions): APIPromise<AppLogResponse> {
+    return this._client.post('/log', { body, ...options });
+  }
+
+  /**
+   * List all modes
+   */
+  modes(options?: RequestOptions): APIPromise<AppModesResponse> {
+    return this._client.get('/mode', options);
+  }
 }
 
 export interface App {
@@ -28,8 +42,6 @@ export interface App {
   path: App.Path;
 
   time: App.Time;
-
-  user: string;
 }
 
 export namespace App {
@@ -50,8 +62,65 @@ export namespace App {
   }
 }
 
+/**
+ * Log level
+ */
+export type LogLevel = 'DEBUG' | 'INFO' | 'WARN' | 'ERROR';
+
+export interface Mode {
+  name: string;
+
+  tools: { [key: string]: boolean };
+
+  model?: Mode.Model;
+
+  prompt?: string;
+}
+
+export namespace Mode {
+  export interface Model {
+    modelID: string;
+
+    providerID: string;
+  }
+}
+
 export type AppInitResponse = boolean;
 
+export type AppLogResponse = boolean;
+
+export type AppModesResponse = Array<Mode>;
+
+export interface AppLogParams {
+  /**
+   * Log level
+   */
+  level: 'debug' | 'info' | 'error' | 'warn';
+
+  /**
+   * Log message
+   */
+  message: string;
+
+  /**
+   * Service name for the log entry
+   */
+  service: string;
+
+  /**
+   * Additional metadata for the log entry
+   */
+  extra?: { [key: string]: unknown };
+}
+
 export declare namespace AppResource {
-  export { type App as App, type AppInitResponse as AppInitResponse };
+  export {
+    type App as App,
+    type LogLevel as LogLevel,
+    type Mode as Mode,
+    type AppInitResponse as AppInitResponse,
+    type AppLogResponse as AppLogResponse,
+    type AppModesResponse as AppModesResponse,
+    type AppLogParams as AppLogParams,
+  };
 }

@@ -2,6 +2,7 @@
 
 Types:
 
+- <code><a href="./src/resources/shared.ts">MessageAbortedError</a></code>
 - <code><a href="./src/resources/shared.ts">ProviderAuthError</a></code>
 - <code><a href="./src/resources/shared.ts">UnknownError</a></code>
 
@@ -20,17 +21,25 @@ Methods:
 Types:
 
 - <code><a href="./src/resources/app.ts">App</a></code>
+- <code><a href="./src/resources/app.ts">LogLevel</a></code>
+- <code><a href="./src/resources/app.ts">Mode</a></code>
 - <code><a href="./src/resources/app.ts">AppInitResponse</a></code>
+- <code><a href="./src/resources/app.ts">AppLogResponse</a></code>
+- <code><a href="./src/resources/app.ts">AppModesResponse</a></code>
 
 Methods:
 
 - <code title="get /app">client.app.<a href="./src/resources/app.ts">get</a>() -> App</code>
 - <code title="post /app/init">client.app.<a href="./src/resources/app.ts">init</a>() -> AppInitResponse</code>
+- <code title="post /log">client.app.<a href="./src/resources/app.ts">log</a>({ ...params }) -> AppLogResponse</code>
+- <code title="get /mode">client.app.<a href="./src/resources/app.ts">modes</a>() -> AppModesResponse</code>
 
 # Find
 
 Types:
 
+- <code><a href="./src/resources/find.ts">Match</a></code>
+- <code><a href="./src/resources/find.ts">Symbol</a></code>
 - <code><a href="./src/resources/find.ts">FindFilesResponse</a></code>
 - <code><a href="./src/resources/find.ts">FindSymbolsResponse</a></code>
 - <code><a href="./src/resources/find.ts">FindTextResponse</a></code>
@@ -45,6 +54,7 @@ Methods:
 
 Types:
 
+- <code><a href="./src/resources/file.ts">File</a></code>
 - <code><a href="./src/resources/file.ts">FileReadResponse</a></code>
 - <code><a href="./src/resources/file.ts">FileStatusResponse</a></code>
 
@@ -75,10 +85,11 @@ Methods:
 Types:
 
 - <code><a href="./src/resources/session.ts">AssistantMessage</a></code>
-- <code><a href="./src/resources/session.ts">AssistantMessagePart</a></code>
 - <code><a href="./src/resources/session.ts">FilePart</a></code>
 - <code><a href="./src/resources/session.ts">Message</a></code>
+- <code><a href="./src/resources/session.ts">Part</a></code>
 - <code><a href="./src/resources/session.ts">Session</a></code>
+- <code><a href="./src/resources/session.ts">StepFinishPart</a></code>
 - <code><a href="./src/resources/session.ts">StepStartPart</a></code>
 - <code><a href="./src/resources/session.ts">TextPart</a></code>
 - <code><a href="./src/resources/session.ts">ToolPart</a></code>
@@ -86,7 +97,7 @@ Types:
 - <code><a href="./src/resources/session.ts">ToolStateError</a></code>
 - <code><a href="./src/resources/session.ts">ToolStatePending</a></code>
 - <code><a href="./src/resources/session.ts">ToolStateRunning</a></code>
-- <code><a href="./src/resources/session.ts">UserMessagePart</a></code>
+- <code><a href="./src/resources/session.ts">UserMessage</a></code>
 - <code><a href="./src/resources/session.ts">SessionListResponse</a></code>
 - <code><a href="./src/resources/session.ts">SessionDeleteResponse</a></code>
 - <code><a href="./src/resources/session.ts">SessionAbortResponse</a></code>

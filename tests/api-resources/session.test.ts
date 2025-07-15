@@ -56,8 +56,12 @@ describe('resource session', () => {
   // skipped: tests are disabled for the time being
   test.skip('chat: only required params', async () => {
     const responsePromise = client.session.chat('id', {
+      messageID: 'messageID',
+      mode: 'mode',
       modelID: 'modelID',
-      parts: [{ text: 'text', type: 'text' }],
+      parts: [
+        { id: 'id', messageID: 'messageID', mime: 'mime', sessionID: 'sessionID', type: 'file', url: 'url' },
+      ],
       providerID: 'providerID',
     });
     const rawResponse = await responsePromise.asResponse();
@@ -72,15 +76,31 @@ describe('resource session', () => {
   // skipped: tests are disabled for the time being
   test.skip('chat: required and optional params', async () => {
     const response = await client.session.chat('id', {
+      messageID: 'messageID',
+      mode: 'mode',
       modelID: 'modelID',
-      parts: [{ text: 'text', type: 'text' }],
+      parts: [
+        {
+          id: 'id',
+          messageID: 'messageID',
+          mime: 'mime',
+          sessionID: 'sessionID',
+          type: 'file',
+          url: 'url',
+          filename: 'filename',
+        },
+      ],
       providerID: 'providerID',
     });
   });
 
   // skipped: tests are disabled for the time being
   test.skip('init: only required params', async () => {
-    const responsePromise = client.session.init('id', { modelID: 'modelID', providerID: 'providerID' });
+    const responsePromise = client.session.init('id', {
+      messageID: 'messageID',
+      modelID: 'modelID',
+      providerID: 'providerID',
+    });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -92,7 +112,11 @@ describe('resource session', () => {
 
   // skipped: tests are disabled for the time being
   test.skip('init: required and optional params', async () => {
-    const response = await client.session.init('id', { modelID: 'modelID', providerID: 'providerID' });
+    const response = await client.session.init('id', {
+      messageID: 'messageID',
+      modelID: 'modelID',
+      providerID: 'providerID',
+    });
   });
 
   // skipped: tests are disabled for the time being

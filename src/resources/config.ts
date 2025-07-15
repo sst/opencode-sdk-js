@@ -1,6 +1,7 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../core/resource';
+import * as AppAPI from './app';
 import { APIPromise } from '../core/api-promise';
 import { RequestOptions } from '../internal/request-options';
 
@@ -27,7 +28,8 @@ export interface Config {
   $schema?: string;
 
   /**
-   * Share newly created sessions automatically
+   * @deprecated Use 'share' field instead. Share newly created sessions
+   * automatically
    */
   autoshare?: boolean;
 
@@ -54,9 +56,16 @@ export interface Config {
   keybinds?: Keybinds;
 
   /**
+   * Minimum log level to write to log files
+   */
+  log_level?: AppAPI.LogLevel;
+
+  /**
    * MCP (Model Context Protocol) server configurations
    */
   mcp?: { [key: string]: McpLocal | McpRemote };
+
+  mode?: Config.Mode;
 
   /**
    * Model to use in the format of provider/model, eg anthropic/claude-2
@@ -69,9 +78,20 @@ export interface Config {
   provider?: { [key: string]: Config.Provider };
 
   /**
+   * Control sharing behavior: 'auto' enables automatic sharing, 'disabled' disables
+   * all sharing
+   */
+  share?: 'auto' | 'disabled';
+
+  /**
    * Theme name to use for the interface
    */
   theme?: string;
+
+  /**
+   * Custom username to display in conversations instead of system username
+   */
+  username?: string;
 }
 
 export namespace Config {
@@ -99,6 +119,56 @@ export namespace Config {
         environment?: { [key: string]: string };
       }
     }
+  }
+
+  export interface Mode {
+    build?: Mode.Build;
+
+    plan?: Mode.Plan;
+
+    [k: string]: Mode.ModeConfig | undefined;
+  }
+
+  export namespace Mode {
+    export interface Build {
+      model?: string;
+
+      prompt?: string;
+
+      tools?: { [key: string]: boolean };
+    }
+
+    export interface Plan {
+      model?: string;
+
+      prompt?: string;
+
+      tools?: { [key: string]: boolean };
+    }
+
+    export interface ModeConfig {
+      model?: string;
+
+      prompt?: string;
+
+      tools?: { [key: string]: boolean };
+    }
+  }
+
+  export interface ModeConfig {
+    model?: string;
+
+    prompt?: string;
+
+    tools?: { [key: string]: boolean };
+  }
+
+  export interface ModeConfig {
+    model?: string;
+
+    prompt?: string;
+
+    tools?: { [key: string]: boolean };
   }
 
   export interface Provider {
@@ -164,137 +234,172 @@ export interface Keybinds {
   /**
    * Exit the application
    */
-  app_exit?: string;
-
-  /**
-   * Open external editor
-   */
-  editor_open?: string;
+  app_exit: string;
 
   /**
    * Show help dialog
    */
-  help?: string;
+  app_help: string;
 
   /**
-   * Navigate to next history item
+   * Open external editor
    */
-  history_next?: string;
+  editor_open: string;
 
   /**
-   * Navigate to previous history item
+   * Close file
    */
-  history_previous?: string;
+  file_close: string;
+
+  /**
+   * Split/unified diff
+   */
+  file_diff_toggle: string;
+
+  /**
+   * List files
+   */
+  file_list: string;
+
+  /**
+   * Search file
+   */
+  file_search: string;
 
   /**
    * Clear input field
    */
-  input_clear?: string;
+  input_clear: string;
 
   /**
    * Insert newline in input
    */
-  input_newline?: string;
+  input_newline: string;
 
   /**
    * Paste from clipboard
    */
-  input_paste?: string;
+  input_paste: string;
 
   /**
    * Submit input
    */
-  input_submit?: string;
+  input_submit: string;
 
   /**
    * Leader key for keybind combinations
    */
-  leader?: string;
+  leader: string;
+
+  /**
+   * Copy message
+   */
+  messages_copy: string;
 
   /**
    * Navigate to first message
    */
-  messages_first?: string;
+  messages_first: string;
 
   /**
    * Scroll messages down by half page
    */
-  messages_half_page_down?: string;
+  messages_half_page_down: string;
 
   /**
    * Scroll messages up by half page
    */
-  messages_half_page_up?: string;
+  messages_half_page_up: string;
 
   /**
    * Navigate to last message
    */
-  messages_last?: string;
+  messages_last: string;
+
+  /**
+   * Toggle layout
+   */
+  messages_layout_toggle: string;
 
   /**
    * Navigate to next message
    */
-  messages_next?: string;
+  messages_next: string;
 
   /**
    * Scroll messages down by one page
    */
-  messages_page_down?: string;
+  messages_page_down: string;
 
   /**
    * Scroll messages up by one page
    */
-  messages_page_up?: string;
+  messages_page_up: string;
 
   /**
    * Navigate to previous message
    */
-  messages_previous?: string;
+  messages_previous: string;
+
+  /**
+   * Revert message
+   */
+  messages_revert: string;
 
   /**
    * List available models
    */
-  model_list?: string;
+  model_list: string;
 
   /**
-   * Initialize project configuration
+   * Create/update AGENTS.md
    */
-  project_init?: string;
+  project_init: string;
 
   /**
-   * Toggle compact mode for session
+   * Compact the session
    */
-  session_compact?: string;
+  session_compact: string;
 
   /**
    * Interrupt current session
    */
-  session_interrupt?: string;
+  session_interrupt: string;
 
   /**
    * List all sessions
    */
-  session_list?: string;
+  session_list: string;
 
   /**
    * Create a new session
    */
-  session_new?: string;
+  session_new: string;
 
   /**
    * Share current session
    */
-  session_share?: string;
+  session_share: string;
+
+  /**
+   * Unshare current session
+   */
+  session_unshare: string;
+
+  /**
+   * Switch mode
+   */
+  switch_mode: string;
 
   /**
    * List available themes
    */
-  theme_list?: string;
+  theme_list: string;
 
   /**
-   * Show tool details
+   * Toggle tool details
    */
-  tool_details?: string;
+  tool_details: string;
 }
 
 export interface McpLocal {
