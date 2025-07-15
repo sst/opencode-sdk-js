@@ -169,21 +169,7 @@ export interface FilePart {
 
 export type Message = UserMessage | AssistantMessage;
 
-export type Part = TextPart | FilePart | ToolPart | StepStartPart | StepFinishPart | Part.UnionMember5;
-
-export namespace Part {
-  export interface UnionMember5 {
-    id: string;
-
-    messageID: string;
-
-    sessionID: string;
-
-    snapshot: string;
-
-    type: 'snapshot';
-  }
-}
+export type Part = TextPart | FilePart | ToolPart | StepStartPart | StepFinishPart | SnapshotPart;
 
 export interface Session {
   id: string;
@@ -219,6 +205,18 @@ export namespace Session {
   export interface Share {
     url: string;
   }
+}
+
+export interface SnapshotPart {
+  id: string;
+
+  messageID: string;
+
+  sessionID: string;
+
+  snapshot: string;
+
+  type: 'snapshot';
 }
 
 export interface StepFinishPart {
@@ -436,6 +434,7 @@ export declare namespace SessionResource {
     type Message as Message,
     type Part as Part,
     type Session as Session,
+    type SnapshotPart as SnapshotPart,
     type StepFinishPart as StepFinishPart,
     type StepStartPart as StepStartPart,
     type TextPart as TextPart,
