@@ -24,26 +24,8 @@ import Opencode from '@opencode-ai/sdk';
 
 const client = new Opencode();
 
-const events = await client.event.list();
+const sessions = await client.session.list();
 ```
-
-## Streaming responses
-
-We provide support for streaming responses using Server Sent Events (SSE).
-
-```ts
-import Opencode from '@opencode-ai/sdk';
-
-const client = new Opencode();
-
-const stream = await client.event.list();
-for await (const eventListResponse of stream) {
-  console.log(eventListResponse);
-}
-```
-
-If you need to cancel a stream, you can `break` from the loop
-or call `stream.controller.abort()`.
 
 ### Request & Response types
 
@@ -55,7 +37,7 @@ import Opencode from '@opencode-ai/sdk';
 
 const client = new Opencode();
 
-const events: Opencode.EventListResponse = await client.event.list();
+const sessions: Opencode.SessionListResponse = await client.session.list();
 ```
 
 Documentation for each method, request param, and response field are available in docstrings and will appear on hover in most modern editors.
@@ -68,7 +50,7 @@ a subclass of `APIError` will be thrown:
 
 <!-- prettier-ignore -->
 ```ts
-const events = await client.event.list().catch(async (err) => {
+const sessions = await client.session.list().catch(async (err) => {
   if (err instanceof Opencode.APIError) {
     console.log(err.status); // 400
     console.log(err.name); // BadRequestError
@@ -108,7 +90,7 @@ const client = new Opencode({
 });
 
 // Or, configure per-request:
-await client.event.list({
+await client.session.list({
   maxRetries: 5,
 });
 ```
@@ -125,7 +107,7 @@ const client = new Opencode({
 });
 
 // Override per-request:
-await client.event.list({
+await client.session.list({
   timeout: 5 * 1000,
 });
 ```
@@ -148,13 +130,13 @@ Unlike `.asResponse()` this method consumes the body, returning once it is parse
 ```ts
 const client = new Opencode();
 
-const response = await client.event.list().asResponse();
+const response = await client.session.list().asResponse();
 console.log(response.headers.get('X-My-Header'));
 console.log(response.statusText); // access the underlying Response object
 
-const { data: events, response: raw } = await client.event.list().withResponse();
+const { data: sessions, response: raw } = await client.session.list().withResponse();
 console.log(raw.headers.get('X-My-Header'));
-console.log(events);
+console.log(sessions);
 ```
 
 ### Logging
@@ -234,7 +216,7 @@ parameter. This library doesn't validate at runtime that the request matches the
 send will be sent as-is.
 
 ```ts
-client.event.list({
+client.session.list({
   // ...
   // @ts-expect-error baz is not yet public
   baz: 'undocumented option',
