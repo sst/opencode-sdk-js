@@ -90,8 +90,6 @@ export interface AssistantMessage {
 
   modelID: string;
 
-  parts: Array<AssistantMessagePart>;
-
   path: AssistantMessage.Path;
 
   providerID: string;
@@ -106,7 +104,11 @@ export interface AssistantMessage {
 
   tokens: AssistantMessage.Tokens;
 
-  error?: Shared.ProviderAuthError | Shared.UnknownError | AssistantMessage.MessageOutputLengthError;
+  error?:
+    | Shared.ProviderAuthError
+    | Shared.UnknownError
+    | AssistantMessage.MessageOutputLengthError
+    | Shared.MessageAbortedError;
 
   summary?: boolean;
 }
@@ -149,10 +151,14 @@ export namespace AssistantMessage {
   }
 }
 
-export type AssistantMessagePart = TextPart | ToolPart | StepStartPart;
-
 export interface FilePart {
+  id: string;
+
+  messageID: string;
+
   mime: string;
+
+  sessionID: string;
 
   type: 'file';
 
@@ -161,25 +167,21 @@ export interface FilePart {
   filename?: string;
 }
 
-export type Message = Message.UserMessage | AssistantMessage;
+export type Message = UserMessage | AssistantMessage;
 
-export namespace Message {
-  export interface UserMessage {
+export type Part = TextPart | FilePart | ToolPart | StepStartPart | StepFinishPart | Part.UnionMember5;
+
+export namespace Part {
+  export interface UnionMember5 {
     id: string;
 
-    parts: Array<SessionAPI.UserMessagePart>;
-
-    role: 'user';
+    messageID: string;
 
     sessionID: string;
 
-    time: UserMessage.Time;
-  }
+    snapshot: string;
 
-  export namespace UserMessage {
-    export interface Time {
-      created: number;
-    }
+    type: 'snapshot';
   }
 }
 
@@ -219,18 +221,82 @@ export namespace Session {
   }
 }
 
+export interface StepFinishPart {
+  id: string;
+
+  cost: number;
+
+  messageID: string;
+
+  sessionID: string;
+
+  tokens: StepFinishPart.Tokens;
+
+  type: 'step-finish';
+}
+
+export namespace StepFinishPart {
+  export interface Tokens {
+    cache: Tokens.Cache;
+
+    input: number;
+
+    output: number;
+
+    reasoning: number;
+  }
+
+  export namespace Tokens {
+    export interface Cache {
+      read: number;
+
+      write: number;
+    }
+  }
+}
+
 export interface StepStartPart {
+  id: string;
+
+  messageID: string;
+
+  sessionID: string;
+
   type: 'step-start';
 }
 
 export interface TextPart {
+  id: string;
+
+  messageID: string;
+
+  sessionID: string;
+
   text: string;
 
   type: 'text';
+
+  synthetic?: boolean;
+
+  time?: TextPart.Time;
+}
+
+export namespace TextPart {
+  export interface Time {
+    start: number;
+
+    end?: number;
+  }
 }
 
 export interface ToolPart {
   id: string;
+
+  callID: string;
+
+  messageID: string;
+
+  sessionID: string;
 
   state: ToolStatePending | ToolStateRunning | ToolStateCompleted | ToolStateError;
 
@@ -240,6 +306,8 @@ export interface ToolPart {
 }
 
 export interface ToolStateCompleted {
+  input: { [key: string]: unknown };
+
   metadata: { [key: string]: unknown };
 
   output: string;
@@ -249,8 +317,6 @@ export interface ToolStateCompleted {
   time: ToolStateCompleted.Time;
 
   title: string;
-
-  input?: unknown;
 }
 
 export namespace ToolStateCompleted {
@@ -264,11 +330,11 @@ export namespace ToolStateCompleted {
 export interface ToolStateError {
   error: string;
 
+  input: { [key: string]: unknown };
+
   status: 'error';
 
   time: ToolStateError.Time;
-
-  input?: unknown;
 }
 
 export namespace ToolStateError {
@@ -301,7 +367,21 @@ export namespace ToolStateRunning {
   }
 }
 
-export type UserMessagePart = TextPart | FilePart;
+export interface UserMessage {
+  id: string;
+
+  role: 'user';
+
+  sessionID: string;
+
+  time: UserMessage.Time;
+}
+
+export namespace UserMessage {
+  export interface Time {
+    created: number;
+  }
+}
 
 export type SessionListResponse = Array<Session>;
 
@@ -311,19 +391,33 @@ export type SessionAbortResponse = boolean;
 
 export type SessionInitResponse = boolean;
 
-export type SessionMessagesResponse = Array<Message>;
+export type SessionMessagesResponse = Array<SessionMessagesResponse.SessionMessagesResponseItem>;
+
+export namespace SessionMessagesResponse {
+  export interface SessionMessagesResponseItem {
+    info: SessionAPI.Message;
+
+    parts: Array<SessionAPI.Part>;
+  }
+}
 
 export type SessionSummarizeResponse = boolean;
 
 export interface SessionChatParams {
+  messageID: string;
+
+  mode: string;
+
   modelID: string;
 
-  parts: Array<UserMessagePart>;
+  parts: Array<FilePart | TextPart>;
 
   providerID: string;
 }
 
 export interface SessionInitParams {
+  messageID: string;
+
   modelID: string;
 
   providerID: string;
@@ -338,10 +432,11 @@ export interface SessionSummarizeParams {
 export declare namespace SessionResource {
   export {
     type AssistantMessage as AssistantMessage,
-    type AssistantMessagePart as AssistantMessagePart,
     type FilePart as FilePart,
     type Message as Message,
+    type Part as Part,
     type Session as Session,
+    type StepFinishPart as StepFinishPart,
     type StepStartPart as StepStartPart,
     type TextPart as TextPart,
     type ToolPart as ToolPart,
@@ -349,7 +444,7 @@ export declare namespace SessionResource {
     type ToolStateError as ToolStateError,
     type ToolStatePending as ToolStatePending,
     type ToolStateRunning as ToolStateRunning,
-    type UserMessagePart as UserMessagePart,
+    type UserMessage as UserMessage,
     type SessionListResponse as SessionListResponse,
     type SessionDeleteResponse as SessionDeleteResponse,
     type SessionAbortResponse as SessionAbortResponse,

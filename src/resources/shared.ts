@@ -1,5 +1,11 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
+export interface MessageAbortedError {
+  data: unknown;
+
+  name: 'MessageAbortedError';
+}
+
 export interface ProviderAuthError {
   data: ProviderAuthError.Data;
 

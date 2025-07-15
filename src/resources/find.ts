@@ -27,49 +27,85 @@ export class Find extends APIResource {
   }
 }
 
-export type FindFilesResponse = Array<string>;
+export interface Match {
+  absolute_offset: number;
 
-export type FindSymbolsResponse = Array<unknown>;
+  line_number: number;
 
-export type FindTextResponse = Array<FindTextResponse.FindTextResponseItem>;
+  lines: Match.Lines;
 
-export namespace FindTextResponse {
-  export interface FindTextResponseItem {
-    absolute_offset: number;
+  path: Match.Path;
 
-    line_number: number;
+  submatches: Array<Match.Submatch>;
+}
 
-    lines: FindTextResponseItem.Lines;
-
-    path: FindTextResponseItem.Path;
-
-    submatches: Array<FindTextResponseItem.Submatch>;
+export namespace Match {
+  export interface Lines {
+    text: string;
   }
 
-  export namespace FindTextResponseItem {
-    export interface Lines {
+  export interface Path {
+    text: string;
+  }
+
+  export interface Submatch {
+    end: number;
+
+    match: Submatch.Match;
+
+    start: number;
+  }
+
+  export namespace Submatch {
+    export interface Match {
       text: string;
     }
+  }
+}
 
-    export interface Path {
-      text: string;
+export interface Symbol {
+  kind: number;
+
+  location: Symbol.Location;
+
+  name: string;
+}
+
+export namespace Symbol {
+  export interface Location {
+    range: Location.Range;
+
+    uri: string;
+  }
+
+  export namespace Location {
+    export interface Range {
+      end: Range.End;
+
+      start: Range.Start;
     }
 
-    export interface Submatch {
-      end: number;
+    export namespace Range {
+      export interface End {
+        character: number;
 
-      match: Submatch.Match;
+        line: number;
+      }
 
-      start: number;
-    }
+      export interface Start {
+        character: number;
 
-    export namespace Submatch {
-      export interface Match {
-        text: string;
+        line: number;
       }
     }
   }
 }
+
+export type FindFilesResponse = Array<string>;
+
+export type FindSymbolsResponse = Array<Symbol>;
+
+export type FindTextResponse = Array<Match>;
 
 export interface FindFilesParams {
   query: string;
@@ -85,6 +121,8 @@ export interface FindTextParams {
 
 export declare namespace Find {
   export {
+    type Match as Match,
+    type Symbol as Symbol,
     type FindFilesResponse as FindFilesResponse,
     type FindSymbolsResponse as FindSymbolsResponse,
     type FindTextResponse as FindTextResponse,

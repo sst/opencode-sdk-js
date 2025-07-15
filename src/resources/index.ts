@@ -1,7 +1,16 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 export * from './shared';
-export { AppResource, type App, type AppInitResponse } from './app';
+export {
+  AppResource,
+  type App,
+  type LogLevel,
+  type Mode,
+  type AppInitResponse,
+  type AppLogResponse,
+  type AppModesResponse,
+  type AppLogParams,
+} from './app';
 export {
   ConfigResource,
   type Config,
@@ -13,9 +22,17 @@ export {
   type ConfigProvidersResponse,
 } from './config';
 export { Event, type EventListResponse } from './event';
-export { File, type FileReadResponse, type FileStatusResponse, type FileReadParams } from './file';
+export {
+  FileResource,
+  type File,
+  type FileReadResponse,
+  type FileStatusResponse,
+  type FileReadParams,
+} from './file';
 export {
   Find,
+  type Match,
+  type Symbol,
   type FindFilesResponse,
   type FindSymbolsResponse,
   type FindTextResponse,
@@ -26,10 +43,11 @@ export {
 export {
   SessionResource,
   type AssistantMessage,
-  type AssistantMessagePart,
   type FilePart,
   type Message,
+  type Part,
   type Session,
+  type StepFinishPart,
   type StepStartPart,
   type TextPart,
   type ToolPart,
@@ -37,7 +55,7 @@ export {
   type ToolStateError,
   type ToolStatePending,
   type ToolStateRunning,
-  type UserMessagePart,
+  type UserMessage,
   type SessionListResponse,
   type SessionDeleteResponse,
   type SessionAbortResponse,

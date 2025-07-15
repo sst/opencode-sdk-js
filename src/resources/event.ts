@@ -21,10 +21,10 @@ export type EventListResponse =
   | EventListResponse.EventPermissionUpdated
   | EventListResponse.EventFileEdited
   | EventListResponse.EventInstallationUpdated
-  | EventListResponse.EventStorageWrite
   | EventListResponse.EventMessageUpdated
   | EventListResponse.EventMessageRemoved
   | EventListResponse.EventMessagePartUpdated
+  | EventListResponse.EventStorageWrite
   | EventListResponse.EventSessionUpdated
   | EventListResponse.EventSessionDeleted
   | EventListResponse.EventSessionIdle
@@ -96,20 +96,6 @@ export namespace EventListResponse {
     }
   }
 
-  export interface EventStorageWrite {
-    properties: EventStorageWrite.Properties;
-
-    type: 'storage.write';
-  }
-
-  export namespace EventStorageWrite {
-    export interface Properties {
-      key: string;
-
-      content?: unknown;
-    }
-  }
-
   export interface EventMessageUpdated {
     properties: EventMessageUpdated.Properties;
 
@@ -144,11 +130,21 @@ export namespace EventListResponse {
 
   export namespace EventMessagePartUpdated {
     export interface Properties {
-      messageID: string;
+      part: SessionAPI.Part;
+    }
+  }
 
-      part: SessionAPI.AssistantMessagePart;
+  export interface EventStorageWrite {
+    properties: EventStorageWrite.Properties;
 
-      sessionID: string;
+    type: 'storage.write';
+  }
+
+  export namespace EventStorageWrite {
+    export interface Properties {
+      key: string;
+
+      content?: unknown;
     }
   }
 
@@ -196,7 +192,13 @@ export namespace EventListResponse {
 
   export namespace EventSessionError {
     export interface Properties {
-      error?: Shared.ProviderAuthError | Shared.UnknownError | Properties.MessageOutputLengthError;
+      error?:
+        | Shared.ProviderAuthError
+        | Shared.UnknownError
+        | Properties.MessageOutputLengthError
+        | Shared.MessageAbortedError;
+
+      sessionID?: string;
     }
 
     export namespace Properties {
