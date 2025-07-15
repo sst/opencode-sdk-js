@@ -4,7 +4,7 @@ import { APIResource } from '../core/resource';
 import { APIPromise } from '../core/api-promise';
 import { RequestOptions } from '../internal/request-options';
 
-export class File extends APIResource {
+export class FileResource extends APIResource {
   /**
    * Read a file
    */
@@ -20,32 +20,31 @@ export class File extends APIResource {
   }
 }
 
+export interface File {
+  added: number;
+
+  path: string;
+
+  removed: number;
+
+  status: 'added' | 'deleted' | 'modified';
+}
+
 export interface FileReadResponse {
   content: string;
 
   type: 'raw' | 'patch';
 }
 
-export type FileStatusResponse = Array<FileStatusResponse.FileStatusResponseItem>;
-
-export namespace FileStatusResponse {
-  export interface FileStatusResponseItem {
-    added: number;
-
-    file: string;
-
-    removed: number;
-
-    status: 'added' | 'deleted' | 'modified';
-  }
-}
+export type FileStatusResponse = Array<File>;
 
 export interface FileReadParams {
   path: string;
 }
 
-export declare namespace File {
+export declare namespace FileResource {
   export {
+    type File as File,
     type FileReadResponse as FileReadResponse,
     type FileStatusResponse as FileStatusResponse,
     type FileReadParams as FileReadParams,
