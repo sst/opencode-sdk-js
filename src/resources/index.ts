@@ -47,6 +47,7 @@ export {
   type Message,
   type Part,
   type Session,
+  type SnapshotPart,
   type StepFinishPart,
   type StepStartPart,
   type TextPart,
