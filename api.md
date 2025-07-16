@@ -23,9 +23,12 @@ Types:
 - <code><a href="./src/resources/app.ts">App</a></code>
 - <code><a href="./src/resources/app.ts">LogLevel</a></code>
 - <code><a href="./src/resources/app.ts">Mode</a></code>
+- <code><a href="./src/resources/app.ts">Model</a></code>
+- <code><a href="./src/resources/app.ts">Provider</a></code>
 - <code><a href="./src/resources/app.ts">AppInitResponse</a></code>
 - <code><a href="./src/resources/app.ts">AppLogResponse</a></code>
 - <code><a href="./src/resources/app.ts">AppModesResponse</a></code>
+- <code><a href="./src/resources/app.ts">AppProvidersResponse</a></code>
 
 Methods:
 
@@ -33,6 +36,7 @@ Methods:
 - <code title="post /app/init">client.app.<a href="./src/resources/app.ts">init</a>() -> AppInitResponse</code>
 - <code title="post /log">client.app.<a href="./src/resources/app.ts">log</a>({ ...params }) -> AppLogResponse</code>
 - <code title="get /mode">client.app.<a href="./src/resources/app.ts">modes</a>() -> AppModesResponse</code>
+- <code title="get /config/providers">client.app.<a href="./src/resources/app.ts">providers</a>() -> AppProvidersResponse</code>
 
 # Find
 
@@ -68,18 +72,15 @@ Methods:
 Types:
 
 - <code><a href="./src/resources/config.ts">Config</a></code>
-- <code><a href="./src/resources/config.ts">Keybinds</a></code>
-- <code><a href="./src/resources/config.ts">McpLocal</a></code>
-- <code><a href="./src/resources/config.ts">McpRemote</a></code>
-- <code><a href="./src/resources/config.ts">Mode</a></code>
-- <code><a href="./src/resources/config.ts">Model</a></code>
-- <code><a href="./src/resources/config.ts">Provider</a></code>
-- <code><a href="./src/resources/config.ts">ConfigProvidersResponse</a></code>
+- <code><a href="./src/resources/config.ts">KeybindsConfig</a></code>
+- <code><a href="./src/resources/config.ts">LayoutConfig</a></code>
+- <code><a href="./src/resources/config.ts">McpLocalConfig</a></code>
+- <code><a href="./src/resources/config.ts">McpRemoteConfig</a></code>
+- <code><a href="./src/resources/config.ts">ModeConfig</a></code>
 
 Methods:
 
 - <code title="get /config">client.config.<a href="./src/resources/config.ts">get</a>() -> Config</code>
-- <code title="get /config/providers">client.config.<a href="./src/resources/config.ts">providers</a>() -> ConfigProvidersResponse</code>
 
 # Session
 

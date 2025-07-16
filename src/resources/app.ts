@@ -32,6 +32,13 @@ export class AppResource extends APIResource {
   modes(options?: RequestOptions): APIPromise<AppModesResponse> {
     return this._client.get('/mode', options);
   }
+
+  /**
+   * List all providers
+   */
+  providers(options?: RequestOptions): APIPromise<AppProvidersResponse> {
+    return this._client.get('/config/providers', options);
+  }
 }
 
 export interface App {
@@ -85,11 +92,71 @@ export namespace Mode {
   }
 }
 
+export interface Model {
+  id: string;
+
+  attachment: boolean;
+
+  cost: Model.Cost;
+
+  limit: Model.Limit;
+
+  name: string;
+
+  options: { [key: string]: unknown };
+
+  reasoning: boolean;
+
+  release_date: string;
+
+  temperature: boolean;
+
+  tool_call: boolean;
+}
+
+export namespace Model {
+  export interface Cost {
+    input: number;
+
+    output: number;
+
+    cache_read?: number;
+
+    cache_write?: number;
+  }
+
+  export interface Limit {
+    context: number;
+
+    output: number;
+  }
+}
+
+export interface Provider {
+  id: string;
+
+  env: Array<string>;
+
+  models: { [key: string]: Model };
+
+  name: string;
+
+  api?: string;
+
+  npm?: string;
+}
+
 export type AppInitResponse = boolean;
 
 export type AppLogResponse = boolean;
 
 export type AppModesResponse = Array<Mode>;
+
+export interface AppProvidersResponse {
+  default: { [key: string]: string };
+
+  providers: Array<Provider>;
+}
 
 export interface AppLogParams {
   /**
@@ -118,9 +185,12 @@ export declare namespace AppResource {
     type App as App,
     type LogLevel as LogLevel,
     type Mode as Mode,
+    type Model as Model,
+    type Provider as Provider,
     type AppInitResponse as AppInitResponse,
     type AppLogResponse as AppLogResponse,
     type AppModesResponse as AppModesResponse,
+    type AppProvidersResponse as AppProvidersResponse,
     type AppLogParams as AppLogParams,
   };
 }
