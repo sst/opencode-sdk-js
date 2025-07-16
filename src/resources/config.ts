@@ -13,13 +13,6 @@ export class ConfigResource extends APIResource {
   get(options?: RequestOptions): APIPromise<Config> {
     return this._client.get('/config', options);
   }
-
-  /**
-   * List all providers
-   */
-  providers(options?: RequestOptions): APIPromise<ConfigProvidersResponse> {
-    return this._client.get('/config/providers', options);
-  }
 }
 
 export interface Config {
@@ -54,12 +47,12 @@ export interface Config {
   /**
    * Custom keybind configurations
    */
-  keybinds?: Keybinds;
+  keybinds?: KeybindsConfig;
 
   /**
    * Layout to use for the TUI
    */
-  layout?: 'auto' | 'stretch';
+  layout?: LayoutConfig;
 
   /**
    * Minimum log level to write to log files
@@ -69,7 +62,7 @@ export interface Config {
   /**
    * MCP (Model Context Protocol) server configurations
    */
-  mcp?: { [key: string]: McpLocal | McpRemote };
+  mcp?: { [key: string]: McpLocalConfig | McpRemoteConfig };
 
   /**
    * Modes configuration, see https://opencode.ai/docs/modes
@@ -134,11 +127,11 @@ export namespace Config {
    * Modes configuration, see https://opencode.ai/docs/modes
    */
   export interface Mode {
-    build?: ConfigAPI.Mode;
+    build?: ConfigAPI.ModeConfig;
 
-    plan?: ConfigAPI.Mode;
+    plan?: ConfigAPI.ModeConfig;
 
-    [k: string]: ConfigAPI.Mode | undefined;
+    [k: string]: ConfigAPI.ModeConfig | undefined;
   }
 
   export interface Provider {
@@ -200,7 +193,7 @@ export namespace Config {
   }
 }
 
-export interface Keybinds {
+export interface KeybindsConfig {
   /**
    * Exit the application
    */
@@ -377,7 +370,9 @@ export interface Keybinds {
   tool_details: string;
 }
 
-export interface McpLocal {
+export type LayoutConfig = 'auto' | 'stretch';
+
+export interface McpLocalConfig {
   /**
    * Command and arguments to run the MCP server
    */
@@ -399,7 +394,7 @@ export interface McpLocal {
   environment?: { [key: string]: string };
 }
 
-export interface McpRemote {
+export interface McpRemoteConfig {
   /**
    * Type of MCP server connection
    */
@@ -416,7 +411,7 @@ export interface McpRemote {
   enabled?: boolean;
 }
 
-export interface Mode {
+export interface ModeConfig {
   model?: string;
 
   prompt?: string;
@@ -424,75 +419,13 @@ export interface Mode {
   tools?: { [key: string]: boolean };
 }
 
-export interface Model {
-  id: string;
-
-  attachment: boolean;
-
-  cost: Model.Cost;
-
-  limit: Model.Limit;
-
-  name: string;
-
-  options: { [key: string]: unknown };
-
-  reasoning: boolean;
-
-  release_date: string;
-
-  temperature: boolean;
-
-  tool_call: boolean;
-}
-
-export namespace Model {
-  export interface Cost {
-    input: number;
-
-    output: number;
-
-    cache_read?: number;
-
-    cache_write?: number;
-  }
-
-  export interface Limit {
-    context: number;
-
-    output: number;
-  }
-}
-
-export interface Provider {
-  id: string;
-
-  env: Array<string>;
-
-  models: { [key: string]: Model };
-
-  name: string;
-
-  api?: string;
-
-  npm?: string;
-}
-
-export interface ConfigProvidersResponse {
-  default: { [key: string]: string };
-
-  providers: Array<Provider>;
-}
-
 export declare namespace ConfigResource {
   export {
     type Config as Config,
-    type Keybinds as Keybinds,
-    type McpLocal as McpLocal,
-    type McpRemote as McpRemote,
-    type Mode as Mode,
-    type Model as Model,
-    type Provider as Provider,
-    type ConfigProvidersResponse as ConfigProvidersResponse,
+    type KeybindsConfig as KeybindsConfig,
+    type LayoutConfig as LayoutConfig,
+    type McpLocalConfig as McpLocalConfig,
+    type McpRemoteConfig as McpRemoteConfig,
+    type ModeConfig as ModeConfig,
   };
 }

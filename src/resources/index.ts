@@ -6,21 +6,22 @@ export {
   type App,
   type LogLevel,
   type Mode,
+  type Model,
+  type Provider,
   type AppInitResponse,
   type AppLogResponse,
   type AppModesResponse,
+  type AppProvidersResponse,
   type AppLogParams,
 } from './app';
 export {
   ConfigResource,
   type Config,
-  type Keybinds,
-  type McpLocal,
-  type McpRemote,
-  type Mode,
-  type Model,
-  type Provider,
-  type ConfigProvidersResponse,
+  type KeybindsConfig,
+  type LayoutConfig,
+  type McpLocalConfig,
+  type McpRemoteConfig,
+  type ModeConfig,
 } from './config';
 export { Event, type EventListResponse } from './event';
 export {
