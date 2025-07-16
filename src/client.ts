@@ -22,20 +22,21 @@ import {
   AppLogParams,
   AppLogResponse,
   AppModesResponse,
+  AppProvidersResponse,
   AppResource,
   LogLevel,
   Mode,
+  Model,
+  Provider,
 } from './resources/app';
 import {
   Config,
-  ConfigProvidersResponse,
   ConfigResource,
-  Keybinds,
-  McpLocal,
-  McpRemote,
-  Mode as ConfigAPIMode,
-  Model,
-  Provider,
+  KeybindsConfig,
+  LayoutConfig,
+  McpLocalConfig,
+  McpRemoteConfig,
+  ModeConfig,
 } from './resources/config';
 import { Event, EventListResponse } from './resources/event';
 import { File, FileReadParams, FileReadResponse, FileResource, FileStatusResponse } from './resources/file';
@@ -770,9 +771,12 @@ export declare namespace Opencode {
     type App as App,
     type LogLevel as LogLevel,
     type Mode as Mode,
+    type Model as Model,
+    type Provider as Provider,
     type AppInitResponse as AppInitResponse,
     type AppLogResponse as AppLogResponse,
     type AppModesResponse as AppModesResponse,
+    type AppProvidersResponse as AppProvidersResponse,
     type AppLogParams as AppLogParams,
   };
 
@@ -799,13 +803,11 @@ export declare namespace Opencode {
   export {
     ConfigResource as ConfigResource,
     type Config as Config,
-    type Keybinds as Keybinds,
-    type McpLocal as McpLocal,
-    type McpRemote as McpRemote,
-    type ConfigAPIMode as Mode,
-    type Model as Model,
-    type Provider as Provider,
-    type ConfigProvidersResponse as ConfigProvidersResponse,
+    type KeybindsConfig as KeybindsConfig,
+    type LayoutConfig as LayoutConfig,
+    type McpLocalConfig as McpLocalConfig,
+    type McpRemoteConfig as McpRemoteConfig,
+    type ModeConfig as ModeConfig,
   };
 
   export {
