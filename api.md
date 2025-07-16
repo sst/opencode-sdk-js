@@ -71,6 +71,7 @@ Types:
 - <code><a href="./src/resources/config.ts">Keybinds</a></code>
 - <code><a href="./src/resources/config.ts">McpLocal</a></code>
 - <code><a href="./src/resources/config.ts">McpRemote</a></code>
+- <code><a href="./src/resources/config.ts">Mode</a></code>
 - <code><a href="./src/resources/config.ts">Model</a></code>
 - <code><a href="./src/resources/config.ts">Provider</a></code>
 - <code><a href="./src/resources/config.ts">ConfigProvidersResponse</a></code>
