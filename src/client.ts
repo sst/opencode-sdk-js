@@ -33,6 +33,7 @@ import {
   Keybinds,
   McpLocal,
   McpRemote,
+  Mode as ConfigAPIMode,
   Model,
   Provider,
 } from './resources/config';
@@ -801,6 +802,7 @@ export declare namespace Opencode {
     type Keybinds as Keybinds,
     type McpLocal as McpLocal,
     type McpRemote as McpRemote,
+    type ConfigAPIMode as Mode,
     type Model as Model,
     type Provider as Provider,
     type ConfigProvidersResponse as ConfigProvidersResponse,

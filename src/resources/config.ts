@@ -1,6 +1,7 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../core/resource';
+import * as ConfigAPI from './config';
 import * as AppAPI from './app';
 import { APIPromise } from '../core/api-promise';
 import { RequestOptions } from '../internal/request-options';
@@ -54,6 +55,11 @@ export interface Config {
    * Custom keybind configurations
    */
   keybinds?: Keybinds;
+
+  /**
+   * Layout to use for the TUI
+   */
+  layout?: 'auto' | 'stretch';
 
   /**
    * Minimum log level to write to log files
@@ -122,53 +128,11 @@ export namespace Config {
   }
 
   export interface Mode {
-    build?: Mode.Build;
+    build?: ConfigAPI.Mode;
 
-    plan?: Mode.Plan;
+    plan?: ConfigAPI.Mode;
 
-    [k: string]: Mode.ModeConfig | undefined;
-  }
-
-  export namespace Mode {
-    export interface Build {
-      model?: string;
-
-      prompt?: string;
-
-      tools?: { [key: string]: boolean };
-    }
-
-    export interface Plan {
-      model?: string;
-
-      prompt?: string;
-
-      tools?: { [key: string]: boolean };
-    }
-
-    export interface ModeConfig {
-      model?: string;
-
-      prompt?: string;
-
-      tools?: { [key: string]: boolean };
-    }
-  }
-
-  export interface ModeConfig {
-    model?: string;
-
-    prompt?: string;
-
-    tools?: { [key: string]: boolean };
-  }
-
-  export interface ModeConfig {
-    model?: string;
-
-    prompt?: string;
-
-    tools?: { [key: string]: boolean };
+    [k: string]: ConfigAPI.Mode | undefined;
   }
 
   export interface Provider {
@@ -362,6 +326,11 @@ export interface Keybinds {
   session_compact: string;
 
   /**
+   * Export session to editor
+   */
+  session_export: string;
+
+  /**
    * Interrupt current session
    */
   session_interrupt: string;
@@ -441,6 +410,14 @@ export interface McpRemote {
   enabled?: boolean;
 }
 
+export interface Mode {
+  model?: string;
+
+  prompt?: string;
+
+  tools?: { [key: string]: boolean };
+}
+
 export interface Model {
   id: string;
 
@@ -507,6 +484,7 @@ export declare namespace ConfigResource {
     type Keybinds as Keybinds,
     type McpLocal as McpLocal,
     type McpRemote as McpRemote,
+    type Mode as Mode,
     type Model as Model,
     type Provider as Provider,
     type ConfigProvidersResponse as ConfigProvidersResponse,
