@@ -17,6 +17,7 @@ export {
   type Keybinds,
   type McpLocal,
   type McpRemote,
+  type Mode,
   type Model,
   type Provider,
   type ConfigProvidersResponse,
