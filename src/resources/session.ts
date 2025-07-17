@@ -402,15 +402,51 @@ export namespace SessionMessagesResponse {
 export type SessionSummarizeResponse = boolean;
 
 export interface SessionChatParams {
-  messageID: string;
-
-  mode: string;
-
   modelID: string;
 
-  parts: Array<FilePart | TextPart>;
+  parts: Array<SessionChatParams.UnionMember0 | SessionChatParams.UnionMember1>;
 
   providerID: string;
+
+  sessionID: string;
+
+  messageID?: string;
+
+  mode?: string;
+}
+
+export namespace SessionChatParams {
+  export interface UnionMember0 {
+    text: string;
+
+    type: 'text';
+
+    id?: string;
+
+    synthetic?: boolean;
+
+    time?: UnionMember0.Time;
+  }
+
+  export namespace UnionMember0 {
+    export interface Time {
+      start: number;
+
+      end?: number;
+    }
+  }
+
+  export interface UnionMember1 {
+    mime: string;
+
+    type: 'file';
+
+    url: string;
+
+    id?: string;
+
+    filename?: string;
+  }
 }
 
 export interface SessionInitParams {

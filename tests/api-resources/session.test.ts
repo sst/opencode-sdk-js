@@ -56,13 +56,10 @@ describe('resource session', () => {
   // skipped: tests are disabled for the time being
   test.skip('chat: only required params', async () => {
     const responsePromise = client.session.chat('id', {
-      messageID: 'messageID',
-      mode: 'mode',
       modelID: 'modelID',
-      parts: [
-        { id: 'id', messageID: 'messageID', mime: 'mime', sessionID: 'sessionID', type: 'file', url: 'url' },
-      ],
+      parts: [{ text: 'text', type: 'text' }],
       providerID: 'providerID',
+      sessionID: 'ses',
     });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -76,21 +73,12 @@ describe('resource session', () => {
   // skipped: tests are disabled for the time being
   test.skip('chat: required and optional params', async () => {
     const response = await client.session.chat('id', {
-      messageID: 'messageID',
-      mode: 'mode',
       modelID: 'modelID',
-      parts: [
-        {
-          id: 'id',
-          messageID: 'messageID',
-          mime: 'mime',
-          sessionID: 'sessionID',
-          type: 'file',
-          url: 'url',
-          filename: 'filename',
-        },
-      ],
+      parts: [{ text: 'text', type: 'text', id: 'id', synthetic: true, time: { start: 0, end: 0 } }],
       providerID: 'providerID',
+      sessionID: 'ses',
+      messageID: 'msg',
+      mode: 'mode',
     });
   });
 
