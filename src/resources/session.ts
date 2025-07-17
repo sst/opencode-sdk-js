@@ -440,8 +440,6 @@ export interface SessionChatParams {
 
   providerID: string;
 
-  sessionID: string;
-
   messageID?: string;
 
   mode?: string;
