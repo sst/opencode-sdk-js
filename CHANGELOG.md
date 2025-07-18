@@ -1,5 +1,21 @@
 # Changelog
 
+## 0.1.0-alpha.21 (2025-07-18)
+
+Full Changelog: [v0.1.0-alpha.20...v0.1.0-alpha.21](https://github.com/sst/opencode-sdk-js/compare/v0.1.0-alpha.20...v0.1.0-alpha.21)
+
+### Features
+
+* **api:** api update ([1c7312c](https://github.com/sst/opencode-sdk-js/commit/1c7312c6e50fce79f113cc34370828f9ca502a3a))
+* **api:** api update ([046bc67](https://github.com/sst/opencode-sdk-js/commit/046bc67789d10a12d3acdc9a8cc6eef84390ae0b))
+* **api:** api update ([a1fad7a](https://github.com/sst/opencode-sdk-js/commit/a1fad7a6eb72cbdee9ea828ac1ace12673d89c78))
+* **api:** api update ([5a8c2e7](https://github.com/sst/opencode-sdk-js/commit/5a8c2e7de8542093ce465ab4012ebafe409361f6))
+
+
+### Chores
+
+* **ts:** reorder package.json imports ([6d9aed6](https://github.com/sst/opencode-sdk-js/commit/6d9aed6827bb415550ae17edec138a98760f1f0e))
+
 ## 0.1.0-alpha.20 (2025-07-16)
 
 Full Changelog: [v0.1.0-alpha.19...v0.1.0-alpha.20](https://github.com/sst/opencode-sdk-js/compare/v0.1.0-alpha.19...v0.1.0-alpha.20)
