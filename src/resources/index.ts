@@ -18,7 +18,6 @@ export {
   ConfigResource,
   type Config,
   type KeybindsConfig,
-  type LayoutConfig,
   type McpLocalConfig,
   type McpRemoteConfig,
   type ModeConfig,
