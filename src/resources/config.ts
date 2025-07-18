@@ -50,9 +50,9 @@ export interface Config {
   keybinds?: KeybindsConfig;
 
   /**
-   * Layout to use for the TUI
+   * @deprecated Always uses stretch layout.
    */
-  layout?: LayoutConfig;
+  layout?: 'auto' | 'stretch';
 
   /**
    * Minimum log level to write to log files
@@ -375,8 +375,6 @@ export interface KeybindsConfig {
   tool_details: string;
 }
 
-export type LayoutConfig = 'auto' | 'stretch';
-
 export interface McpLocalConfig {
   /**
    * Command and arguments to run the MCP server
@@ -433,7 +431,6 @@ export declare namespace ConfigResource {
   export {
     type Config as Config,
     type KeybindsConfig as KeybindsConfig,
-    type LayoutConfig as LayoutConfig,
     type McpLocalConfig as McpLocalConfig,
     type McpRemoteConfig as McpRemoteConfig,
     type ModeConfig as ModeConfig,

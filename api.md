@@ -73,7 +73,6 @@ Types:
 
 - <code><a href="./src/resources/config.ts">Config</a></code>
 - <code><a href="./src/resources/config.ts">KeybindsConfig</a></code>
-- <code><a href="./src/resources/config.ts">LayoutConfig</a></code>
 - <code><a href="./src/resources/config.ts">McpLocalConfig</a></code>
 - <code><a href="./src/resources/config.ts">McpRemoteConfig</a></code>
 - <code><a href="./src/resources/config.ts">ModeConfig</a></code>
