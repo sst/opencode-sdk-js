@@ -167,6 +167,18 @@ export interface FilePart {
   filename?: string;
 }
 
+export interface FilePartInput {
+  mime: string;
+
+  type: 'file';
+
+  url: string;
+
+  id?: string;
+
+  filename?: string;
+}
+
 export type Message = UserMessage | AssistantMessage;
 
 export type Part = TextPart | FilePart | ToolPart | StepStartPart | StepFinishPart | SnapshotPart;
@@ -280,6 +292,26 @@ export interface TextPart {
 }
 
 export namespace TextPart {
+  export interface Time {
+    start: number;
+
+    end?: number;
+  }
+}
+
+export interface TextPartInput {
+  text: string;
+
+  type: 'text';
+
+  id?: string;
+
+  synthetic?: boolean;
+
+  time?: TextPartInput.Time;
+}
+
+export namespace TextPartInput {
   export interface Time {
     start: number;
 
@@ -402,15 +434,15 @@ export namespace SessionMessagesResponse {
 export type SessionSummarizeResponse = boolean;
 
 export interface SessionChatParams {
-  messageID: string;
-
-  mode: string;
-
   modelID: string;
 
-  parts: Array<FilePart | TextPart>;
+  parts: Array<TextPartInput | FilePartInput>;
 
   providerID: string;
+
+  messageID?: string;
+
+  mode?: string;
 }
 
 export interface SessionInitParams {
@@ -431,6 +463,7 @@ export declare namespace SessionResource {
   export {
     type AssistantMessage as AssistantMessage,
     type FilePart as FilePart,
+    type FilePartInput as FilePartInput,
     type Message as Message,
     type Part as Part,
     type Session as Session,
@@ -438,6 +471,7 @@ export declare namespace SessionResource {
     type StepFinishPart as StepFinishPart,
     type StepStartPart as StepStartPart,
     type TextPart as TextPart,
+    type TextPartInput as TextPartInput,
     type ToolPart as ToolPart,
     type ToolStateCompleted as ToolStateCompleted,
     type ToolStateError as ToolStateError,

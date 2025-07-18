@@ -73,7 +73,6 @@ Types:
 
 - <code><a href="./src/resources/config.ts">Config</a></code>
 - <code><a href="./src/resources/config.ts">KeybindsConfig</a></code>
-- <code><a href="./src/resources/config.ts">LayoutConfig</a></code>
 - <code><a href="./src/resources/config.ts">McpLocalConfig</a></code>
 - <code><a href="./src/resources/config.ts">McpRemoteConfig</a></code>
 - <code><a href="./src/resources/config.ts">ModeConfig</a></code>
@@ -88,6 +87,7 @@ Types:
 
 - <code><a href="./src/resources/session.ts">AssistantMessage</a></code>
 - <code><a href="./src/resources/session.ts">FilePart</a></code>
+- <code><a href="./src/resources/session.ts">FilePartInput</a></code>
 - <code><a href="./src/resources/session.ts">Message</a></code>
 - <code><a href="./src/resources/session.ts">Part</a></code>
 - <code><a href="./src/resources/session.ts">Session</a></code>
@@ -95,6 +95,7 @@ Types:
 - <code><a href="./src/resources/session.ts">StepFinishPart</a></code>
 - <code><a href="./src/resources/session.ts">StepStartPart</a></code>
 - <code><a href="./src/resources/session.ts">TextPart</a></code>
+- <code><a href="./src/resources/session.ts">TextPartInput</a></code>
 - <code><a href="./src/resources/session.ts">ToolPart</a></code>
 - <code><a href="./src/resources/session.ts">ToolStateCompleted</a></code>
 - <code><a href="./src/resources/session.ts">ToolStateError</a></code>

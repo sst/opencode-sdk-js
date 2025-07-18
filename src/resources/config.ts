@@ -50,9 +50,9 @@ export interface Config {
   keybinds?: KeybindsConfig;
 
   /**
-   * Layout to use for the TUI
+   * @deprecated Always uses stretch layout.
    */
-  layout?: LayoutConfig;
+  layout?: 'auto' | 'stretch';
 
   /**
    * Minimum log level to write to log files
@@ -80,10 +80,10 @@ export interface Config {
   provider?: { [key: string]: Config.Provider };
 
   /**
-   * Control sharing behavior: 'auto' enables automatic sharing, 'disabled' disables
-   * all sharing
+   * Control sharing behavior:'manual' allows manual sharing via commands, 'auto'
+   * enables automatic sharing, 'disabled' disables all sharing
    */
-  share?: 'auto' | 'disabled';
+  share?: 'manual' | 'auto' | 'disabled';
 
   /**
    * Theme name to use for the interface
@@ -355,9 +355,14 @@ export interface KeybindsConfig {
   session_unshare: string;
 
   /**
-   * Switch mode
+   * Next mode
    */
   switch_mode: string;
+
+  /**
+   * Previous Mode
+   */
+  switch_mode_reverse: string;
 
   /**
    * List available themes
@@ -369,8 +374,6 @@ export interface KeybindsConfig {
    */
   tool_details: string;
 }
-
-export type LayoutConfig = 'auto' | 'stretch';
 
 export interface McpLocalConfig {
   /**
@@ -409,6 +412,11 @@ export interface McpRemoteConfig {
    * Enable or disable the MCP server on startup
    */
   enabled?: boolean;
+
+  /**
+   * Headers to send with the request
+   */
+  headers?: { [key: string]: string };
 }
 
 export interface ModeConfig {
@@ -423,7 +431,6 @@ export declare namespace ConfigResource {
   export {
     type Config as Config,
     type KeybindsConfig as KeybindsConfig,
-    type LayoutConfig as LayoutConfig,
     type McpLocalConfig as McpLocalConfig,
     type McpRemoteConfig as McpRemoteConfig,
     type ModeConfig as ModeConfig,
