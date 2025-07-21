@@ -133,4 +133,4 @@ Types:
 
 Methods:
 
-- <code title="post /tui/prompt">client.tui.<a href="./src/resources/tui.ts">prompt</a>() -> TuiPromptResponse</code>
+- <code title="post /tui/prompt">client.tui.<a href="./src/resources/tui.ts">prompt</a>({ ...params }) -> TuiPromptResponse</code>
