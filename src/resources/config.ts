@@ -2,7 +2,6 @@
 
 import { APIResource } from '../core/resource';
 import * as ConfigAPI from './config';
-import * as AppAPI from './app';
 import { APIPromise } from '../core/api-promise';
 import { RequestOptions } from '../internal/request-options';
 
@@ -55,11 +54,6 @@ export interface Config {
   layout?: 'auto' | 'stretch';
 
   /**
-   * Minimum log level to write to log files
-   */
-  log_level?: AppAPI.LogLevel;
-
-  /**
    * MCP (Model Context Protocol) server configurations
    */
   mcp?: { [key: string]: McpLocalConfig | McpRemoteConfig };
@@ -84,6 +78,12 @@ export interface Config {
    * enables automatic sharing, 'disabled' disables all sharing
    */
   share?: 'manual' | 'auto' | 'disabled';
+
+  /**
+   * Small model to use for tasks like summarization and title generation in the
+   * format of provider/model
+   */
+  small_model?: string;
 
   /**
    * Theme name to use for the interface
