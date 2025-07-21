@@ -165,6 +165,8 @@ export interface FilePart {
   url: string;
 
   filename?: string;
+
+  source?: FilePartSource;
 }
 
 export interface FilePartInput {
@@ -177,6 +179,26 @@ export interface FilePartInput {
   id?: string;
 
   filename?: string;
+
+  source?: FilePartSource;
+}
+
+export type FilePartSource = FileSource | SymbolSource;
+
+export interface FilePartSourceText {
+  end: number;
+
+  start: number;
+
+  value: string;
+}
+
+export interface FileSource {
+  path: string;
+
+  text: FilePartSourceText;
+
+  type: 'file';
 }
 
 export type Message = UserMessage | AssistantMessage;
@@ -273,6 +295,42 @@ export interface StepStartPart {
   sessionID: string;
 
   type: 'step-start';
+}
+
+export interface SymbolSource {
+  kind: number;
+
+  name: string;
+
+  path: string;
+
+  range: SymbolSource.Range;
+
+  text: FilePartSourceText;
+
+  type: 'symbol';
+}
+
+export namespace SymbolSource {
+  export interface Range {
+    end: Range.End;
+
+    start: Range.Start;
+  }
+
+  export namespace Range {
+    export interface End {
+      character: number;
+
+      line: number;
+    }
+
+    export interface Start {
+      character: number;
+
+      line: number;
+    }
+  }
 }
 
 export interface TextPart {
@@ -443,6 +501,8 @@ export interface SessionChatParams {
   messageID?: string;
 
   mode?: string;
+
+  tools?: { [key: string]: boolean };
 }
 
 export interface SessionInitParams {
@@ -464,12 +524,16 @@ export declare namespace SessionResource {
     type AssistantMessage as AssistantMessage,
     type FilePart as FilePart,
     type FilePartInput as FilePartInput,
+    type FilePartSource as FilePartSource,
+    type FilePartSourceText as FilePartSourceText,
+    type FileSource as FileSource,
     type Message as Message,
     type Part as Part,
     type Session as Session,
     type SnapshotPart as SnapshotPart,
     type StepFinishPart as StepFinishPart,
     type StepStartPart as StepStartPart,
+    type SymbolSource as SymbolSource,
     type TextPart as TextPart,
     type TextPartInput as TextPartInput,
     type ToolPart as ToolPart,
