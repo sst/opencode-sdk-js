@@ -82,7 +82,7 @@ import {
   ToolStateRunning,
   UserMessage,
 } from './resources/session';
-import { Tui } from './resources/tui';
+import { Tui, TuiPromptResponse } from './resources/tui';
 import { type Fetch } from './internal/builtin-types';
 import { HeadersLike, NullableHeaders, buildHeaders } from './internal/headers';
 import { FinalRequestOptions, RequestOptions } from './internal/request-options';
@@ -849,7 +849,7 @@ export declare namespace Opencode {
     type SessionSummarizeParams as SessionSummarizeParams,
   };
 
-  export { Tui as Tui };
+  export { Tui as Tui, type TuiPromptResponse as TuiPromptResponse };
 
   export type MessageAbortedError = API.MessageAbortedError;
   export type ProviderAuthError = API.ProviderAuthError;
