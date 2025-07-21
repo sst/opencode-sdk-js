@@ -24,7 +24,6 @@ import {
   AppModesResponse,
   AppProvidersResponse,
   AppResource,
-  LogLevel,
   Mode,
   Model,
   Provider,
@@ -54,6 +53,9 @@ import {
   AssistantMessage,
   FilePart,
   FilePartInput,
+  FilePartSource,
+  FilePartSourceText,
+  FileSource,
   Message,
   Part,
   Session,
@@ -70,6 +72,7 @@ import {
   SnapshotPart,
   StepFinishPart,
   StepStartPart,
+  SymbolSource,
   TextPart,
   TextPartInput,
   ToolPart,
@@ -84,7 +87,7 @@ import { HeadersLike, NullableHeaders, buildHeaders } from './internal/headers';
 import { FinalRequestOptions, RequestOptions } from './internal/request-options';
 import { readEnv } from './internal/utils/env';
 import {
-  type LogLevel as ClientLogLevel,
+  type LogLevel,
   type Logger,
   formatRequestDetails,
   loggerFor,
@@ -152,7 +155,7 @@ export interface ClientOptions {
    *
    * Defaults to process.env['OPENCODE_LOG'] or 'warn' if it isn't set.
    */
-  logLevel?: ClientLogLevel | undefined;
+  logLevel?: LogLevel | undefined;
 
   /**
    * Set the logger.
@@ -170,7 +173,7 @@ export class Opencode {
   maxRetries: number;
   timeout: number;
   logger: Logger | undefined;
-  logLevel: ClientLogLevel | undefined;
+  logLevel: LogLevel | undefined;
   fetchOptions: MergedRequestInit | undefined;
 
   private fetch: Fetch;
@@ -770,7 +773,6 @@ export declare namespace Opencode {
   export {
     AppResource as AppResource,
     type App as App,
-    type LogLevel as LogLevel,
     type Mode as Mode,
     type Model as Model,
     type Provider as Provider,
@@ -815,12 +817,16 @@ export declare namespace Opencode {
     type AssistantMessage as AssistantMessage,
     type FilePart as FilePart,
     type FilePartInput as FilePartInput,
+    type FilePartSource as FilePartSource,
+    type FilePartSourceText as FilePartSourceText,
+    type FileSource as FileSource,
     type Message as Message,
     type Part as Part,
     type Session as Session,
     type SnapshotPart as SnapshotPart,
     type StepFinishPart as StepFinishPart,
     type StepStartPart as StepStartPart,
+    type SymbolSource as SymbolSource,
     type TextPart as TextPart,
     type TextPartInput as TextPartInput,
     type ToolPart as ToolPart,

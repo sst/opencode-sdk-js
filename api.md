@@ -21,7 +21,6 @@ Methods:
 Types:
 
 - <code><a href="./src/resources/app.ts">App</a></code>
-- <code><a href="./src/resources/app.ts">LogLevel</a></code>
 - <code><a href="./src/resources/app.ts">Mode</a></code>
 - <code><a href="./src/resources/app.ts">Model</a></code>
 - <code><a href="./src/resources/app.ts">Provider</a></code>
@@ -88,12 +87,16 @@ Types:
 - <code><a href="./src/resources/session.ts">AssistantMessage</a></code>
 - <code><a href="./src/resources/session.ts">FilePart</a></code>
 - <code><a href="./src/resources/session.ts">FilePartInput</a></code>
+- <code><a href="./src/resources/session.ts">FilePartSource</a></code>
+- <code><a href="./src/resources/session.ts">FilePartSourceText</a></code>
+- <code><a href="./src/resources/session.ts">FileSource</a></code>
 - <code><a href="./src/resources/session.ts">Message</a></code>
 - <code><a href="./src/resources/session.ts">Part</a></code>
 - <code><a href="./src/resources/session.ts">Session</a></code>
 - <code><a href="./src/resources/session.ts">SnapshotPart</a></code>
 - <code><a href="./src/resources/session.ts">StepFinishPart</a></code>
 - <code><a href="./src/resources/session.ts">StepStartPart</a></code>
+- <code><a href="./src/resources/session.ts">SymbolSource</a></code>
 - <code><a href="./src/resources/session.ts">TextPart</a></code>
 - <code><a href="./src/resources/session.ts">TextPartInput</a></code>
 - <code><a href="./src/resources/session.ts">ToolPart</a></code>
