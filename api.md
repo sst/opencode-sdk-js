@@ -129,8 +129,10 @@ Methods:
 
 Types:
 
+- <code><a href="./src/resources/tui.ts">TuiOpenHelpResponse</a></code>
 - <code><a href="./src/resources/tui.ts">TuiPromptResponse</a></code>
 
 Methods:
 
+- <code title="post /tui/open-help">client.tui.<a href="./src/resources/tui.ts">openHelp</a>() -> TuiOpenHelpResponse</code>
 - <code title="post /tui/prompt">client.tui.<a href="./src/resources/tui.ts">prompt</a>({ ...params }) -> TuiPromptResponse</code>
