@@ -82,6 +82,7 @@ import {
   ToolStateRunning,
   UserMessage,
 } from './resources/session';
+import { Tui } from './resources/tui';
 import { type Fetch } from './internal/builtin-types';
 import { HeadersLike, NullableHeaders, buildHeaders } from './internal/headers';
 import { FinalRequestOptions, RequestOptions } from './internal/request-options';
@@ -758,6 +759,7 @@ export class Opencode {
   file: API.FileResource = new API.FileResource(this);
   config: API.ConfigResource = new API.ConfigResource(this);
   session: API.SessionResource = new API.SessionResource(this);
+  tui: API.Tui = new API.Tui(this);
 }
 Opencode.Event = Event;
 Opencode.AppResource = AppResource;
@@ -765,6 +767,7 @@ Opencode.Find = Find;
 Opencode.FileResource = FileResource;
 Opencode.ConfigResource = ConfigResource;
 Opencode.SessionResource = SessionResource;
+Opencode.Tui = Tui;
 export declare namespace Opencode {
   export type RequestOptions = Opts.RequestOptions;
 
@@ -845,6 +848,8 @@ export declare namespace Opencode {
     type SessionInitParams as SessionInitParams,
     type SessionSummarizeParams as SessionSummarizeParams,
   };
+
+  export { Tui as Tui };
 
   export type MessageAbortedError = API.MessageAbortedError;
   export type ProviderAuthError = API.ProviderAuthError;
