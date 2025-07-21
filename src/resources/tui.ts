@@ -7,12 +7,21 @@ import { RequestOptions } from '../internal/request-options';
 
 export class Tui extends APIResource {
   /**
+   * Open the help dialog
+   */
+  openHelp(options?: RequestOptions): APIPromise<TuiOpenHelpResponse> {
+    return this._client.post('/tui/open-help', options);
+  }
+
+  /**
    * Send a prompt to the TUI
    */
   prompt(body: TuiPromptParams, options?: RequestOptions): APIPromise<TuiPromptResponse> {
     return this._client.post('/tui/prompt', { body, ...options });
   }
 }
+
+export type TuiOpenHelpResponse = boolean;
 
 export type TuiPromptResponse = boolean;
 
@@ -23,5 +32,9 @@ export interface TuiPromptParams {
 }
 
 export declare namespace Tui {
-  export { type TuiPromptResponse as TuiPromptResponse, type TuiPromptParams as TuiPromptParams };
+  export {
+    type TuiOpenHelpResponse as TuiOpenHelpResponse,
+    type TuiPromptResponse as TuiPromptResponse,
+    type TuiPromptParams as TuiPromptParams,
+  };
 }

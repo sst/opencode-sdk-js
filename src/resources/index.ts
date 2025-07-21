@@ -73,4 +73,4 @@ export {
   type SessionInitParams,
   type SessionSummarizeParams,
 } from './session';
-export { Tui, type TuiPromptResponse, type TuiPromptParams } from './tui';
+export { Tui, type TuiOpenHelpResponse, type TuiPromptResponse, type TuiPromptParams } from './tui';
