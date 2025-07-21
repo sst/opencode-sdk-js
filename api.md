@@ -126,3 +126,11 @@ Methods:
 - <code title="delete /session/{id}/share">client.session.<a href="./src/resources/session.ts">unshare</a>(id) -> Session</code>
 
 # Tui
+
+Types:
+
+- <code><a href="./src/resources/tui.ts">TuiPromptResponse</a></code>
+
+Methods:
+
+- <code title="post /tui/prompt">client.tui.<a href="./src/resources/tui.ts">prompt</a>() -> TuiPromptResponse</code>
