@@ -82,7 +82,7 @@ import {
   ToolStateRunning,
   UserMessage,
 } from './resources/session';
-import { Tui, TuiOpenHelpResponse, TuiPromptParams, TuiPromptResponse } from './resources/tui';
+import { Tui, TuiAppendPromptParams, TuiAppendPromptResponse, TuiOpenHelpResponse } from './resources/tui';
 import { type Fetch } from './internal/builtin-types';
 import { HeadersLike, NullableHeaders, buildHeaders } from './internal/headers';
 import { FinalRequestOptions, RequestOptions } from './internal/request-options';
@@ -851,9 +851,9 @@ export declare namespace Opencode {
 
   export {
     Tui as Tui,
+    type TuiAppendPromptResponse as TuiAppendPromptResponse,
     type TuiOpenHelpResponse as TuiOpenHelpResponse,
-    type TuiPromptResponse as TuiPromptResponse,
-    type TuiPromptParams as TuiPromptParams,
+    type TuiAppendPromptParams as TuiAppendPromptParams,
   };
 
   export type MessageAbortedError = API.MessageAbortedError;
