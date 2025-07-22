@@ -71,6 +71,7 @@ export {
   type SessionSummarizeResponse,
   type SessionChatParams,
   type SessionInitParams,
+  type SessionRevertParams,
   type SessionSummarizeParams,
 } from './session';
 export {

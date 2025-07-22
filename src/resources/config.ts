@@ -305,9 +305,19 @@ export interface KeybindsConfig {
   messages_previous: string;
 
   /**
-   * Revert message
+   * Redo message
+   */
+  messages_redo: string;
+
+  /**
+   * @deprecated use messages_undo. Revert message
    */
   messages_revert: string;
+
+  /**
+   * Undo message
+   */
+  messages_undo: string;
 
   /**
    * List available models
