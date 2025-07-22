@@ -58,6 +58,13 @@ export class SessionResource extends APIResource {
   }
 
   /**
+   * Revert a message
+   */
+  revert(id: string, body: SessionRevertParams, options?: RequestOptions): APIPromise<Session> {
+    return this._client.post(path`/session/${id}/revert`, { body, ...options });
+  }
+
+  /**
    * Share a session
    */
   share(id: string, options?: RequestOptions): APIPromise<Session> {
@@ -73,6 +80,13 @@ export class SessionResource extends APIResource {
     options?: RequestOptions,
   ): APIPromise<SessionSummarizeResponse> {
     return this._client.post(path`/session/${id}/summarize`, { body, ...options });
+  }
+
+  /**
+   * Restore all reverted messages
+   */
+  unrevert(id: string, options?: RequestOptions): APIPromise<Session> {
+    return this._client.post(path`/session/${id}/unrevert`, options);
   }
 
   /**
@@ -231,7 +245,7 @@ export namespace Session {
   export interface Revert {
     messageID: string;
 
-    part: number;
+    partID?: string;
 
     snapshot?: string;
   }
@@ -513,6 +527,12 @@ export interface SessionInitParams {
   providerID: string;
 }
 
+export interface SessionRevertParams {
+  messageID: string;
+
+  partID?: string;
+}
+
 export interface SessionSummarizeParams {
   modelID: string;
 
@@ -550,6 +570,7 @@ export declare namespace SessionResource {
     type SessionSummarizeResponse as SessionSummarizeResponse,
     type SessionChatParams as SessionChatParams,
     type SessionInitParams as SessionInitParams,
+    type SessionRevertParams as SessionRevertParams,
     type SessionSummarizeParams as SessionSummarizeParams,
   };
 }

@@ -121,8 +121,10 @@ Methods:
 - <code title="post /session/{id}/message">client.session.<a href="./src/resources/session.ts">chat</a>(id, { ...params }) -> AssistantMessage</code>
 - <code title="post /session/{id}/init">client.session.<a href="./src/resources/session.ts">init</a>(id, { ...params }) -> SessionInitResponse</code>
 - <code title="get /session/{id}/message">client.session.<a href="./src/resources/session.ts">messages</a>(id) -> SessionMessagesResponse</code>
+- <code title="post /session/{id}/revert">client.session.<a href="./src/resources/session.ts">revert</a>(id, { ...params }) -> Session</code>
 - <code title="post /session/{id}/share">client.session.<a href="./src/resources/session.ts">share</a>(id) -> Session</code>
 - <code title="post /session/{id}/summarize">client.session.<a href="./src/resources/session.ts">summarize</a>(id, { ...params }) -> SessionSummarizeResponse</code>
+- <code title="post /session/{id}/unrevert">client.session.<a href="./src/resources/session.ts">unrevert</a>(id) -> Session</code>
 - <code title="delete /session/{id}/share">client.session.<a href="./src/resources/session.ts">unshare</a>(id) -> Session</code>
 
 # Tui

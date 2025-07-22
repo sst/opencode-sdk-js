@@ -67,6 +67,7 @@ import {
   SessionListResponse,
   SessionMessagesResponse,
   SessionResource,
+  SessionRevertParams,
   SessionSummarizeParams,
   SessionSummarizeResponse,
   SnapshotPart,
@@ -846,6 +847,7 @@ export declare namespace Opencode {
     type SessionSummarizeResponse as SessionSummarizeResponse,
     type SessionChatParams as SessionChatParams,
     type SessionInitParams as SessionInitParams,
+    type SessionRevertParams as SessionRevertParams,
     type SessionSummarizeParams as SessionSummarizeParams,
   };
 
