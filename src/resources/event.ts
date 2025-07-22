@@ -29,7 +29,8 @@ export type EventListResponse =
   | EventListResponse.EventSessionDeleted
   | EventListResponse.EventSessionIdle
   | EventListResponse.EventSessionError
-  | EventListResponse.EventFileWatcherUpdated;
+  | EventListResponse.EventFileWatcherUpdated
+  | EventListResponse.EventIdeInstalled;
 
 export namespace EventListResponse {
   export interface EventLspClientDiagnostics {
@@ -221,6 +222,18 @@ export namespace EventListResponse {
       event: 'rename' | 'change';
 
       file: string;
+    }
+  }
+
+  export interface EventIdeInstalled {
+    properties: EventIdeInstalled.Properties;
+
+    type: 'ide.installed';
+  }
+
+  export namespace EventIdeInstalled {
+    export interface Properties {
+      ide: string;
     }
   }
 }
