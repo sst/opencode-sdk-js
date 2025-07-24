@@ -4,6 +4,7 @@ export * from './shared';
 export {
   AppResource,
   type App,
+  type LogLevel,
   type Mode,
   type Model,
   type Provider,
