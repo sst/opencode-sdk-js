@@ -102,6 +102,8 @@ export interface AssistantMessage {
 
   cost: number;
 
+  mode: string;
+
   modelID: string;
 
   path: AssistantMessage.Path;
