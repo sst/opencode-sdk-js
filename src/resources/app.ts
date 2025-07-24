@@ -69,6 +69,11 @@ export namespace App {
   }
 }
 
+/**
+ * Log level
+ */
+export type LogLevel = 'debug' | 'info' | 'error' | 'warn';
+
 export interface Mode {
   name: string;
 
@@ -157,7 +162,7 @@ export interface AppLogParams {
   /**
    * Log level
    */
-  level: 'debug' | 'info' | 'error' | 'warn';
+  level: LogLevel;
 
   /**
    * Log message
@@ -178,6 +183,7 @@ export interface AppLogParams {
 export declare namespace AppResource {
   export {
     type App as App,
+    type LogLevel as LogLevel,
     type Mode as Mode,
     type Model as Model,
     type Provider as Provider,
