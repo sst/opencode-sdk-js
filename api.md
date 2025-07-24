@@ -21,7 +21,6 @@ Methods:
 Types:
 
 - <code><a href="./src/resources/app.ts">App</a></code>
-- <code><a href="./src/resources/app.ts">LogLevel</a></code>
 - <code><a href="./src/resources/app.ts">Mode</a></code>
 - <code><a href="./src/resources/app.ts">Model</a></code>
 - <code><a href="./src/resources/app.ts">Provider</a></code>

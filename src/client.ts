@@ -24,7 +24,6 @@ import {
   AppModesResponse,
   AppProvidersResponse,
   AppResource,
-  LogLevel,
   Mode,
   Model,
   Provider,
@@ -90,7 +89,7 @@ import { HeadersLike, NullableHeaders, buildHeaders } from './internal/headers';
 import { FinalRequestOptions, RequestOptions } from './internal/request-options';
 import { readEnv } from './internal/utils/env';
 import {
-  type LogLevel as ClientLogLevel,
+  type LogLevel,
   type Logger,
   formatRequestDetails,
   loggerFor,
@@ -158,7 +157,7 @@ export interface ClientOptions {
    *
    * Defaults to process.env['OPENCODE_LOG'] or 'warn' if it isn't set.
    */
-  logLevel?: ClientLogLevel | undefined;
+  logLevel?: LogLevel | undefined;
 
   /**
    * Set the logger.
@@ -176,7 +175,7 @@ export class Opencode {
   maxRetries: number;
   timeout: number;
   logger: Logger | undefined;
-  logLevel: ClientLogLevel | undefined;
+  logLevel: LogLevel | undefined;
   fetchOptions: MergedRequestInit | undefined;
 
   private fetch: Fetch;
@@ -778,7 +777,6 @@ export declare namespace Opencode {
   export {
     AppResource as AppResource,
     type App as App,
-    type LogLevel as LogLevel,
     type Mode as Mode,
     type Model as Model,
     type Provider as Provider,
