@@ -219,7 +219,30 @@ export interface FileSource {
 
 export type Message = UserMessage | AssistantMessage;
 
-export type Part = TextPart | FilePart | ToolPart | StepStartPart | StepFinishPart | SnapshotPart;
+export type Part =
+  | TextPart
+  | FilePart
+  | ToolPart
+  | StepStartPart
+  | StepFinishPart
+  | SnapshotPart
+  | Part.PatchPart;
+
+export namespace Part {
+  export interface PatchPart {
+    id: string;
+
+    files: Array<string>;
+
+    hash: string;
+
+    messageID: string;
+
+    sessionID: string;
+
+    type: 'patch';
+  }
+}
 
 export interface Session {
   id: string;
