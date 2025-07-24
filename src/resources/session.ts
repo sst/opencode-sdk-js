@@ -58,6 +58,13 @@ export class SessionResource extends APIResource {
   }
 
   /**
+   * Revert a message
+   */
+  revert(id: string, body: SessionRevertParams, options?: RequestOptions): APIPromise<Session> {
+    return this._client.post(path`/session/${id}/revert`, { body, ...options });
+  }
+
+  /**
    * Share a session
    */
   share(id: string, options?: RequestOptions): APIPromise<Session> {
@@ -76,6 +83,13 @@ export class SessionResource extends APIResource {
   }
 
   /**
+   * Restore all reverted messages
+   */
+  unrevert(id: string, options?: RequestOptions): APIPromise<Session> {
+    return this._client.post(path`/session/${id}/unrevert`, options);
+  }
+
+  /**
    * Unshare the session
    */
   unshare(id: string, options?: RequestOptions): APIPromise<Session> {
@@ -87,6 +101,8 @@ export interface AssistantMessage {
   id: string;
 
   cost: number;
+
+  mode: string;
 
   modelID: string;
 
@@ -165,11 +181,68 @@ export interface FilePart {
   url: string;
 
   filename?: string;
+
+  source?: FilePartSource;
+}
+
+export interface FilePartInput {
+  mime: string;
+
+  type: 'file';
+
+  url: string;
+
+  id?: string;
+
+  filename?: string;
+
+  source?: FilePartSource;
+}
+
+export type FilePartSource = FileSource | SymbolSource;
+
+export interface FilePartSourceText {
+  end: number;
+
+  start: number;
+
+  value: string;
+}
+
+export interface FileSource {
+  path: string;
+
+  text: FilePartSourceText;
+
+  type: 'file';
 }
 
 export type Message = UserMessage | AssistantMessage;
 
-export type Part = TextPart | FilePart | ToolPart | StepStartPart | StepFinishPart | SnapshotPart;
+export type Part =
+  | TextPart
+  | FilePart
+  | ToolPart
+  | StepStartPart
+  | StepFinishPart
+  | SnapshotPart
+  | Part.PatchPart;
+
+export namespace Part {
+  export interface PatchPart {
+    id: string;
+
+    files: Array<string>;
+
+    hash: string;
+
+    messageID: string;
+
+    sessionID: string;
+
+    type: 'patch';
+  }
+}
 
 export interface Session {
   id: string;
@@ -197,7 +270,7 @@ export namespace Session {
   export interface Revert {
     messageID: string;
 
-    part: number;
+    partID?: string;
 
     snapshot?: string;
   }
@@ -263,6 +336,42 @@ export interface StepStartPart {
   type: 'step-start';
 }
 
+export interface SymbolSource {
+  kind: number;
+
+  name: string;
+
+  path: string;
+
+  range: SymbolSource.Range;
+
+  text: FilePartSourceText;
+
+  type: 'symbol';
+}
+
+export namespace SymbolSource {
+  export interface Range {
+    end: Range.End;
+
+    start: Range.Start;
+  }
+
+  export namespace Range {
+    export interface End {
+      character: number;
+
+      line: number;
+    }
+
+    export interface Start {
+      character: number;
+
+      line: number;
+    }
+  }
+}
+
 export interface TextPart {
   id: string;
 
@@ -280,6 +389,26 @@ export interface TextPart {
 }
 
 export namespace TextPart {
+  export interface Time {
+    start: number;
+
+    end?: number;
+  }
+}
+
+export interface TextPartInput {
+  text: string;
+
+  type: 'text';
+
+  id?: string;
+
+  synthetic?: boolean;
+
+  time?: TextPartInput.Time;
+}
+
+export namespace TextPartInput {
   export interface Time {
     start: number;
 
@@ -402,15 +531,17 @@ export namespace SessionMessagesResponse {
 export type SessionSummarizeResponse = boolean;
 
 export interface SessionChatParams {
-  messageID: string;
-
-  mode: string;
-
   modelID: string;
 
-  parts: Array<FilePart | TextPart>;
+  parts: Array<TextPartInput | FilePartInput>;
 
   providerID: string;
+
+  messageID?: string;
+
+  mode?: string;
+
+  tools?: { [key: string]: boolean };
 }
 
 export interface SessionInitParams {
@@ -419,6 +550,12 @@ export interface SessionInitParams {
   modelID: string;
 
   providerID: string;
+}
+
+export interface SessionRevertParams {
+  messageID: string;
+
+  partID?: string;
 }
 
 export interface SessionSummarizeParams {
@@ -431,13 +568,19 @@ export declare namespace SessionResource {
   export {
     type AssistantMessage as AssistantMessage,
     type FilePart as FilePart,
+    type FilePartInput as FilePartInput,
+    type FilePartSource as FilePartSource,
+    type FilePartSourceText as FilePartSourceText,
+    type FileSource as FileSource,
     type Message as Message,
     type Part as Part,
     type Session as Session,
     type SnapshotPart as SnapshotPart,
     type StepFinishPart as StepFinishPart,
     type StepStartPart as StepStartPart,
+    type SymbolSource as SymbolSource,
     type TextPart as TextPart,
+    type TextPartInput as TextPartInput,
     type ToolPart as ToolPart,
     type ToolStateCompleted as ToolStateCompleted,
     type ToolStateError as ToolStateError,
@@ -452,6 +595,7 @@ export declare namespace SessionResource {
     type SessionSummarizeResponse as SessionSummarizeResponse,
     type SessionChatParams as SessionChatParams,
     type SessionInitParams as SessionInitParams,
+    type SessionRevertParams as SessionRevertParams,
     type SessionSummarizeParams as SessionSummarizeParams,
   };
 }

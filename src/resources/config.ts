@@ -2,7 +2,6 @@
 
 import { APIResource } from '../core/resource';
 import * as ConfigAPI from './config';
-import * as AppAPI from './app';
 import { APIPromise } from '../core/api-promise';
 import { RequestOptions } from '../internal/request-options';
 
@@ -50,14 +49,9 @@ export interface Config {
   keybinds?: KeybindsConfig;
 
   /**
-   * Layout to use for the TUI
+   * @deprecated Always uses stretch layout.
    */
-  layout?: LayoutConfig;
-
-  /**
-   * Minimum log level to write to log files
-   */
-  log_level?: AppAPI.LogLevel;
+  layout?: 'auto' | 'stretch';
 
   /**
    * MCP (Model Context Protocol) server configurations
@@ -80,10 +74,16 @@ export interface Config {
   provider?: { [key: string]: Config.Provider };
 
   /**
-   * Control sharing behavior: 'auto' enables automatic sharing, 'disabled' disables
-   * all sharing
+   * Control sharing behavior:'manual' allows manual sharing via commands, 'auto'
+   * enables automatic sharing, 'disabled' disables all sharing
    */
-  share?: 'auto' | 'disabled';
+  share?: 'manual' | 'auto' | 'disabled';
+
+  /**
+   * Small model to use for tasks like summarization and title generation in the
+   * format of provider/model
+   */
+  small_model?: string;
 
   /**
    * Theme name to use for the interface
@@ -147,7 +147,7 @@ export namespace Config {
 
     npm?: string;
 
-    options?: { [key: string]: unknown };
+    options?: Provider.Options;
   }
 
   export namespace Provider {
@@ -189,6 +189,14 @@ export namespace Config {
 
         output: number;
       }
+    }
+
+    export interface Options {
+      apiKey?: string;
+
+      baseURL?: string;
+
+      [k: string]: unknown;
     }
   }
 }
@@ -305,9 +313,19 @@ export interface KeybindsConfig {
   messages_previous: string;
 
   /**
-   * Revert message
+   * Redo message
+   */
+  messages_redo: string;
+
+  /**
+   * @deprecated use messages_undo. Revert message
    */
   messages_revert: string;
+
+  /**
+   * Undo message
+   */
+  messages_undo: string;
 
   /**
    * List available models
@@ -355,9 +373,14 @@ export interface KeybindsConfig {
   session_unshare: string;
 
   /**
-   * Switch mode
+   * Next mode
    */
   switch_mode: string;
+
+  /**
+   * Previous Mode
+   */
+  switch_mode_reverse: string;
 
   /**
    * List available themes
@@ -369,8 +392,6 @@ export interface KeybindsConfig {
    */
   tool_details: string;
 }
-
-export type LayoutConfig = 'auto' | 'stretch';
 
 export interface McpLocalConfig {
   /**
@@ -409,6 +430,11 @@ export interface McpRemoteConfig {
    * Enable or disable the MCP server on startup
    */
   enabled?: boolean;
+
+  /**
+   * Headers to send with the request
+   */
+  headers?: { [key: string]: string };
 }
 
 export interface ModeConfig {
@@ -423,7 +449,6 @@ export declare namespace ConfigResource {
   export {
     type Config as Config,
     type KeybindsConfig as KeybindsConfig,
-    type LayoutConfig as LayoutConfig,
     type McpLocalConfig as McpLocalConfig,
     type McpRemoteConfig as McpRemoteConfig,
     type ModeConfig as ModeConfig,

@@ -21,7 +21,6 @@ Methods:
 Types:
 
 - <code><a href="./src/resources/app.ts">App</a></code>
-- <code><a href="./src/resources/app.ts">LogLevel</a></code>
 - <code><a href="./src/resources/app.ts">Mode</a></code>
 - <code><a href="./src/resources/app.ts">Model</a></code>
 - <code><a href="./src/resources/app.ts">Provider</a></code>
@@ -73,7 +72,6 @@ Types:
 
 - <code><a href="./src/resources/config.ts">Config</a></code>
 - <code><a href="./src/resources/config.ts">KeybindsConfig</a></code>
-- <code><a href="./src/resources/config.ts">LayoutConfig</a></code>
 - <code><a href="./src/resources/config.ts">McpLocalConfig</a></code>
 - <code><a href="./src/resources/config.ts">McpRemoteConfig</a></code>
 - <code><a href="./src/resources/config.ts">ModeConfig</a></code>
@@ -88,13 +86,19 @@ Types:
 
 - <code><a href="./src/resources/session.ts">AssistantMessage</a></code>
 - <code><a href="./src/resources/session.ts">FilePart</a></code>
+- <code><a href="./src/resources/session.ts">FilePartInput</a></code>
+- <code><a href="./src/resources/session.ts">FilePartSource</a></code>
+- <code><a href="./src/resources/session.ts">FilePartSourceText</a></code>
+- <code><a href="./src/resources/session.ts">FileSource</a></code>
 - <code><a href="./src/resources/session.ts">Message</a></code>
 - <code><a href="./src/resources/session.ts">Part</a></code>
 - <code><a href="./src/resources/session.ts">Session</a></code>
 - <code><a href="./src/resources/session.ts">SnapshotPart</a></code>
 - <code><a href="./src/resources/session.ts">StepFinishPart</a></code>
 - <code><a href="./src/resources/session.ts">StepStartPart</a></code>
+- <code><a href="./src/resources/session.ts">SymbolSource</a></code>
 - <code><a href="./src/resources/session.ts">TextPart</a></code>
+- <code><a href="./src/resources/session.ts">TextPartInput</a></code>
 - <code><a href="./src/resources/session.ts">ToolPart</a></code>
 - <code><a href="./src/resources/session.ts">ToolStateCompleted</a></code>
 - <code><a href="./src/resources/session.ts">ToolStateError</a></code>
@@ -117,6 +121,20 @@ Methods:
 - <code title="post /session/{id}/message">client.session.<a href="./src/resources/session.ts">chat</a>(id, { ...params }) -> AssistantMessage</code>
 - <code title="post /session/{id}/init">client.session.<a href="./src/resources/session.ts">init</a>(id, { ...params }) -> SessionInitResponse</code>
 - <code title="get /session/{id}/message">client.session.<a href="./src/resources/session.ts">messages</a>(id) -> SessionMessagesResponse</code>
+- <code title="post /session/{id}/revert">client.session.<a href="./src/resources/session.ts">revert</a>(id, { ...params }) -> Session</code>
 - <code title="post /session/{id}/share">client.session.<a href="./src/resources/session.ts">share</a>(id) -> Session</code>
 - <code title="post /session/{id}/summarize">client.session.<a href="./src/resources/session.ts">summarize</a>(id, { ...params }) -> SessionSummarizeResponse</code>
+- <code title="post /session/{id}/unrevert">client.session.<a href="./src/resources/session.ts">unrevert</a>(id) -> Session</code>
 - <code title="delete /session/{id}/share">client.session.<a href="./src/resources/session.ts">unshare</a>(id) -> Session</code>
+
+# Tui
+
+Types:
+
+- <code><a href="./src/resources/tui.ts">TuiAppendPromptResponse</a></code>
+- <code><a href="./src/resources/tui.ts">TuiOpenHelpResponse</a></code>
+
+Methods:
+
+- <code title="post /tui/append-prompt">client.tui.<a href="./src/resources/tui.ts">appendPrompt</a>({ ...params }) -> TuiAppendPromptResponse</code>
+- <code title="post /tui/open-help">client.tui.<a href="./src/resources/tui.ts">openHelp</a>() -> TuiOpenHelpResponse</code>

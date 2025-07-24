@@ -24,7 +24,6 @@ import {
   AppModesResponse,
   AppProvidersResponse,
   AppResource,
-  LogLevel,
   Mode,
   Model,
   Provider,
@@ -33,7 +32,6 @@ import {
   Config,
   ConfigResource,
   KeybindsConfig,
-  LayoutConfig,
   McpLocalConfig,
   McpRemoteConfig,
   ModeConfig,
@@ -54,6 +52,10 @@ import {
 import {
   AssistantMessage,
   FilePart,
+  FilePartInput,
+  FilePartSource,
+  FilePartSourceText,
+  FileSource,
   Message,
   Part,
   Session,
@@ -65,12 +67,15 @@ import {
   SessionListResponse,
   SessionMessagesResponse,
   SessionResource,
+  SessionRevertParams,
   SessionSummarizeParams,
   SessionSummarizeResponse,
   SnapshotPart,
   StepFinishPart,
   StepStartPart,
+  SymbolSource,
   TextPart,
+  TextPartInput,
   ToolPart,
   ToolStateCompleted,
   ToolStateError,
@@ -78,12 +83,13 @@ import {
   ToolStateRunning,
   UserMessage,
 } from './resources/session';
+import { Tui, TuiAppendPromptParams, TuiAppendPromptResponse, TuiOpenHelpResponse } from './resources/tui';
 import { type Fetch } from './internal/builtin-types';
 import { HeadersLike, NullableHeaders, buildHeaders } from './internal/headers';
 import { FinalRequestOptions, RequestOptions } from './internal/request-options';
 import { readEnv } from './internal/utils/env';
 import {
-  type LogLevel as ClientLogLevel,
+  type LogLevel,
   type Logger,
   formatRequestDetails,
   loggerFor,
@@ -151,7 +157,7 @@ export interface ClientOptions {
    *
    * Defaults to process.env['OPENCODE_LOG'] or 'warn' if it isn't set.
    */
-  logLevel?: ClientLogLevel | undefined;
+  logLevel?: LogLevel | undefined;
 
   /**
    * Set the logger.
@@ -169,7 +175,7 @@ export class Opencode {
   maxRetries: number;
   timeout: number;
   logger: Logger | undefined;
-  logLevel: ClientLogLevel | undefined;
+  logLevel: LogLevel | undefined;
   fetchOptions: MergedRequestInit | undefined;
 
   private fetch: Fetch;
@@ -754,6 +760,7 @@ export class Opencode {
   file: API.FileResource = new API.FileResource(this);
   config: API.ConfigResource = new API.ConfigResource(this);
   session: API.SessionResource = new API.SessionResource(this);
+  tui: API.Tui = new API.Tui(this);
 }
 Opencode.Event = Event;
 Opencode.AppResource = AppResource;
@@ -761,6 +768,7 @@ Opencode.Find = Find;
 Opencode.FileResource = FileResource;
 Opencode.ConfigResource = ConfigResource;
 Opencode.SessionResource = SessionResource;
+Opencode.Tui = Tui;
 export declare namespace Opencode {
   export type RequestOptions = Opts.RequestOptions;
 
@@ -769,7 +777,6 @@ export declare namespace Opencode {
   export {
     AppResource as AppResource,
     type App as App,
-    type LogLevel as LogLevel,
     type Mode as Mode,
     type Model as Model,
     type Provider as Provider,
@@ -804,7 +811,6 @@ export declare namespace Opencode {
     ConfigResource as ConfigResource,
     type Config as Config,
     type KeybindsConfig as KeybindsConfig,
-    type LayoutConfig as LayoutConfig,
     type McpLocalConfig as McpLocalConfig,
     type McpRemoteConfig as McpRemoteConfig,
     type ModeConfig as ModeConfig,
@@ -814,13 +820,19 @@ export declare namespace Opencode {
     SessionResource as SessionResource,
     type AssistantMessage as AssistantMessage,
     type FilePart as FilePart,
+    type FilePartInput as FilePartInput,
+    type FilePartSource as FilePartSource,
+    type FilePartSourceText as FilePartSourceText,
+    type FileSource as FileSource,
     type Message as Message,
     type Part as Part,
     type Session as Session,
     type SnapshotPart as SnapshotPart,
     type StepFinishPart as StepFinishPart,
     type StepStartPart as StepStartPart,
+    type SymbolSource as SymbolSource,
     type TextPart as TextPart,
+    type TextPartInput as TextPartInput,
     type ToolPart as ToolPart,
     type ToolStateCompleted as ToolStateCompleted,
     type ToolStateError as ToolStateError,
@@ -835,7 +847,15 @@ export declare namespace Opencode {
     type SessionSummarizeResponse as SessionSummarizeResponse,
     type SessionChatParams as SessionChatParams,
     type SessionInitParams as SessionInitParams,
+    type SessionRevertParams as SessionRevertParams,
     type SessionSummarizeParams as SessionSummarizeParams,
+  };
+
+  export {
+    Tui as Tui,
+    type TuiAppendPromptResponse as TuiAppendPromptResponse,
+    type TuiOpenHelpResponse as TuiOpenHelpResponse,
+    type TuiAppendPromptParams as TuiAppendPromptParams,
   };
 
   export type MessageAbortedError = API.MessageAbortedError;

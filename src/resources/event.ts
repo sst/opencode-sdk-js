@@ -24,12 +24,14 @@ export type EventListResponse =
   | EventListResponse.EventMessageUpdated
   | EventListResponse.EventMessageRemoved
   | EventListResponse.EventMessagePartUpdated
+  | EventListResponse.EventMessagePartRemoved
   | EventListResponse.EventStorageWrite
   | EventListResponse.EventSessionUpdated
   | EventListResponse.EventSessionDeleted
   | EventListResponse.EventSessionIdle
   | EventListResponse.EventSessionError
-  | EventListResponse.EventFileWatcherUpdated;
+  | EventListResponse.EventFileWatcherUpdated
+  | EventListResponse.EventIdeInstalled;
 
 export namespace EventListResponse {
   export interface EventLspClientDiagnostics {
@@ -134,6 +136,20 @@ export namespace EventListResponse {
     }
   }
 
+  export interface EventMessagePartRemoved {
+    properties: EventMessagePartRemoved.Properties;
+
+    type: 'message.part.removed';
+  }
+
+  export namespace EventMessagePartRemoved {
+    export interface Properties {
+      messageID: string;
+
+      partID: string;
+    }
+  }
+
   export interface EventStorageWrite {
     properties: EventStorageWrite.Properties;
 
@@ -221,6 +237,18 @@ export namespace EventListResponse {
       event: 'rename' | 'change';
 
       file: string;
+    }
+  }
+
+  export interface EventIdeInstalled {
+    properties: EventIdeInstalled.Properties;
+
+    type: 'ide.installed';
+  }
+
+  export namespace EventIdeInstalled {
+    export interface Properties {
+      ide: string;
     }
   }
 }
