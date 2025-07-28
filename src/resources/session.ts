@@ -270,6 +270,8 @@ export namespace Session {
   export interface Revert {
     messageID: string;
 
+    diff?: string;
+
     partID?: string;
 
     snapshot?: string;
@@ -540,6 +542,8 @@ export interface SessionChatParams {
   messageID?: string;
 
   mode?: string;
+
+  system?: string;
 
   tools?: { [key: string]: boolean };
 }
