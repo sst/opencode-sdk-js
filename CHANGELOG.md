@@ -1,5 +1,32 @@
 # Changelog
 
+## 0.1.0-alpha.21 (2025-07-28)
+
+Full Changelog: [v0.1.0-alpha.20...v0.1.0-alpha.21](https://github.com/sst/opencode-sdk-js/compare/v0.1.0-alpha.20...v0.1.0-alpha.21)
+
+### Features
+
+* **api:** api update ([df7ea7d](https://github.com/sst/opencode-sdk-js/commit/df7ea7dc58fb08a8599fa40631032a626aa3ad0b))
+* **api:** api update ([f9b52a1](https://github.com/sst/opencode-sdk-js/commit/f9b52a139591e743ad686c359fdfb003f0e49ccc))
+* **api:** api update ([8d150d2](https://github.com/sst/opencode-sdk-js/commit/8d150d245a57667cafd5cc0f6a15a5c7a9c5ce71))
+* **api:** api update ([1104b32](https://github.com/sst/opencode-sdk-js/commit/1104b32191c80996b21fdac0a726e25e8650cdb6))
+* **api:** api update ([3da7c3e](https://github.com/sst/opencode-sdk-js/commit/3da7c3e68e96ed093128c18be19d8f7e7769c3fa))
+* **api:** api update ([8980631](https://github.com/sst/opencode-sdk-js/commit/898063187f13d77abc6337e6094ab24766d9bb30))
+* **api:** api update ([efe5d7f](https://github.com/sst/opencode-sdk-js/commit/efe5d7fe580e75efe6ab08fde869c2a13d4e9200))
+* **api:** api update ([fb92736](https://github.com/sst/opencode-sdk-js/commit/fb92736bdf4b0212c3c3be3b3dcb3a2036bc0d68))
+* **api:** api update ([c428ecf](https://github.com/sst/opencode-sdk-js/commit/c428ecf250ff9dc72f855bfe5b40dbe004fefbba))
+* **api:** api update ([c59a5a3](https://github.com/sst/opencode-sdk-js/commit/c59a5a33aa3969fb2724edd975527348001f1db9))
+* **api:** api update ([c776a45](https://github.com/sst/opencode-sdk-js/commit/c776a457f5d120830bad54951edbddda1867a6e4))
+* **api:** api update ([1c7312c](https://github.com/sst/opencode-sdk-js/commit/1c7312c6e50fce79f113cc34370828f9ca502a3a))
+* **api:** api update ([046bc67](https://github.com/sst/opencode-sdk-js/commit/046bc67789d10a12d3acdc9a8cc6eef84390ae0b))
+* **api:** api update ([a1fad7a](https://github.com/sst/opencode-sdk-js/commit/a1fad7a6eb72cbdee9ea828ac1ace12673d89c78))
+* **api:** api update ([5a8c2e7](https://github.com/sst/opencode-sdk-js/commit/5a8c2e7de8542093ce465ab4012ebafe409361f6))
+
+
+### Chores
+
+* **ts:** reorder package.json imports ([6d9aed6](https://github.com/sst/opencode-sdk-js/commit/6d9aed6827bb415550ae17edec138a98760f1f0e))
+
 ## 0.1.0-alpha.20 (2025-07-16)
 
 Full Changelog: [v0.1.0-alpha.19...v0.1.0-alpha.20](https://github.com/sst/opencode-sdk-js/compare/v0.1.0-alpha.19...v0.1.0-alpha.20)
