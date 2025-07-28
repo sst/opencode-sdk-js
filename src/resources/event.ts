@@ -109,6 +109,8 @@ export namespace EventListResponse {
       messageID: string;
 
       partID: string;
+
+      sessionID: string;
     }
   }
 
