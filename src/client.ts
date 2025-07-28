@@ -46,7 +46,6 @@ import {
   FindSymbolsResponse,
   FindTextParams,
   FindTextResponse,
-  Match,
   Symbol,
 } from './resources/find';
 import {
@@ -789,7 +788,6 @@ export declare namespace Opencode {
 
   export {
     Find as Find,
-    type Match as Match,
     type Symbol as Symbol,
     type FindFilesResponse as FindFilesResponse,
     type FindSymbolsResponse as FindSymbolsResponse,

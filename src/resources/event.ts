@@ -17,15 +17,15 @@ export class Event extends APIResource {
 }
 
 export type EventListResponse =
-  | EventListResponse.EventLspClientDiagnostics
-  | EventListResponse.EventPermissionUpdated
-  | EventListResponse.EventFileEdited
   | EventListResponse.EventInstallationUpdated
+  | EventListResponse.EventLspClientDiagnostics
   | EventListResponse.EventMessageUpdated
   | EventListResponse.EventMessageRemoved
   | EventListResponse.EventMessagePartUpdated
   | EventListResponse.EventMessagePartRemoved
   | EventListResponse.EventStorageWrite
+  | EventListResponse.EventPermissionUpdated
+  | EventListResponse.EventFileEdited
   | EventListResponse.EventSessionUpdated
   | EventListResponse.EventSessionDeleted
   | EventListResponse.EventSessionIdle
@@ -34,6 +34,18 @@ export type EventListResponse =
   | EventListResponse.EventIdeInstalled;
 
 export namespace EventListResponse {
+  export interface EventInstallationUpdated {
+    properties: EventInstallationUpdated.Properties;
+
+    type: 'installation.updated';
+  }
+
+  export namespace EventInstallationUpdated {
+    export interface Properties {
+      version: string;
+    }
+  }
+
   export interface EventLspClientDiagnostics {
     properties: EventLspClientDiagnostics.Properties;
 
@@ -45,56 +57,6 @@ export namespace EventListResponse {
       path: string;
 
       serverID: string;
-    }
-  }
-
-  export interface EventPermissionUpdated {
-    properties: EventPermissionUpdated.Properties;
-
-    type: 'permission.updated';
-  }
-
-  export namespace EventPermissionUpdated {
-    export interface Properties {
-      id: string;
-
-      metadata: { [key: string]: unknown };
-
-      sessionID: string;
-
-      time: Properties.Time;
-
-      title: string;
-    }
-
-    export namespace Properties {
-      export interface Time {
-        created: number;
-      }
-    }
-  }
-
-  export interface EventFileEdited {
-    properties: EventFileEdited.Properties;
-
-    type: 'file.edited';
-  }
-
-  export namespace EventFileEdited {
-    export interface Properties {
-      file: string;
-    }
-  }
-
-  export interface EventInstallationUpdated {
-    properties: EventInstallationUpdated.Properties;
-
-    type: 'installation.updated';
-  }
-
-  export namespace EventInstallationUpdated {
-    export interface Properties {
-      version: string;
     }
   }
 
@@ -161,6 +123,44 @@ export namespace EventListResponse {
       key: string;
 
       content?: unknown;
+    }
+  }
+
+  export interface EventPermissionUpdated {
+    properties: EventPermissionUpdated.Properties;
+
+    type: 'permission.updated';
+  }
+
+  export namespace EventPermissionUpdated {
+    export interface Properties {
+      id: string;
+
+      metadata: { [key: string]: unknown };
+
+      sessionID: string;
+
+      time: Properties.Time;
+
+      title: string;
+    }
+
+    export namespace Properties {
+      export interface Time {
+        created: number;
+      }
+    }
+  }
+
+  export interface EventFileEdited {
+    properties: EventFileEdited.Properties;
+
+    type: 'file.edited';
+  }
+
+  export namespace EventFileEdited {
+    export interface Properties {
+      file: string;
     }
   }
 

@@ -77,6 +77,8 @@ export interface Mode {
   model?: Mode.Model;
 
   prompt?: string;
+
+  temperature?: number;
 }
 
 export namespace Mode {

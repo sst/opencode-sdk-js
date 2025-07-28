@@ -41,7 +41,6 @@ Methods:
 
 Types:
 
-- <code><a href="./src/resources/find.ts">Match</a></code>
 - <code><a href="./src/resources/find.ts">Symbol</a></code>
 - <code><a href="./src/resources/find.ts">FindFilesResponse</a></code>
 - <code><a href="./src/resources/find.ts">FindSymbolsResponse</a></code>
