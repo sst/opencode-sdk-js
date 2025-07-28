@@ -77,6 +77,7 @@ describe('resource session', () => {
       providerID: 'providerID',
       messageID: 'msg',
       mode: 'mode',
+      system: 'system',
       tools: { foo: true },
     });
   });

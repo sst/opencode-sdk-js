@@ -21,6 +21,11 @@ export interface Config {
   $schema?: string;
 
   /**
+   * Modes configuration, see https://opencode.ai/docs/modes
+   */
+  agent?: Config.Agent;
+
+  /**
    * @deprecated Use 'share' field instead. Share newly created sessions
    * automatically
    */
@@ -97,6 +102,33 @@ export interface Config {
 }
 
 export namespace Config {
+  /**
+   * Modes configuration, see https://opencode.ai/docs/modes
+   */
+  export interface Agent {
+    general?: Agent.General;
+
+    [k: string]: Agent.AgentConfig | undefined;
+  }
+
+  export namespace Agent {
+    export interface General extends ConfigAPI.ModeConfig {
+      description: string;
+    }
+
+    export interface AgentConfig extends ConfigAPI.ModeConfig {
+      description: string;
+    }
+  }
+
+  export interface AgentConfig extends ConfigAPI.ModeConfig {
+    description: string;
+  }
+
+  export interface AgentConfig extends ConfigAPI.ModeConfig {
+    description: string;
+  }
+
   export interface Experimental {
     hook?: Experimental.Hook;
   }
@@ -438,9 +470,13 @@ export interface McpRemoteConfig {
 }
 
 export interface ModeConfig {
+  disable?: boolean;
+
   model?: string;
 
   prompt?: string;
+
+  temperature?: number;
 
   tools?: { [key: string]: boolean };
 }

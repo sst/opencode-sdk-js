@@ -31,7 +31,6 @@ export {
 } from './file';
 export {
   Find,
-  type Match,
   type Symbol,
   type FindFilesResponse,
   type FindSymbolsResponse,

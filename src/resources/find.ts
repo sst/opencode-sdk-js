@@ -27,42 +27,6 @@ export class Find extends APIResource {
   }
 }
 
-export interface Match {
-  absolute_offset: number;
-
-  line_number: number;
-
-  lines: Match.Lines;
-
-  path: Match.Path;
-
-  submatches: Array<Match.Submatch>;
-}
-
-export namespace Match {
-  export interface Lines {
-    text: string;
-  }
-
-  export interface Path {
-    text: string;
-  }
-
-  export interface Submatch {
-    end: number;
-
-    match: Submatch.Match;
-
-    start: number;
-  }
-
-  export namespace Submatch {
-    export interface Match {
-      text: string;
-    }
-  }
-}
-
 export interface Symbol {
   kind: number;
 
@@ -105,7 +69,45 @@ export type FindFilesResponse = Array<string>;
 
 export type FindSymbolsResponse = Array<Symbol>;
 
-export type FindTextResponse = Array<Match>;
+export type FindTextResponse = Array<FindTextResponse.FindTextResponseItem>;
+
+export namespace FindTextResponse {
+  export interface FindTextResponseItem {
+    absolute_offset: number;
+
+    line_number: number;
+
+    lines: FindTextResponseItem.Lines;
+
+    path: FindTextResponseItem.Path;
+
+    submatches: Array<FindTextResponseItem.Submatch>;
+  }
+
+  export namespace FindTextResponseItem {
+    export interface Lines {
+      text: string;
+    }
+
+    export interface Path {
+      text: string;
+    }
+
+    export interface Submatch {
+      end: number;
+
+      match: Submatch.Match;
+
+      start: number;
+    }
+
+    export namespace Submatch {
+      export interface Match {
+        text: string;
+      }
+    }
+  }
+}
 
 export interface FindFilesParams {
   query: string;
@@ -121,7 +123,6 @@ export interface FindTextParams {
 
 export declare namespace Find {
   export {
-    type Match as Match,
     type Symbol as Symbol,
     type FindFilesResponse as FindFilesResponse,
     type FindSymbolsResponse as FindSymbolsResponse,
