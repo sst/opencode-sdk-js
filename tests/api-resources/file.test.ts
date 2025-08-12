@@ -5,7 +5,7 @@ import Opencode from '@opencode-ai/sdk';
 const client = new Opencode({ baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010' });
 
 describe('resource file', () => {
-  // skipped: tests are disabled for the time being
+  // Prism tests are disabled
   test.skip('read: only required params', async () => {
     const responsePromise = client.file.read({ path: 'path' });
     const rawResponse = await responsePromise.asResponse();
@@ -17,12 +17,12 @@ describe('resource file', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // skipped: tests are disabled for the time being
+  // Prism tests are disabled
   test.skip('read: required and optional params', async () => {
     const response = await client.file.read({ path: 'path' });
   });
 
-  // skipped: tests are disabled for the time being
+  // Prism tests are disabled
   test.skip('status', async () => {
     const responsePromise = client.file.status();
     const rawResponse = await responsePromise.asResponse();

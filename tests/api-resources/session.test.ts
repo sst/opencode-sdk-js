@@ -5,7 +5,7 @@ import Opencode from '@opencode-ai/sdk';
 const client = new Opencode({ baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010' });
 
 describe('resource session', () => {
-  // skipped: tests are disabled for the time being
+  // Prism tests are disabled
   test.skip('create', async () => {
     const responsePromise = client.session.create();
     const rawResponse = await responsePromise.asResponse();
@@ -17,7 +17,7 @@ describe('resource session', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // skipped: tests are disabled for the time being
+  // Prism tests are disabled
   test.skip('list', async () => {
     const responsePromise = client.session.list();
     const rawResponse = await responsePromise.asResponse();
@@ -29,7 +29,7 @@ describe('resource session', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // skipped: tests are disabled for the time being
+  // Prism tests are disabled
   test.skip('delete', async () => {
     const responsePromise = client.session.delete('id');
     const rawResponse = await responsePromise.asResponse();
@@ -41,7 +41,7 @@ describe('resource session', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // skipped: tests are disabled for the time being
+  // Prism tests are disabled
   test.skip('abort', async () => {
     const responsePromise = client.session.abort('id');
     const rawResponse = await responsePromise.asResponse();
@@ -53,7 +53,7 @@ describe('resource session', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // skipped: tests are disabled for the time being
+  // Prism tests are disabled
   test.skip('chat: only required params', async () => {
     const responsePromise = client.session.chat('id', {
       modelID: 'modelID',
@@ -69,7 +69,7 @@ describe('resource session', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // skipped: tests are disabled for the time being
+  // Prism tests are disabled
   test.skip('chat: required and optional params', async () => {
     const response = await client.session.chat('id', {
       modelID: 'modelID',
@@ -82,7 +82,7 @@ describe('resource session', () => {
     });
   });
 
-  // skipped: tests are disabled for the time being
+  // Prism tests are disabled
   test.skip('init: only required params', async () => {
     const responsePromise = client.session.init('id', {
       messageID: 'messageID',
@@ -98,7 +98,7 @@ describe('resource session', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // skipped: tests are disabled for the time being
+  // Prism tests are disabled
   test.skip('init: required and optional params', async () => {
     const response = await client.session.init('id', {
       messageID: 'messageID',
@@ -107,7 +107,7 @@ describe('resource session', () => {
     });
   });
 
-  // skipped: tests are disabled for the time being
+  // Prism tests are disabled
   test.skip('messages', async () => {
     const responsePromise = client.session.messages('id');
     const rawResponse = await responsePromise.asResponse();
@@ -119,7 +119,7 @@ describe('resource session', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // skipped: tests are disabled for the time being
+  // Prism tests are disabled
   test.skip('revert: only required params', async () => {
     const responsePromise = client.session.revert('id', { messageID: 'msg' });
     const rawResponse = await responsePromise.asResponse();
@@ -131,12 +131,12 @@ describe('resource session', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // skipped: tests are disabled for the time being
+  // Prism tests are disabled
   test.skip('revert: required and optional params', async () => {
     const response = await client.session.revert('id', { messageID: 'msg', partID: 'prt' });
   });
 
-  // skipped: tests are disabled for the time being
+  // Prism tests are disabled
   test.skip('share', async () => {
     const responsePromise = client.session.share('id');
     const rawResponse = await responsePromise.asResponse();
@@ -148,7 +148,7 @@ describe('resource session', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // skipped: tests are disabled for the time being
+  // Prism tests are disabled
   test.skip('summarize: only required params', async () => {
     const responsePromise = client.session.summarize('id', { modelID: 'modelID', providerID: 'providerID' });
     const rawResponse = await responsePromise.asResponse();
@@ -160,12 +160,12 @@ describe('resource session', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // skipped: tests are disabled for the time being
+  // Prism tests are disabled
   test.skip('summarize: required and optional params', async () => {
     const response = await client.session.summarize('id', { modelID: 'modelID', providerID: 'providerID' });
   });
 
-  // skipped: tests are disabled for the time being
+  // Prism tests are disabled
   test.skip('unrevert', async () => {
     const responsePromise = client.session.unrevert('id');
     const rawResponse = await responsePromise.asResponse();
@@ -177,7 +177,7 @@ describe('resource session', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // skipped: tests are disabled for the time being
+  // Prism tests are disabled
   test.skip('unshare', async () => {
     const responsePromise = client.session.unshare('id');
     const rawResponse = await responsePromise.asResponse();

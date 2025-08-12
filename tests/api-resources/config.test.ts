@@ -5,7 +5,7 @@ import Opencode from '@opencode-ai/sdk';
 const client = new Opencode({ baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010' });
 
 describe('resource config', () => {
-  // skipped: tests are disabled for the time being
+  // Prism tests are disabled
   test.skip('get', async () => {
     const responsePromise = client.config.get();
     const rawResponse = await responsePromise.asResponse();
