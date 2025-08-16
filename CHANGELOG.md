@@ -1,5 +1,25 @@
 # Changelog
 
+## 0.1.0-alpha.22 (2025-08-16)
+
+Full Changelog: [v0.1.0-alpha.21...v0.1.0-alpha.22](https://github.com/sst/opencode-sdk-js/compare/v0.1.0-alpha.21...v0.1.0-alpha.22)
+
+### Features
+
+* **api:** api update ([fd8c262](https://github.com/sst/opencode-sdk-js/commit/fd8c26290adbf276c934332d717789c0b78c582f))
+* **api:** api update ([55931d4](https://github.com/sst/opencode-sdk-js/commit/55931d472b522c2cc5daad8e282afd4730812fc5))
+
+
+### Chores
+
+* **deps:** update dependency @types/node to v20.17.58 ([d93d8d5](https://github.com/sst/opencode-sdk-js/commit/d93d8d50f3ff7a8ef50b49aa5652005609085572))
+* **internal:** codegen related update ([3ff1be2](https://github.com/sst/opencode-sdk-js/commit/3ff1be29a016d9f1041b7288fcc346ffe94cda8e))
+* **internal:** formatting change ([34a6207](https://github.com/sst/opencode-sdk-js/commit/34a6207205de33fce81248269d774b1cdcaa85ca))
+* **internal:** move publish config ([ba0fe7f](https://github.com/sst/opencode-sdk-js/commit/ba0fe7f12436681848c323526c42002dd3e23140))
+* **internal:** remove redundant imports config ([878b3bd](https://github.com/sst/opencode-sdk-js/commit/878b3bd0593b4eb108a75a5101c6ba36707f16ee))
+* **internal:** update comment in script ([aea29b3](https://github.com/sst/opencode-sdk-js/commit/aea29b3cd7a7e431c12f961cf5fbc72ad15b370d))
+* update @stainless-api/prism-cli to v5.15.0 ([6b87e0e](https://github.com/sst/opencode-sdk-js/commit/6b87e0ec1fd41de02441e7dfbc1e73beed57f67e))
+
 ## 0.1.0-alpha.21 (2025-07-28)
 
 Full Changelog: [v0.1.0-alpha.20...v0.1.0-alpha.21](https://github.com/sst/opencode-sdk-js/compare/v0.1.0-alpha.20...v0.1.0-alpha.21)

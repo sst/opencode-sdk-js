@@ -30,6 +30,7 @@ export type EventListResponse =
   | EventListResponse.EventSessionDeleted
   | EventListResponse.EventSessionIdle
   | EventListResponse.EventSessionError
+  | EventListResponse.EventServerConnected
   | EventListResponse.EventFileWatcherUpdated
   | EventListResponse.EventIdeInstalled;
 
@@ -109,6 +110,8 @@ export namespace EventListResponse {
       messageID: string;
 
       partID: string;
+
+      sessionID: string;
     }
   }
 
@@ -224,6 +227,12 @@ export namespace EventListResponse {
         name: 'MessageOutputLengthError';
       }
     }
+  }
+
+  export interface EventServerConnected {
+    properties: unknown;
+
+    type: 'server.connected';
   }
 
   export interface EventFileWatcherUpdated {
