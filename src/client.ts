@@ -761,6 +761,7 @@ export class Opencode {
   session: API.SessionResource = new API.SessionResource(this);
   tui: API.Tui = new API.Tui(this);
 }
+
 Opencode.Event = Event;
 Opencode.AppResource = AppResource;
 Opencode.Find = Find;
@@ -768,6 +769,7 @@ Opencode.FileResource = FileResource;
 Opencode.ConfigResource = ConfigResource;
 Opencode.SessionResource = SessionResource;
 Opencode.Tui = Tui;
+
 export declare namespace Opencode {
   export type RequestOptions = Opts.RequestOptions;
 
