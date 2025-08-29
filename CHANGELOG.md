@@ -1,5 +1,30 @@
 # Changelog
 
+## 0.1.0-alpha.22 (2025-08-29)
+
+Full Changelog: [v0.1.0-alpha.21...v0.1.0-alpha.22](https://github.com/sst/opencode-sdk-js/compare/v0.1.0-alpha.21...v0.1.0-alpha.22)
+
+### Features
+
+* **api:** api update ([fd8c262](https://github.com/sst/opencode-sdk-js/commit/fd8c26290adbf276c934332d717789c0b78c582f))
+* **api:** api update ([55931d4](https://github.com/sst/opencode-sdk-js/commit/55931d472b522c2cc5daad8e282afd4730812fc5))
+* **mcp:** add code execution tool ([d50a212](https://github.com/sst/opencode-sdk-js/commit/d50a212441e49be3318824694b49319ef4a78e8e))
+
+
+### Chores
+
+* add package to package.json ([95aa7f5](https://github.com/sst/opencode-sdk-js/commit/95aa7f5775c6debeae192c165b83b33602e851ed))
+* **client:** qualify global Blob ([a5a3de7](https://github.com/sst/opencode-sdk-js/commit/a5a3de76a6bc35a5ba01f8c17ce0d603fc6ccfb3))
+* **deps:** update dependency @types/node to v20.17.58 ([d93d8d5](https://github.com/sst/opencode-sdk-js/commit/d93d8d50f3ff7a8ef50b49aa5652005609085572))
+* **internal:** codegen related update ([3ff1be2](https://github.com/sst/opencode-sdk-js/commit/3ff1be29a016d9f1041b7288fcc346ffe94cda8e))
+* **internal:** formatting change ([34a6207](https://github.com/sst/opencode-sdk-js/commit/34a6207205de33fce81248269d774b1cdcaa85ca))
+* **internal:** move publish config ([ba0fe7f](https://github.com/sst/opencode-sdk-js/commit/ba0fe7f12436681848c323526c42002dd3e23140))
+* **internal:** remove redundant imports config ([878b3bd](https://github.com/sst/opencode-sdk-js/commit/878b3bd0593b4eb108a75a5101c6ba36707f16ee))
+* **internal:** update comment in script ([aea29b3](https://github.com/sst/opencode-sdk-js/commit/aea29b3cd7a7e431c12f961cf5fbc72ad15b370d))
+* **internal:** update global Error reference ([0933f75](https://github.com/sst/opencode-sdk-js/commit/0933f7582483e3313889c6343af041f9b4a4b99a))
+* update @stainless-api/prism-cli to v5.15.0 ([6b87e0e](https://github.com/sst/opencode-sdk-js/commit/6b87e0ec1fd41de02441e7dfbc1e73beed57f67e))
+* update CI script ([af5f389](https://github.com/sst/opencode-sdk-js/commit/af5f389b7c9a81e79153c4b1e1f9bbd0368af363))
+
 ## 0.1.0-alpha.21 (2025-07-28)
 
 Full Changelog: [v0.1.0-alpha.20...v0.1.0-alpha.21](https://github.com/sst/opencode-sdk-js/compare/v0.1.0-alpha.20...v0.1.0-alpha.21)
