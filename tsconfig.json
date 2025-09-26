@@ -7,10 +7,9 @@
     "module": "commonjs",
     "moduleResolution": "node",
     "esModuleInterop": true,
-    "baseUrl": "./",
     "paths": {
-      "@opencode-ai/sdk/*": ["src/*"],
-      "@opencode-ai/sdk": ["src/index.ts"]
+      "@opencode-ai/sdk/*": ["./src/*"],
+      "@opencode-ai/sdk": ["./src/index.ts"]
     },
     "noEmit": true,
 
