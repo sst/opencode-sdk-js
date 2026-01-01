@@ -4,10 +4,13 @@ import Opencode from '@opencode-ai/sdk';
 
 const client = new Opencode({ baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010' });
 
-describe('resource event', () => {
-  // Prism doesn't support text/event-stream responses
-  test.skip('list', async () => {
-    const responsePromise = client.event.list();
+describe('resource permissions', () => {
+  // Prism tests are disabled
+  test.skip('respond: only required params', async () => {
+    const responsePromise = client.session.permissions.respond('permissionID', {
+      id: 'id',
+      response: 'once',
+    });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -17,11 +20,12 @@ describe('resource event', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism doesn't support text/event-stream responses
-  test.skip('list: request options and params are passed correctly', async () => {
-    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(
-      client.event.list({ directory: 'directory' }, { path: '/_stainless_unknown_path' }),
-    ).rejects.toThrow(Opencode.NotFoundError);
+  // Prism tests are disabled
+  test.skip('respond: required and optional params', async () => {
+    const response = await client.session.permissions.respond('permissionID', {
+      id: 'id',
+      response: 'once',
+      directory: 'directory',
+    });
   });
 });

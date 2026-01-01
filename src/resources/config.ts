@@ -1,7 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../core/resource';
-import * as ConfigAPI from './config';
 import { APIPromise } from '../core/api-promise';
 import { RequestOptions } from '../internal/request-options';
 
@@ -9,8 +8,8 @@ export class ConfigResource extends APIResource {
   /**
    * Get config info
    */
-  get(options?: RequestOptions): APIPromise<Config> {
-    return this._client.get('/config', options);
+  get(query: ConfigGetParams | null | undefined = {}, options?: RequestOptions): APIPromise<Config> {
+    return this._client.get('/config', { query, ...options });
   }
 }
 
@@ -21,7 +20,7 @@ export interface Config {
   $schema?: string;
 
   /**
-   * Modes configuration, see https://opencode.ai/docs/modes
+   * Agent configuration, see https://opencode.ai/docs/agent
    */
   agent?: Config.Agent;
 
@@ -37,11 +36,18 @@ export interface Config {
   autoupdate?: boolean;
 
   /**
+   * Command configuration, see https://opencode.ai/docs/commands
+   */
+  command?: { [key: string]: Config.Command };
+
+  /**
    * Disable providers that are loaded automatically
    */
   disabled_providers?: Array<string>;
 
   experimental?: Config.Experimental;
+
+  formatter?: { [key: string]: Config.Formatter };
 
   /**
    * Additional instruction files or patterns to include
@@ -58,13 +64,15 @@ export interface Config {
    */
   layout?: 'auto' | 'stretch';
 
+  lsp?: { [key: string]: Config.Disabled | Config.UnionMember1 };
+
   /**
    * MCP (Model Context Protocol) server configurations
    */
   mcp?: { [key: string]: McpLocalConfig | McpRemoteConfig };
 
   /**
-   * Modes configuration, see https://opencode.ai/docs/modes
+   * @deprecated Use `agent` field instead.
    */
   mode?: Config.Mode;
 
@@ -72,6 +80,10 @@ export interface Config {
    * Model to use in the format of provider/model, eg anthropic/claude-2
    */
   model?: string;
+
+  permission?: Config.Permission;
+
+  plugin?: Array<string>;
 
   /**
    * Custom provider configurations and model overrides
@@ -85,15 +97,24 @@ export interface Config {
   share?: 'manual' | 'auto' | 'disabled';
 
   /**
-   * Small model to use for tasks like summarization and title generation in the
-   * format of provider/model
+   * Small model to use for tasks like title generation in the format of
+   * provider/model
    */
   small_model?: string;
+
+  snapshot?: boolean;
 
   /**
    * Theme name to use for the interface
    */
   theme?: string;
+
+  tools?: { [key: string]: boolean };
+
+  /**
+   * TUI specific settings
+   */
+  tui?: Config.Tui;
 
   /**
    * Custom username to display in conversations instead of system username
@@ -103,30 +124,238 @@ export interface Config {
 
 export namespace Config {
   /**
-   * Modes configuration, see https://opencode.ai/docs/modes
+   * Agent configuration, see https://opencode.ai/docs/agent
    */
   export interface Agent {
+    build?: Agent.Build;
+
     general?: Agent.General;
+
+    plan?: Agent.Plan;
 
     [k: string]: Agent.AgentConfig | undefined;
   }
 
   export namespace Agent {
-    export interface General extends ConfigAPI.ModeConfig {
-      description: string;
+    export interface Build {
+      /**
+       * Description of when to use the agent
+       */
+      description?: string;
+
+      disable?: boolean;
+
+      mode?: 'subagent' | 'primary' | 'all';
+
+      model?: string;
+
+      permission?: Build.Permission;
+
+      prompt?: string;
+
+      temperature?: number;
+
+      tools?: { [key: string]: boolean };
+
+      top_p?: number;
+
+      [k: string]: unknown;
     }
 
-    export interface AgentConfig extends ConfigAPI.ModeConfig {
-      description: string;
+    export namespace Build {
+      export interface Permission {
+        bash?: 'ask' | 'allow' | 'deny' | { [key: string]: 'ask' | 'allow' | 'deny' };
+
+        edit?: 'ask' | 'allow' | 'deny';
+
+        webfetch?: 'ask' | 'allow' | 'deny';
+      }
+    }
+
+    export interface General {
+      /**
+       * Description of when to use the agent
+       */
+      description?: string;
+
+      disable?: boolean;
+
+      mode?: 'subagent' | 'primary' | 'all';
+
+      model?: string;
+
+      permission?: General.Permission;
+
+      prompt?: string;
+
+      temperature?: number;
+
+      tools?: { [key: string]: boolean };
+
+      top_p?: number;
+
+      [k: string]: unknown;
+    }
+
+    export namespace General {
+      export interface Permission {
+        bash?: 'ask' | 'allow' | 'deny' | { [key: string]: 'ask' | 'allow' | 'deny' };
+
+        edit?: 'ask' | 'allow' | 'deny';
+
+        webfetch?: 'ask' | 'allow' | 'deny';
+      }
+    }
+
+    export interface Plan {
+      /**
+       * Description of when to use the agent
+       */
+      description?: string;
+
+      disable?: boolean;
+
+      mode?: 'subagent' | 'primary' | 'all';
+
+      model?: string;
+
+      permission?: Plan.Permission;
+
+      prompt?: string;
+
+      temperature?: number;
+
+      tools?: { [key: string]: boolean };
+
+      top_p?: number;
+
+      [k: string]: unknown;
+    }
+
+    export namespace Plan {
+      export interface Permission {
+        bash?: 'ask' | 'allow' | 'deny' | { [key: string]: 'ask' | 'allow' | 'deny' };
+
+        edit?: 'ask' | 'allow' | 'deny';
+
+        webfetch?: 'ask' | 'allow' | 'deny';
+      }
+    }
+
+    export interface AgentConfig {
+      /**
+       * Description of when to use the agent
+       */
+      description?: string;
+
+      disable?: boolean;
+
+      mode?: 'subagent' | 'primary' | 'all';
+
+      model?: string;
+
+      permission?: AgentConfig.Permission;
+
+      prompt?: string;
+
+      temperature?: number;
+
+      tools?: { [key: string]: boolean };
+
+      top_p?: number;
+
+      [k: string]: unknown;
+    }
+
+    export namespace AgentConfig {
+      export interface Permission {
+        bash?: 'ask' | 'allow' | 'deny' | { [key: string]: 'ask' | 'allow' | 'deny' };
+
+        edit?: 'ask' | 'allow' | 'deny';
+
+        webfetch?: 'ask' | 'allow' | 'deny';
+      }
     }
   }
 
-  export interface AgentConfig extends ConfigAPI.ModeConfig {
-    description: string;
+  export interface AgentConfig {
+    /**
+     * Description of when to use the agent
+     */
+    description?: string;
+
+    disable?: boolean;
+
+    mode?: 'subagent' | 'primary' | 'all';
+
+    model?: string;
+
+    permission?: AgentConfig.Permission;
+
+    prompt?: string;
+
+    temperature?: number;
+
+    tools?: { [key: string]: boolean };
+
+    top_p?: number;
+
+    [k: string]: unknown;
   }
 
-  export interface AgentConfig extends ConfigAPI.ModeConfig {
-    description: string;
+  export namespace AgentConfig {
+    export interface Permission {
+      bash?: 'ask' | 'allow' | 'deny' | { [key: string]: 'ask' | 'allow' | 'deny' };
+
+      edit?: 'ask' | 'allow' | 'deny';
+
+      webfetch?: 'ask' | 'allow' | 'deny';
+    }
+  }
+
+  export interface AgentConfig {
+    /**
+     * Description of when to use the agent
+     */
+    description?: string;
+
+    disable?: boolean;
+
+    mode?: 'subagent' | 'primary' | 'all';
+
+    model?: string;
+
+    permission?: AgentConfig.Permission;
+
+    prompt?: string;
+
+    temperature?: number;
+
+    tools?: { [key: string]: boolean };
+
+    top_p?: number;
+
+    [k: string]: unknown;
+  }
+
+  export namespace AgentConfig {
+    export interface Permission {
+      bash?: 'ask' | 'allow' | 'deny' | { [key: string]: 'ask' | 'allow' | 'deny' };
+
+      edit?: 'ask' | 'allow' | 'deny';
+
+      webfetch?: 'ask' | 'allow' | 'deny';
+    }
+  }
+
+  export interface Command {
+    template: string;
+
+    agent?: string;
+
+    description?: string;
+
+    model?: string;
   }
 
   export interface Experimental {
@@ -155,25 +384,236 @@ export namespace Config {
     }
   }
 
+  export interface Formatter {
+    command?: Array<string>;
+
+    disabled?: boolean;
+
+    environment?: { [key: string]: string };
+
+    extensions?: Array<string>;
+  }
+
+  export interface Disabled {
+    disabled: true;
+  }
+
+  export interface UnionMember1 {
+    command: Array<string>;
+
+    disabled?: boolean;
+
+    env?: { [key: string]: string };
+
+    extensions?: Array<string>;
+
+    initialization?: { [key: string]: unknown };
+  }
+
   /**
-   * Modes configuration, see https://opencode.ai/docs/modes
+   * @deprecated Use `agent` field instead.
    */
   export interface Mode {
-    build?: ConfigAPI.ModeConfig;
+    build?: Mode.Build;
 
-    plan?: ConfigAPI.ModeConfig;
+    plan?: Mode.Plan;
 
-    [k: string]: ConfigAPI.ModeConfig | undefined;
+    [k: string]: Mode.AgentConfig | undefined;
+  }
+
+  export namespace Mode {
+    export interface Build {
+      /**
+       * Description of when to use the agent
+       */
+      description?: string;
+
+      disable?: boolean;
+
+      mode?: 'subagent' | 'primary' | 'all';
+
+      model?: string;
+
+      permission?: Build.Permission;
+
+      prompt?: string;
+
+      temperature?: number;
+
+      tools?: { [key: string]: boolean };
+
+      top_p?: number;
+
+      [k: string]: unknown;
+    }
+
+    export namespace Build {
+      export interface Permission {
+        bash?: 'ask' | 'allow' | 'deny' | { [key: string]: 'ask' | 'allow' | 'deny' };
+
+        edit?: 'ask' | 'allow' | 'deny';
+
+        webfetch?: 'ask' | 'allow' | 'deny';
+      }
+    }
+
+    export interface Plan {
+      /**
+       * Description of when to use the agent
+       */
+      description?: string;
+
+      disable?: boolean;
+
+      mode?: 'subagent' | 'primary' | 'all';
+
+      model?: string;
+
+      permission?: Plan.Permission;
+
+      prompt?: string;
+
+      temperature?: number;
+
+      tools?: { [key: string]: boolean };
+
+      top_p?: number;
+
+      [k: string]: unknown;
+    }
+
+    export namespace Plan {
+      export interface Permission {
+        bash?: 'ask' | 'allow' | 'deny' | { [key: string]: 'ask' | 'allow' | 'deny' };
+
+        edit?: 'ask' | 'allow' | 'deny';
+
+        webfetch?: 'ask' | 'allow' | 'deny';
+      }
+    }
+
+    export interface AgentConfig {
+      /**
+       * Description of when to use the agent
+       */
+      description?: string;
+
+      disable?: boolean;
+
+      mode?: 'subagent' | 'primary' | 'all';
+
+      model?: string;
+
+      permission?: AgentConfig.Permission;
+
+      prompt?: string;
+
+      temperature?: number;
+
+      tools?: { [key: string]: boolean };
+
+      top_p?: number;
+
+      [k: string]: unknown;
+    }
+
+    export namespace AgentConfig {
+      export interface Permission {
+        bash?: 'ask' | 'allow' | 'deny' | { [key: string]: 'ask' | 'allow' | 'deny' };
+
+        edit?: 'ask' | 'allow' | 'deny';
+
+        webfetch?: 'ask' | 'allow' | 'deny';
+      }
+    }
+  }
+
+  export interface AgentConfig {
+    /**
+     * Description of when to use the agent
+     */
+    description?: string;
+
+    disable?: boolean;
+
+    mode?: 'subagent' | 'primary' | 'all';
+
+    model?: string;
+
+    permission?: AgentConfig.Permission;
+
+    prompt?: string;
+
+    temperature?: number;
+
+    tools?: { [key: string]: boolean };
+
+    top_p?: number;
+
+    [k: string]: unknown;
+  }
+
+  export namespace AgentConfig {
+    export interface Permission {
+      bash?: 'ask' | 'allow' | 'deny' | { [key: string]: 'ask' | 'allow' | 'deny' };
+
+      edit?: 'ask' | 'allow' | 'deny';
+
+      webfetch?: 'ask' | 'allow' | 'deny';
+    }
+  }
+
+  export interface AgentConfig {
+    /**
+     * Description of when to use the agent
+     */
+    description?: string;
+
+    disable?: boolean;
+
+    mode?: 'subagent' | 'primary' | 'all';
+
+    model?: string;
+
+    permission?: AgentConfig.Permission;
+
+    prompt?: string;
+
+    temperature?: number;
+
+    tools?: { [key: string]: boolean };
+
+    top_p?: number;
+
+    [k: string]: unknown;
+  }
+
+  export namespace AgentConfig {
+    export interface Permission {
+      bash?: 'ask' | 'allow' | 'deny' | { [key: string]: 'ask' | 'allow' | 'deny' };
+
+      edit?: 'ask' | 'allow' | 'deny';
+
+      webfetch?: 'ask' | 'allow' | 'deny';
+    }
+  }
+
+  export interface Permission {
+    bash?: 'ask' | 'allow' | 'deny' | { [key: string]: 'ask' | 'allow' | 'deny' };
+
+    edit?: 'ask' | 'allow' | 'deny';
+
+    webfetch?: 'ask' | 'allow' | 'deny';
   }
 
   export interface Provider {
-    models: { [key: string]: Provider.Models };
-
     id?: string;
 
     api?: string;
 
     env?: Array<string>;
+
+    models?: { [key: string]: Provider.Models };
 
     name?: string;
 
@@ -228,12 +668,43 @@ export namespace Config {
 
       baseURL?: string;
 
+      /**
+       * Timeout in milliseconds for requests to this provider. Default is 300000 (5
+       * minutes). Set to false to disable timeout.
+       */
+      timeout?: number | boolean;
+
       [k: string]: unknown;
     }
+  }
+
+  /**
+   * TUI specific settings
+   */
+  export interface Tui {
+    /**
+     * TUI scroll speed
+     */
+    scroll_speed: number;
   }
 }
 
 export interface KeybindsConfig {
+  /**
+   * Next agent
+   */
+  agent_cycle: string;
+
+  /**
+   * Previous agent
+   */
+  agent_cycle_reverse: string;
+
+  /**
+   * List agents
+   */
+  agent_list: string;
+
   /**
    * Exit the application
    */
@@ -250,22 +721,22 @@ export interface KeybindsConfig {
   editor_open: string;
 
   /**
-   * Close file
+   * @deprecated Close file
    */
   file_close: string;
 
   /**
-   * Split/unified diff
+   * @deprecated Split/unified diff
    */
   file_diff_toggle: string;
 
   /**
-   * List files
+   * @deprecated Currently not available. List files
    */
   file_list: string;
 
   /**
-   * Search file
+   * @deprecated Search file
    */
   file_search: string;
 
@@ -320,12 +791,12 @@ export interface KeybindsConfig {
   messages_last: string;
 
   /**
-   * Toggle layout
+   * @deprecated Toggle layout
    */
   messages_layout_toggle: string;
 
   /**
-   * Navigate to next message
+   * @deprecated Navigate to next message
    */
   messages_next: string;
 
@@ -340,7 +811,7 @@ export interface KeybindsConfig {
   messages_page_up: string;
 
   /**
-   * Navigate to previous message
+   * @deprecated Navigate to previous message
    */
   messages_previous: string;
 
@@ -360,6 +831,16 @@ export interface KeybindsConfig {
   messages_undo: string;
 
   /**
+   * Next recent model
+   */
+  model_cycle_recent: string;
+
+  /**
+   * Previous recent model
+   */
+  model_cycle_recent_reverse: string;
+
+  /**
    * List available models
    */
   model_list: string;
@@ -368,6 +849,16 @@ export interface KeybindsConfig {
    * Create/update AGENTS.md
    */
   project_init: string;
+
+  /**
+   * Cycle to next child session
+   */
+  session_child_cycle: string;
+
+  /**
+   * Cycle to previous child session
+   */
+  session_child_cycle_reverse: string;
 
   /**
    * Compact the session
@@ -400,17 +891,32 @@ export interface KeybindsConfig {
   session_share: string;
 
   /**
+   * Show session timeline
+   */
+  session_timeline: string;
+
+  /**
    * Unshare current session
    */
   session_unshare: string;
 
   /**
-   * Next mode
+   * @deprecated use agent_cycle. Next agent
+   */
+  switch_agent: string;
+
+  /**
+   * @deprecated use agent_cycle_reverse. Previous agent
+   */
+  switch_agent_reverse: string;
+
+  /**
+   * @deprecated use agent_cycle. Next mode
    */
   switch_mode: string;
 
   /**
-   * Previous Mode
+   * @deprecated use agent_cycle_reverse. Previous mode
    */
   switch_mode_reverse: string;
 
@@ -418,6 +924,11 @@ export interface KeybindsConfig {
    * List available themes
    */
   theme_list: string;
+
+  /**
+   * Toggle thinking blocks
+   */
+  thinking_blocks: string;
 
   /**
    * Toggle tool details
@@ -469,16 +980,8 @@ export interface McpRemoteConfig {
   headers?: { [key: string]: string };
 }
 
-export interface ModeConfig {
-  disable?: boolean;
-
-  model?: string;
-
-  prompt?: string;
-
-  temperature?: number;
-
-  tools?: { [key: string]: boolean };
+export interface ConfigGetParams {
+  directory?: string;
 }
 
 export declare namespace ConfigResource {
@@ -487,6 +990,6 @@ export declare namespace ConfigResource {
     type KeybindsConfig as KeybindsConfig,
     type McpLocalConfig as McpLocalConfig,
     type McpRemoteConfig as McpRemoteConfig,
-    type ModeConfig as ModeConfig,
+    type ConfigGetParams as ConfigGetParams,
   };
 }

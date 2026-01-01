@@ -16,28 +16,37 @@ import * as Errors from './core/error';
 import * as Uploads from './core/uploads';
 import * as API from './resources/index';
 import { APIPromise } from './core/api-promise';
+import { Agent, AgentListParams, AgentListResponse, AgentResource } from './resources/agent';
 import {
   App,
-  AppInitResponse,
   AppLogParams,
   AppLogResponse,
-  AppModesResponse,
+  AppProvidersParams,
   AppProvidersResponse,
-  AppResource,
-  Mode,
   Model,
   Provider,
 } from './resources/app';
+import { Command, CommandListParams, CommandListResponse, CommandResource } from './resources/command';
 import {
   Config,
+  ConfigGetParams,
   ConfigResource,
   KeybindsConfig,
   McpLocalConfig,
   McpRemoteConfig,
-  ModeConfig,
 } from './resources/config';
-import { Event, EventListResponse } from './resources/event';
-import { File, FileReadParams, FileReadResponse, FileResource, FileStatusResponse } from './resources/file';
+import { Event, EventListParams, EventListResponse } from './resources/event';
+import {
+  File,
+  FileListParams,
+  FileListResponse,
+  FileNode,
+  FileReadParams,
+  FileReadResponse,
+  FileResource,
+  FileStatusParams,
+  FileStatusResponse,
+} from './resources/file';
 import {
   Find,
   FindFilesParams,
@@ -48,7 +57,38 @@ import {
   FindTextResponse,
   Symbol,
 } from './resources/find';
+import { Path, PathGetParams, PathResource } from './resources/path';
 import {
+  Project,
+  ProjectCurrentParams,
+  ProjectListParams,
+  ProjectListResponse,
+  ProjectResource,
+} from './resources/project';
+import {
+  Tui,
+  TuiAppendPromptParams,
+  TuiAppendPromptResponse,
+  TuiClearPromptParams,
+  TuiClearPromptResponse,
+  TuiExecuteCommandParams,
+  TuiExecuteCommandResponse,
+  TuiOpenHelpParams,
+  TuiOpenHelpResponse,
+  TuiOpenModelsParams,
+  TuiOpenModelsResponse,
+  TuiOpenSessionsParams,
+  TuiOpenSessionsResponse,
+  TuiOpenThemesParams,
+  TuiOpenThemesResponse,
+  TuiShowToastParams,
+  TuiShowToastResponse,
+  TuiSubmitPromptParams,
+  TuiSubmitPromptResponse,
+} from './resources/tui';
+import {
+  AgentPart,
+  AgentPartInput,
   AssistantMessage,
   FilePart,
   FilePartInput,
@@ -57,18 +97,37 @@ import {
   FileSource,
   Message,
   Part,
+  ReasoningPart,
   Session,
+  SessionAbortParams,
   SessionAbortResponse,
-  SessionChatParams,
+  SessionChildrenParams,
+  SessionChildrenResponse,
+  SessionCommandParams,
+  SessionCommandResponse,
+  SessionCreateParams,
+  SessionDeleteParams,
   SessionDeleteResponse,
+  SessionGetParams,
   SessionInitParams,
   SessionInitResponse,
+  SessionListParams,
   SessionListResponse,
+  SessionMessageParams,
+  SessionMessageResponse,
+  SessionMessagesParams,
   SessionMessagesResponse,
+  SessionPromptParams,
+  SessionPromptResponse,
   SessionResource,
   SessionRevertParams,
+  SessionShareParams,
+  SessionShellParams,
   SessionSummarizeParams,
   SessionSummarizeResponse,
+  SessionUnrevertParams,
+  SessionUnshareParams,
+  SessionUpdateParams,
   SnapshotPart,
   StepFinishPart,
   StepStartPart,
@@ -81,8 +140,7 @@ import {
   ToolStatePending,
   ToolStateRunning,
   UserMessage,
-} from './resources/session';
-import { Tui, TuiAppendPromptParams, TuiAppendPromptResponse, TuiOpenHelpResponse } from './resources/tui';
+} from './resources/session/session';
 import { type Fetch } from './internal/builtin-types';
 import { HeadersLike, NullableHeaders, buildHeaders } from './internal/headers';
 import { FinalRequestOptions, RequestOptions } from './internal/request-options';
@@ -173,7 +231,7 @@ export class Opencode {
   baseURL: string;
   maxRetries: number;
   timeout: number;
-  logger: Logger | undefined;
+  logger: Logger;
   logLevel: LogLevel | undefined;
   fetchOptions: MergedRequestInit | undefined;
 
@@ -408,7 +466,7 @@ export class Opencode {
     const response = await this.fetchWithTimeout(url, req, timeout, controller).catch(castToError);
     const headersTime = Date.now();
 
-    if (response instanceof Error) {
+    if (response instanceof globalThis.Error) {
       const retryMessage = `retrying, ${retriesRemaining} attempts remaining`;
       if (options.signal?.aborted) {
         throw new Errors.APIUserAbortError();
@@ -714,7 +772,7 @@ export class Opencode {
         // Preserve legacy string encoding behavior for now
         headers.values.has('content-type')) ||
       // `Blob` is superset of `File`
-      body instanceof Blob ||
+      ((globalThis as any).Blob && body instanceof (globalThis as any).Blob) ||
       // `FormData` -> `multipart/form-data`
       body instanceof FormData ||
       // `URLSearchParams` -> `application/x-www-form-urlencoded`
@@ -754,36 +812,56 @@ export class Opencode {
   static toFile = Uploads.toFile;
 
   event: API.Event = new API.Event(this);
-  app: API.AppResource = new API.AppResource(this);
+  path: API.PathResource = new API.PathResource(this);
+  app: API.App = new API.App(this);
+  agent: API.AgentResource = new API.AgentResource(this);
   find: API.Find = new API.Find(this);
   file: API.FileResource = new API.FileResource(this);
   config: API.ConfigResource = new API.ConfigResource(this);
+  command: API.CommandResource = new API.CommandResource(this);
+  project: API.ProjectResource = new API.ProjectResource(this);
   session: API.SessionResource = new API.SessionResource(this);
   tui: API.Tui = new API.Tui(this);
 }
+
 Opencode.Event = Event;
-Opencode.AppResource = AppResource;
+Opencode.PathResource = PathResource;
+Opencode.App = App;
+Opencode.AgentResource = AgentResource;
 Opencode.Find = Find;
 Opencode.FileResource = FileResource;
 Opencode.ConfigResource = ConfigResource;
+Opencode.CommandResource = CommandResource;
+Opencode.ProjectResource = ProjectResource;
 Opencode.SessionResource = SessionResource;
 Opencode.Tui = Tui;
+
 export declare namespace Opencode {
   export type RequestOptions = Opts.RequestOptions;
 
-  export { Event as Event, type EventListResponse as EventListResponse };
+  export {
+    Event as Event,
+    type EventListResponse as EventListResponse,
+    type EventListParams as EventListParams,
+  };
+
+  export { PathResource as PathResource, type Path as Path, type PathGetParams as PathGetParams };
 
   export {
-    AppResource as AppResource,
-    type App as App,
-    type Mode as Mode,
+    App as App,
     type Model as Model,
     type Provider as Provider,
-    type AppInitResponse as AppInitResponse,
     type AppLogResponse as AppLogResponse,
-    type AppModesResponse as AppModesResponse,
     type AppProvidersResponse as AppProvidersResponse,
     type AppLogParams as AppLogParams,
+    type AppProvidersParams as AppProvidersParams,
+  };
+
+  export {
+    AgentResource as AgentResource,
+    type Agent as Agent,
+    type AgentListResponse as AgentListResponse,
+    type AgentListParams as AgentListParams,
   };
 
   export {
@@ -800,9 +878,13 @@ export declare namespace Opencode {
   export {
     FileResource as FileResource,
     type File as File,
+    type FileNode as FileNode,
+    type FileListResponse as FileListResponse,
     type FileReadResponse as FileReadResponse,
     type FileStatusResponse as FileStatusResponse,
+    type FileListParams as FileListParams,
     type FileReadParams as FileReadParams,
+    type FileStatusParams as FileStatusParams,
   };
 
   export {
@@ -811,11 +893,28 @@ export declare namespace Opencode {
     type KeybindsConfig as KeybindsConfig,
     type McpLocalConfig as McpLocalConfig,
     type McpRemoteConfig as McpRemoteConfig,
-    type ModeConfig as ModeConfig,
+    type ConfigGetParams as ConfigGetParams,
+  };
+
+  export {
+    CommandResource as CommandResource,
+    type Command as Command,
+    type CommandListResponse as CommandListResponse,
+    type CommandListParams as CommandListParams,
+  };
+
+  export {
+    ProjectResource as ProjectResource,
+    type Project as Project,
+    type ProjectListResponse as ProjectListResponse,
+    type ProjectListParams as ProjectListParams,
+    type ProjectCurrentParams as ProjectCurrentParams,
   };
 
   export {
     SessionResource as SessionResource,
+    type AgentPart as AgentPart,
+    type AgentPartInput as AgentPartInput,
     type AssistantMessage as AssistantMessage,
     type FilePart as FilePart,
     type FilePartInput as FilePartInput,
@@ -824,6 +923,7 @@ export declare namespace Opencode {
     type FileSource as FileSource,
     type Message as Message,
     type Part as Part,
+    type ReasoningPart as ReasoningPart,
     type Session as Session,
     type SnapshotPart as SnapshotPart,
     type StepFinishPart as StepFinishPart,
@@ -840,20 +940,53 @@ export declare namespace Opencode {
     type SessionListResponse as SessionListResponse,
     type SessionDeleteResponse as SessionDeleteResponse,
     type SessionAbortResponse as SessionAbortResponse,
+    type SessionChildrenResponse as SessionChildrenResponse,
+    type SessionCommandResponse as SessionCommandResponse,
     type SessionInitResponse as SessionInitResponse,
+    type SessionMessageResponse as SessionMessageResponse,
     type SessionMessagesResponse as SessionMessagesResponse,
+    type SessionPromptResponse as SessionPromptResponse,
     type SessionSummarizeResponse as SessionSummarizeResponse,
-    type SessionChatParams as SessionChatParams,
+    type SessionCreateParams as SessionCreateParams,
+    type SessionUpdateParams as SessionUpdateParams,
+    type SessionListParams as SessionListParams,
+    type SessionDeleteParams as SessionDeleteParams,
+    type SessionAbortParams as SessionAbortParams,
+    type SessionChildrenParams as SessionChildrenParams,
+    type SessionCommandParams as SessionCommandParams,
+    type SessionGetParams as SessionGetParams,
     type SessionInitParams as SessionInitParams,
+    type SessionMessageParams as SessionMessageParams,
+    type SessionMessagesParams as SessionMessagesParams,
+    type SessionPromptParams as SessionPromptParams,
     type SessionRevertParams as SessionRevertParams,
+    type SessionShareParams as SessionShareParams,
+    type SessionShellParams as SessionShellParams,
     type SessionSummarizeParams as SessionSummarizeParams,
+    type SessionUnrevertParams as SessionUnrevertParams,
+    type SessionUnshareParams as SessionUnshareParams,
   };
 
   export {
     Tui as Tui,
     type TuiAppendPromptResponse as TuiAppendPromptResponse,
+    type TuiClearPromptResponse as TuiClearPromptResponse,
+    type TuiExecuteCommandResponse as TuiExecuteCommandResponse,
     type TuiOpenHelpResponse as TuiOpenHelpResponse,
+    type TuiOpenModelsResponse as TuiOpenModelsResponse,
+    type TuiOpenSessionsResponse as TuiOpenSessionsResponse,
+    type TuiOpenThemesResponse as TuiOpenThemesResponse,
+    type TuiShowToastResponse as TuiShowToastResponse,
+    type TuiSubmitPromptResponse as TuiSubmitPromptResponse,
     type TuiAppendPromptParams as TuiAppendPromptParams,
+    type TuiClearPromptParams as TuiClearPromptParams,
+    type TuiExecuteCommandParams as TuiExecuteCommandParams,
+    type TuiOpenHelpParams as TuiOpenHelpParams,
+    type TuiOpenModelsParams as TuiOpenModelsParams,
+    type TuiOpenSessionsParams as TuiOpenSessionsParams,
+    type TuiOpenThemesParams as TuiOpenThemesParams,
+    type TuiShowToastParams as TuiShowToastParams,
+    type TuiSubmitPromptParams as TuiSubmitPromptParams,
   };
 
   export type MessageAbortedError = API.MessageAbortedError;

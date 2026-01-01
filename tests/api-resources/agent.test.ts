@@ -4,10 +4,10 @@ import Opencode from '@opencode-ai/sdk';
 
 const client = new Opencode({ baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010' });
 
-describe('resource event', () => {
-  // Prism doesn't support text/event-stream responses
+describe('resource agent', () => {
+  // Prism tests are disabled
   test.skip('list', async () => {
-    const responsePromise = client.event.list();
+    const responsePromise = client.agent.list();
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -17,11 +17,11 @@ describe('resource event', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism doesn't support text/event-stream responses
+  // Prism tests are disabled
   test.skip('list: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      client.event.list({ directory: 'directory' }, { path: '/_stainless_unknown_path' }),
+      client.agent.list({ directory: 'directory' }, { path: '/_stainless_unknown_path' }),
     ).rejects.toThrow(Opencode.NotFoundError);
   });
 });

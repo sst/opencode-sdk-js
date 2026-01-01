@@ -4,88 +4,23 @@ import { APIResource } from '../core/resource';
 import { APIPromise } from '../core/api-promise';
 import { RequestOptions } from '../internal/request-options';
 
-export class AppResource extends APIResource {
-  /**
-   * Get app info
-   */
-  get(options?: RequestOptions): APIPromise<App> {
-    return this._client.get('/app', options);
-  }
-
-  /**
-   * Initialize the app
-   */
-  init(options?: RequestOptions): APIPromise<AppInitResponse> {
-    return this._client.post('/app/init', options);
-  }
-
+export class App extends APIResource {
   /**
    * Write a log entry to the server logs
    */
-  log(body: AppLogParams, options?: RequestOptions): APIPromise<AppLogResponse> {
-    return this._client.post('/log', { body, ...options });
-  }
-
-  /**
-   * List all modes
-   */
-  modes(options?: RequestOptions): APIPromise<AppModesResponse> {
-    return this._client.get('/mode', options);
+  log(params: AppLogParams, options?: RequestOptions): APIPromise<AppLogResponse> {
+    const { directory, ...body } = params;
+    return this._client.post('/log', { query: { directory }, body, ...options });
   }
 
   /**
    * List all providers
    */
-  providers(options?: RequestOptions): APIPromise<AppProvidersResponse> {
-    return this._client.get('/config/providers', options);
-  }
-}
-
-export interface App {
-  git: boolean;
-
-  hostname: string;
-
-  path: App.Path;
-
-  time: App.Time;
-}
-
-export namespace App {
-  export interface Path {
-    config: string;
-
-    cwd: string;
-
-    data: string;
-
-    root: string;
-
-    state: string;
-  }
-
-  export interface Time {
-    initialized?: number;
-  }
-}
-
-export interface Mode {
-  name: string;
-
-  tools: { [key: string]: boolean };
-
-  model?: Mode.Model;
-
-  prompt?: string;
-
-  temperature?: number;
-}
-
-export namespace Mode {
-  export interface Model {
-    modelID: string;
-
-    providerID: string;
+  providers(
+    query: AppProvidersParams | null | undefined = {},
+    options?: RequestOptions,
+  ): APIPromise<AppProvidersResponse> {
+    return this._client.get('/config/providers', { query, ...options });
   }
 }
 
@@ -143,11 +78,7 @@ export interface Provider {
   npm?: string;
 }
 
-export type AppInitResponse = boolean;
-
 export type AppLogResponse = boolean;
-
-export type AppModesResponse = Array<Mode>;
 
 export interface AppProvidersResponse {
   default: { [key: string]: string };
@@ -157,36 +88,42 @@ export interface AppProvidersResponse {
 
 export interface AppLogParams {
   /**
-   * Log level
+   * Body param: Log level
    */
   level: 'debug' | 'info' | 'error' | 'warn';
 
   /**
-   * Log message
+   * Body param: Log message
    */
   message: string;
 
   /**
-   * Service name for the log entry
+   * Body param: Service name for the log entry
    */
   service: string;
 
   /**
-   * Additional metadata for the log entry
+   * Query param:
+   */
+  directory?: string;
+
+  /**
+   * Body param: Additional metadata for the log entry
    */
   extra?: { [key: string]: unknown };
 }
 
-export declare namespace AppResource {
+export interface AppProvidersParams {
+  directory?: string;
+}
+
+export declare namespace App {
   export {
-    type App as App,
-    type Mode as Mode,
     type Model as Model,
     type Provider as Provider,
-    type AppInitResponse as AppInitResponse,
     type AppLogResponse as AppLogResponse,
-    type AppModesResponse as AppModesResponse,
     type AppProvidersResponse as AppProvidersResponse,
     type AppLogParams as AppLogParams,
+    type AppProvidersParams as AppProvidersParams,
   };
 }

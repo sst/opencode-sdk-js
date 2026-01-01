@@ -1,18 +1,28 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../core/resource';
-import * as SessionAPI from './session';
 import * as Shared from './shared';
+import * as PermissionsAPI from './session/permissions';
+import * as SessionAPI from './session/session';
 import { APIPromise } from '../core/api-promise';
 import { Stream } from '../core/streaming';
+import { buildHeaders } from '../internal/headers';
 import { RequestOptions } from '../internal/request-options';
 
 export class Event extends APIResource {
   /**
    * Get events
    */
-  list(options?: RequestOptions): APIPromise<Stream<EventListResponse>> {
-    return this._client.get('/event', { ...options, stream: true }) as APIPromise<Stream<EventListResponse>>;
+  list(
+    query: EventListParams | undefined = {},
+    options?: RequestOptions,
+  ): APIPromise<Stream<EventListResponse>> {
+    return this._client.get('/event', {
+      query,
+      ...options,
+      headers: buildHeaders([{ Accept: 'text/event-stream' }, options?.headers]),
+      stream: true,
+    }) as APIPromise<Stream<EventListResponse>>;
   }
 }
 
@@ -23,15 +33,14 @@ export type EventListResponse =
   | EventListResponse.EventMessageRemoved
   | EventListResponse.EventMessagePartUpdated
   | EventListResponse.EventMessagePartRemoved
-  | EventListResponse.EventStorageWrite
   | EventListResponse.EventPermissionUpdated
+  | EventListResponse.EventPermissionReplied
   | EventListResponse.EventFileEdited
   | EventListResponse.EventSessionUpdated
   | EventListResponse.EventSessionDeleted
   | EventListResponse.EventSessionIdle
   | EventListResponse.EventSessionError
-  | EventListResponse.EventFileWatcherUpdated
-  | EventListResponse.EventIdeInstalled;
+  | EventListResponse.EventServerConnected;
 
 export namespace EventListResponse {
   export interface EventInstallationUpdated {
@@ -109,46 +118,30 @@ export namespace EventListResponse {
       messageID: string;
 
       partID: string;
-    }
-  }
 
-  export interface EventStorageWrite {
-    properties: EventStorageWrite.Properties;
-
-    type: 'storage.write';
-  }
-
-  export namespace EventStorageWrite {
-    export interface Properties {
-      key: string;
-
-      content?: unknown;
+      sessionID: string;
     }
   }
 
   export interface EventPermissionUpdated {
-    properties: EventPermissionUpdated.Properties;
+    properties: PermissionsAPI.Permission;
 
     type: 'permission.updated';
   }
 
-  export namespace EventPermissionUpdated {
-    export interface Properties {
-      id: string;
+  export interface EventPermissionReplied {
+    properties: EventPermissionReplied.Properties;
 
-      metadata: { [key: string]: unknown };
+    type: 'permission.replied';
+  }
+
+  export namespace EventPermissionReplied {
+    export interface Properties {
+      permissionID: string;
+
+      response: string;
 
       sessionID: string;
-
-      time: Properties.Time;
-
-      title: string;
-    }
-
-    export namespace Properties {
-      export interface Time {
-        created: number;
-      }
     }
   }
 
@@ -226,33 +219,17 @@ export namespace EventListResponse {
     }
   }
 
-  export interface EventFileWatcherUpdated {
-    properties: EventFileWatcherUpdated.Properties;
+  export interface EventServerConnected {
+    properties: unknown;
 
-    type: 'file.watcher.updated';
-  }
-
-  export namespace EventFileWatcherUpdated {
-    export interface Properties {
-      event: 'rename' | 'change';
-
-      file: string;
-    }
-  }
-
-  export interface EventIdeInstalled {
-    properties: EventIdeInstalled.Properties;
-
-    type: 'ide.installed';
-  }
-
-  export namespace EventIdeInstalled {
-    export interface Properties {
-      ide: string;
-    }
+    type: 'server.connected';
   }
 }
 
+export interface EventListParams {
+  directory?: string;
+}
+
 export declare namespace Event {
-  export { type EventListResponse as EventListResponse };
+  export { type EventListResponse as EventListResponse, type EventListParams as EventListParams };
 }

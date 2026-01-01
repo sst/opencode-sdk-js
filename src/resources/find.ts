@@ -111,14 +111,20 @@ export namespace FindTextResponse {
 
 export interface FindFilesParams {
   query: string;
+
+  directory?: string;
 }
 
 export interface FindSymbolsParams {
   query: string;
+
+  directory?: string;
 }
 
 export interface FindTextParams {
   pattern: string;
+
+  directory?: string;
 }
 
 export declare namespace Find {
