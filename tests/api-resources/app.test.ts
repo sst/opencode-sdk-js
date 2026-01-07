@@ -7,7 +7,11 @@ const client = new Opencode({ baseURL: process.env['TEST_API_BASE_URL'] ?? 'http
 describe('resource app', () => {
   // Prism tests are disabled
   test.skip('log: only required params', async () => {
-    const responsePromise = client.app.log({ level: 'debug', message: 'message', service: 'service' });
+    const responsePromise = client.app.log({
+      level: 'debug',
+      message: 'message',
+      service: 'service',
+    });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
