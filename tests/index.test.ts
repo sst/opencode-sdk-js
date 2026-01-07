@@ -180,7 +180,10 @@ describe('instantiate client', () => {
 
   describe('defaultQuery', () => {
     test('with null query params given', () => {
-      const client = new Opencode({ baseURL: 'http://localhost:5000/', defaultQuery: { apiVersion: 'foo' } });
+      const client = new Opencode({
+        baseURL: 'http://localhost:5000/',
+        defaultQuery: { apiVersion: 'foo' },
+      });
       expect(client.buildURL('/foo', null)).toEqual('http://localhost:5000/foo?apiVersion=foo');
     });
 
@@ -193,7 +196,10 @@ describe('instantiate client', () => {
     });
 
     test('overriding with `undefined`', () => {
-      const client = new Opencode({ baseURL: 'http://localhost:5000/', defaultQuery: { hello: 'world' } });
+      const client = new Opencode({
+        baseURL: 'http://localhost:5000/',
+        defaultQuery: { hello: 'world' },
+      });
       expect(client.buildURL('/foo', { hello: undefined })).toEqual('http://localhost:5000/foo');
     });
   });

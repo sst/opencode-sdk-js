@@ -22,7 +22,11 @@ describe('resource session', () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       client.session.create(
-        { directory: 'directory', parentID: 'parentID', title: 'title' },
+        {
+          directory: 'directory',
+          parentID: 'parentID',
+          title: 'title',
+        },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Opencode.NotFoundError);
@@ -254,7 +258,15 @@ describe('resource session', () => {
   // Prism tests are disabled
   test.skip('prompt: required and optional params', async () => {
     const response = await client.session.prompt('id', {
-      parts: [{ text: 'text', type: 'text', id: 'id', synthetic: true, time: { start: 0, end: 0 } }],
+      parts: [
+        {
+          text: 'text',
+          type: 'text',
+          id: 'id',
+          synthetic: true,
+          time: { start: 0, end: 0 },
+        },
+      ],
       directory: 'directory',
       agent: 'agent',
       messageID: 'msg',
