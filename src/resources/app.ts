@@ -103,7 +103,7 @@ export interface AppLogParams {
   service: string;
 
   /**
-   * Query param:
+   * Query param
    */
   directory?: string;
 

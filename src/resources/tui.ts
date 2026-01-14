@@ -119,12 +119,12 @@ export type TuiSubmitPromptResponse = boolean;
 
 export interface TuiAppendPromptParams {
   /**
-   * Body param:
+   * Body param
    */
   text: string;
 
   /**
-   * Query param:
+   * Query param
    */
   directory?: string;
 }
@@ -135,12 +135,12 @@ export interface TuiClearPromptParams {
 
 export interface TuiExecuteCommandParams {
   /**
-   * Body param:
+   * Body param
    */
   command: string;
 
   /**
-   * Query param:
+   * Query param
    */
   directory?: string;
 }
@@ -163,22 +163,22 @@ export interface TuiOpenThemesParams {
 
 export interface TuiShowToastParams {
   /**
-   * Body param:
+   * Body param
    */
   message: string;
 
   /**
-   * Body param:
+   * Body param
    */
   variant: 'info' | 'success' | 'warning' | 'error';
 
   /**
-   * Query param:
+   * Query param
    */
   directory?: string;
 
   /**
-   * Body param:
+   * Body param
    */
   title?: string;
 }

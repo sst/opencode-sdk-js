@@ -741,29 +741,29 @@ export type SessionSummarizeResponse = boolean;
 
 export interface SessionCreateParams {
   /**
-   * Query param:
+   * Query param
    */
   directory?: string;
 
   /**
-   * Body param:
+   * Body param
    */
   parentID?: string;
 
   /**
-   * Body param:
+   * Body param
    */
   title?: string;
 }
 
 export interface SessionUpdateParams {
   /**
-   * Query param:
+   * Query param
    */
   directory?: string;
 
   /**
-   * Body param:
+   * Body param
    */
   title?: string;
 }
@@ -786,32 +786,32 @@ export interface SessionChildrenParams {
 
 export interface SessionCommandParams {
   /**
-   * Body param:
+   * Body param
    */
   arguments: string;
 
   /**
-   * Body param:
+   * Body param
    */
   command: string;
 
   /**
-   * Query param:
+   * Query param
    */
   directory?: string;
 
   /**
-   * Body param:
+   * Body param
    */
   agent?: string;
 
   /**
-   * Body param:
+   * Body param
    */
   messageID?: string;
 
   /**
-   * Body param:
+   * Body param
    */
   model?: string;
 }
@@ -822,22 +822,22 @@ export interface SessionGetParams {
 
 export interface SessionInitParams {
   /**
-   * Body param:
+   * Body param
    */
   messageID: string;
 
   /**
-   * Body param:
+   * Body param
    */
   modelID: string;
 
   /**
-   * Body param:
+   * Body param
    */
   providerID: string;
 
   /**
-   * Query param:
+   * Query param
    */
   directory?: string;
 }
@@ -849,7 +849,7 @@ export interface SessionMessageParams {
   id: string;
 
   /**
-   * Query param:
+   * Query param
    */
   directory?: string;
 }
@@ -860,37 +860,37 @@ export interface SessionMessagesParams {
 
 export interface SessionPromptParams {
   /**
-   * Body param:
+   * Body param
    */
   parts: Array<TextPartInput | FilePartInput | AgentPartInput>;
 
   /**
-   * Query param:
+   * Query param
    */
   directory?: string;
 
   /**
-   * Body param:
+   * Body param
    */
   agent?: string;
 
   /**
-   * Body param:
+   * Body param
    */
   messageID?: string;
 
   /**
-   * Body param:
+   * Body param
    */
   model?: SessionPromptParams.Model;
 
   /**
-   * Body param:
+   * Body param
    */
   system?: string;
 
   /**
-   * Body param:
+   * Body param
    */
   tools?: { [key: string]: boolean };
 }
@@ -905,17 +905,17 @@ export namespace SessionPromptParams {
 
 export interface SessionRevertParams {
   /**
-   * Body param:
+   * Body param
    */
   messageID: string;
 
   /**
-   * Query param:
+   * Query param
    */
   directory?: string;
 
   /**
-   * Body param:
+   * Body param
    */
   partID?: string;
 }
@@ -926,34 +926,34 @@ export interface SessionShareParams {
 
 export interface SessionShellParams {
   /**
-   * Body param:
+   * Body param
    */
   agent: string;
 
   /**
-   * Body param:
+   * Body param
    */
   command: string;
 
   /**
-   * Query param:
+   * Query param
    */
   directory?: string;
 }
 
 export interface SessionSummarizeParams {
   /**
-   * Body param:
+   * Body param
    */
   modelID: string;
 
   /**
-   * Body param:
+   * Body param
    */
   providerID: string;
 
   /**
-   * Query param:
+   * Query param
    */
   directory?: string;
 }
