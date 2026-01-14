@@ -53,17 +53,17 @@ export type PermissionRespondResponse = boolean;
 
 export interface PermissionRespondParams {
   /**
-   * Path param:
+   * Path param
    */
   id: string;
 
   /**
-   * Body param:
+   * Body param
    */
   response: 'once' | 'always' | 'reject';
 
   /**
-   * Query param:
+   * Query param
    */
   directory?: string;
 }
